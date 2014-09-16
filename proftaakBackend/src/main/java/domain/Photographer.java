@@ -1,4 +1,4 @@
-package views;
+package domain;
 
 public class Photographer {
 	private int id;
