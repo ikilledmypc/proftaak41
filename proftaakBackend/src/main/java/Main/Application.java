@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+@ComponentScan("controllers")
 @EnableAutoConfiguration
 public class Application {
 

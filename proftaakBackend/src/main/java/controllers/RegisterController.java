@@ -20,5 +20,19 @@ public class RegisterController {
 		account.register();
 	    return null;
 	}
+	
+    @RequestMapping("/test2")
+	public Account test2() {
+		JsonManager jsonManager = JsonManager.GetInstance();
+		Account a = new Account(5,"testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345);
+		String json = jsonManager.toJson(new Account(5,"testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345));
+	    return a;
+	}
+    
+    @RequestMapping("/authenticateAndGet")
+    public Account authenticateAndGet(@RequestParam(value="username", required=true)String username,@RequestParam(value="password", required=true)String password){
+    	Account a = Account.authenticate(username, password);
+    	return a;
+    }
 
 }
