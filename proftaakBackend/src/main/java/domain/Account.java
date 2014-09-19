@@ -1,8 +1,16 @@
 package domain;
 
-public class Account {
+import java.sql.ResultSet;
+
+import interfaces.IDatabase;
+
+
+
+public class Account  {
+
 	private int accountID;
 	private String username;
+	private String password;
 	private String name;
 	private String address;
 	private String zipcode;
@@ -12,6 +20,20 @@ public class Account {
 	/**
 	 * @return the telephone
 	 */
+	
+	public Account(int accountID, String username, String name, String address,
+			String zipcode, String city, String email, int telephone) {
+		super();
+		this.accountID = accountID;
+		this.username = username;
+		this.name = name;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.city = city;
+		this.email = email;
+		this.telephone = telephone;
+	}
+	
 	public int getTelephone() {
 		return telephone;
 	}
@@ -105,5 +127,31 @@ public class Account {
 	public void setAccountID(int accountID) {
 		this.accountID = accountID;
 	}
+	public void register() {
+		//TODO GET DATABASE INSTANCE 
+		IDatabase db = null;
+		db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ("+this.username + ","+this.password + "," +this.name + "," + this.address + "," + this.zipcode + "," + this.city + ","+this.email+ ","+ this.telephone+")");
+		
+	}
+	
+	public static Account authenticate(String username,String password){
+		//TODO GET DATABASE INSTANCE AND RETRIVE USER
+		IDatabase db = null;
+		ResultSet rs = db.select("select * from account where username ="+username+"and password="+password);
+		if(rs == null){
+			return null;
+		}else{
+			
+			return null;
+		}
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 }
