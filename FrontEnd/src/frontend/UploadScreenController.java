@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 public class UploadScreenController implements Initializable, ControlledScreen {
     
     ScreensController myController;
+    
     @FXML
     TextField uploadPath;
 
