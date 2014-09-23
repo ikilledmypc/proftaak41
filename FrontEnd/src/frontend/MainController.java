@@ -42,4 +42,9 @@ public class MainController implements Initializable, ControlledScreen {
     private void handleUploadButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.uploadScreen);
     }
+    
+    @FXML
+    private void handleLoadButtonAction(ActionEvent event) {
+        myController.setScreen(FrontEnd.loadScreen);
+    }
 }
