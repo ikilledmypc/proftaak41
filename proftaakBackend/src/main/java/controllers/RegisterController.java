@@ -33,8 +33,8 @@ public class RegisterController {
     @RequestMapping("/test2")
 	public Account test2() {
 		JsonManager jsonManager = JsonManager.GetInstance();
-		Account a = new Account(5,"testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345);
-		String json = jsonManager.toJson(new Account(5,"testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345));
+		Account a = new Account("testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345);
+		String json = jsonManager.toJson(new Account("testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345));
 	    return a;
 	}
     

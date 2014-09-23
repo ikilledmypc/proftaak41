@@ -21,11 +21,10 @@ public class Photographer extends Account{
 	 * @param companyName
 	 * @param bankAccount
 	 */
-	public Photographer(int accountID, String username, String name,
+	public Photographer(String username, String name,
 			String address, String zipcode, String city, String email,
 			int telephone, String companyName, String bankAccount) {
-		super(accountID, username, name, address, zipcode, city, email, telephone);
-		this.photographerID = accountID;
+		super(username, name, address, zipcode, city, email, telephone);
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
 		this.active = false;
