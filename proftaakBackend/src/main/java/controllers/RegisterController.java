@@ -31,11 +31,11 @@ public class RegisterController {
 	}
 	
     @RequestMapping("/test2")
-	public Account test2() {
+	public String test2(@RequestParam(value="username", required=true)String username) {
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Account a = new Account("testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345);
-		String json = jsonManager.toJson(new Account("testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345));
-	    return a;
+		String json = jsonManager.toJson(new Account(username,"jaap","nowareinnoware 13","1234AB","noware","info@test.nl",1235663345));
+	    return json;
 	}
     
     @RequestMapping("/authenticateAndGet")

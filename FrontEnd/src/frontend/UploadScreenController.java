@@ -5,6 +5,7 @@
  */
 package frontend;
 
+import Controller.HttpController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -48,4 +49,9 @@ public class UploadScreenController implements Initializable, ControlledScreen {
         myController.setScreen(FrontEnd.mainScreen);
     }
     
+    @FXML
+    public void handleUploadButtonAction(ActionEvent event) {
+        String bla = HttpController.excutePost("http://localhost:8080/test2", "username=tim");
+        System.out.println(bla);
+    }
 }
