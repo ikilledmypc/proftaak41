@@ -177,7 +177,6 @@ public class Account {
 	}
 
 	public static Account authenticate(String username, String password) {
-		// TODO RETRIEVE USER
 		db = controllers.DatabaseController.getInstance();
 		ResultSet rs = db.select("select * from account where username ="
 				+ username + "and password=" + password);
@@ -188,7 +187,6 @@ public class Account {
 				Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
 				return a;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
