@@ -1,6 +1,6 @@
 package domain;
 
-public class Photographer {
+public class Photographer extends Account{
 
 	private int photographerID;
 	private String companyName;
@@ -9,16 +9,26 @@ public class Photographer {
 
 	/**
 	 * Constructor
-	 * 
+	 *
+	 * @param accountID
+	 * @param username
+	 * @param name
+	 * @param address
+	 * @param zipcode
+	 * @param city
+	 * @param email
+	 * @param telephone
 	 * @param companyName
 	 * @param bankAccount
-	 * @param active
 	 */
-	public Photographer(String companyName, String bankAccount, Boolean active) {
-		super();
+	public Photographer(int accountID, String username, String name,
+			String address, String zipcode, String city, String email,
+			int telephone, String companyName, String bankAccount) {
+		super(accountID, username, name, address, zipcode, city, email, telephone);
+		this.photographerID = accountID;
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
-		this.active = active;
+		this.active = false;
 	}
 
 	/**

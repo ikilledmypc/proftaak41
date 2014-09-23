@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.Account;
+import domain.Photographer;
 
 
 @RestController
@@ -17,6 +18,14 @@ public class RegisterController {
 	public String logs(@RequestParam("json") String json) {
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Account account = (Account) jsonManager.fromJson(json, Account.class.getClass());
+		account.register();
+	    return null;
+	}
+	
+	@RequestMapping(value = "/registerPhotographer", method = RequestMethod.POST)
+	public String logsPhotographer(@RequestParam("json") String json) {
+		JsonManager jsonManager = JsonManager.GetInstance();
+		Photographer account = (Photographer) jsonManager.fromJson(json, Photographer.class.getClass());
 		account.register();
 	    return null;
 	}
