@@ -5,13 +5,13 @@
  */
 package frontend;
 
+import Controller.HttpController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -49,4 +49,9 @@ public class UploadScreenController implements Initializable, ControlledScreen {
         myController.setScreen(FrontEnd.mainScreen);
     }
     
+    @FXML
+    public void handleUploadButtonAction(ActionEvent event) {
+        String bla = HttpController.excutePost("http://localhost:8080/test2", "username=tim");
+        System.out.println(bla);
+    }
 }
