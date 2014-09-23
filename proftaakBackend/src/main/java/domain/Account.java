@@ -1,6 +1,7 @@
 package domain;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import interfaces.IDatabase;
 
@@ -29,10 +30,9 @@ public class Account {
 	 * @param email
 	 * @param telephone
 	 */
-	public Account(int accountID, String username, String name, String address,
+	public Account(String username, String name, String address,
 			String zipcode, String city, String email, int telephone) {
 		super();
-		this.accountID = accountID;
 		this.username = username;
 		this.name = name;
 		this.address = address;
@@ -154,16 +154,8 @@ public class Account {
 		return accountID;
 	}
 
-	/**
-	 * @param accountID
-	 *            the accountID to set
-	 */
-	public void setAccountID(int accountID) {
-		this.accountID = accountID;
-	}
-
 	public void register() {
-		db = null;
+		db = controllers.DatabaseController.getInstance();
 		db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ("
 				+ this.username
 				+ ","
@@ -177,19 +169,29 @@ public class Account {
 				+ ","
 				+ this.city
 				+ ","
-				+ this.email + "," + this.telephone + ")");
+				+ this.email 
+				+ "," 
+				+ this.telephone 
+				+ ")");
 
 	}
 
 	public static Account authenticate(String username, String password) {
-		// TODO GET DATABASE INSTANCE AND RETRIVE USER
-		db = null;
+		// TODO RETRIEVE USER
+		db = controllers.DatabaseController.getInstance();
 		ResultSet rs = db.select("select * from account where username ="
 				+ username + "and password=" + password);
 		if (rs == null) {
 			return null;
 		} else {
-
+			try {
+				Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
+				return a;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return null;
 		}
 	}
