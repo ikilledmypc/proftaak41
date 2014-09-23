@@ -96,4 +96,8 @@ public class ScreensController extends StackPane {
             return true;
         }
     }
+
+    void setScreen(String loginScreen, int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
