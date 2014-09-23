@@ -10,6 +10,7 @@ import interfaces.IDatabase;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -42,10 +43,11 @@ public class DatabaseController implements IDatabase {
 		try {
 			FileInputStream nput = new FileInputStream("DB.properties");
 			Properties prop = new Properties();
+			prop.load(nput);
 			this.host = prop.getProperty("host");
 			this.userName = prop.getProperty("username");
 			this.passWord = prop.getProperty("password");
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			this.host = "127.0.0.1";
 			this.userName ="root";
 			this.passWord = "";
@@ -59,7 +61,7 @@ public class DatabaseController implements IDatabase {
 	public boolean connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection(host, userName, passWord);
+			con = DriverManager.getConnection("jdbc:mysql://"+this.host+"/pt4?" +"user="+this.userName+"&password="+this.passWord);
 			return true;
 		} catch (Exception ex) {
 			

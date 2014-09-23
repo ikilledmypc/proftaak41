@@ -1,5 +1,8 @@
 package domain;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -155,6 +158,16 @@ public class Account {
 	}
 
 	public void register() {
+		String hashedPassword;
+		try {
+			MessageDigest msgd = MessageDigest.getInstance("MD5");
+			hashedPassword = new String((msgd.digest(this.password.getBytes())), "UTF-8");
+		} catch (NoSuchAlgorithmException e) {
+
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		db = controllers.DatabaseController.getInstance();
 		db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ("
 				+ this.username
@@ -178,20 +191,26 @@ public class Account {
 
 	public static Account authenticate(String username, String password) {
 		db = controllers.DatabaseController.getInstance();
-		ResultSet rs = db.select("select * from account where username ="
-				+ username + "and password=" + password);
-		if (rs == null) {
-			return null;
-		} else {
-			try {
-				Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
-				return a;
-			} catch (SQLException e) {
-				e.printStackTrace();
+		ResultSet rs = db.select("select * from Account where username ='"
+				+ username + "' and password='" + password+"'");
+		try {
+			if (!rs.next()) {
+				return null;
+			} else {
+				try {
+					Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
+					return a;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				return null;
 			}
-			
-			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public String getPassword() {

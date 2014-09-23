@@ -6,7 +6,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="lib"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -33,5 +32,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/proftaakBackend/lib/doc/gson-2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.32/mysql-connector-java-5.1.32-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
