@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="frontend.LoadScreenController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.DownloadScreenController">
    <children>
       <GridPane layoutX="31.0" layoutY="64.0" prefHeight="29.0" prefWidth="424.0">
         <columnConstraints>
@@ -20,10 +19,15 @@
         </rowConstraints>
          <children>
             <Label prefHeight="17.0" prefWidth="143.0" text="Enter your code here:" />
-            <TextField prefHeight="25.0" prefWidth="221.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Enter" GridPane.columnIndex="2" />
+            <TextField fx:id="codeEntry" prefHeight="25.0" prefWidth="221.0" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" onAction="#handleEnterButtonAction" prefHeight="25.0" prefWidth="96.0" text="Enter" GridPane.columnIndex="2" />
          </children>
       </GridPane>
-      <ListView layoutX="31.0" layoutY="100.0" prefHeight="270.0" prefWidth="424.0" />
+      <TableView fx:id="photoTable" layoutX="31.0" layoutY="107.0" prefHeight="278.0" prefWidth="424.0">
+        <columns>
+          <TableColumn fx:id="colName" prefWidth="352.0" text="Filename" />
+          <TableColumn fx:id="colSize" prefWidth="71.0" text="Size" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
