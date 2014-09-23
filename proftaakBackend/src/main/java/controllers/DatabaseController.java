@@ -8,11 +8,14 @@ package controllers;
 
 import interfaces.IDatabase;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +27,9 @@ public class DatabaseController implements IDatabase {
 
 	private ResultSet result;
 	private Statement statement;
-	private final String host;
-	private final String userName;
-	private final String passWord;
+	private String host;
+	private String userName;
+	private String passWord;
 	private Connection con;
 	private static DatabaseController instance = null;
 
@@ -34,22 +37,36 @@ public class DatabaseController implements IDatabase {
 	 * Constructor
 	 */
 	protected DatabaseController() {
-		host = "";
-		userName = "";
-		passWord = "";
+
+		
+		try {
+			FileInputStream nput = new FileInputStream("DB.properties");
+			Properties prop = new Properties();
+			this.host = prop.getProperty("host");
+			this.userName = prop.getProperty("username");
+			this.passWord = prop.getProperty("password");
+		} catch (FileNotFoundException e) {
+			this.host = "127.0.0.1";
+			this.userName ="root";
+			this.passWord = "";
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Connection
 	 */
-	public void connect() {
+	public boolean connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection(host, userName, passWord);
+			return true;
 		} catch (Exception ex) {
+			
 			System.out
 					.println("Connection problem : Can't connect to database");
 			ex.printStackTrace();
+			return false;
 		}
 
 	}
@@ -77,47 +94,56 @@ public class DatabaseController implements IDatabase {
 		return instance;
 	}
 
-	@Override
+
 	public ResultSet select(String s) {
 		try {
+			if(connect()){
 			statement = con.createStatement();
 			connect();
 			result = statement.executeQuery(s);
+			closeConnection();
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(
 					Level.SEVERE, null, ex);
 		}
-		closeConnection();
+		
 		return result;
 	}
 
-	@Override
+
 	public boolean insert(String s) {
 		try {
+			if(connect()){
 			statement = con.createStatement();
 			connect();
 			statement.executeUpdate(s);
+			closeConnection();
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(
 					Level.SEVERE, null, ex);
 			return false;
 		}
-		closeConnection();
+		
 		return true;
 	}
 
-	@Override
+
 	public boolean delete(String s) {
 		try {
+			if(connect()){
 			statement = con.createStatement();
 			connect();
 			statement.executeUpdate(s);
+			closeConnection();
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(
 					Level.SEVERE, null, ex);
 			return false;
 		}
-		closeConnection();
+		
 		return true;
 	}
 }
