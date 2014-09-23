@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 /**
@@ -20,6 +21,8 @@ import javafx.stage.FileChooser;
 public class UploadScreenController implements Initializable, ControlledScreen {
     
     ScreensController myController;
+    @FXML
+    TextField uploadPath;
 
     /**
      * Initializes the controller class.
@@ -36,7 +39,8 @@ public class UploadScreenController implements Initializable, ControlledScreen {
     
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
-        //OpenDialog for files here..
+        String path = myController.chooseFile();
+        uploadPath.setText(path);
     }
     
     @FXML

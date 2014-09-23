@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="frontend.UploadScreenController">
    <children>
-      <TextField layoutX="108.0" layoutY="150.0" prefHeight="25.0" prefWidth="276.0" />
+      <TextField fx:id="uploadPath" layoutX="108.0" layoutY="150.0" prefHeight="25.0" prefWidth="276.0" />
       <Button layoutX="394.0" layoutY="150.0" onAction="#handleBrowseButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Browse" />
       <Button layoutX="394.0" layoutY="182.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Upload" />
       <Label layoutX="108.0" layoutY="105.0" text="Choose your files to upload" />

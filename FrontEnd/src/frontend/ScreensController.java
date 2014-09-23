@@ -5,6 +5,7 @@
  */
 package frontend;
 
+import java.io.File;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -16,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -95,5 +98,12 @@ public class ScreensController extends StackPane {
         } else {
             return true;
         }
+    }
+    
+    public String chooseFile() {
+        Stage newStage = new Stage();
+        FileChooser chooser = new FileChooser();
+        File file = chooser.showOpenDialog(newStage);
+        return file.getAbsoluteFile().toString();
     }
 }
