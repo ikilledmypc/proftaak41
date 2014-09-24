@@ -207,7 +207,6 @@ public class Account {
 				return null;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

@@ -9,7 +9,6 @@ package controllers;
 import interfaces.IDatabase;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -96,7 +95,7 @@ public class DatabaseController implements IDatabase {
 		return instance;
 	}
 
-
+	@Override
 	public ResultSet select(String s) {
 		try {
 			if(connect()){
@@ -113,7 +112,7 @@ public class DatabaseController implements IDatabase {
 		return result;
 	}
 
-
+	@Override
 	public boolean insert(String s) {
 		try {
 			if(connect()){
@@ -131,7 +130,7 @@ public class DatabaseController implements IDatabase {
 		return true;
 	}
 
-
+	@Override
 	public boolean delete(String s) {
 		try {
 			if(connect()){
@@ -148,4 +147,23 @@ public class DatabaseController implements IDatabase {
 		
 		return true;
 	}
+
+	@Override
+	public boolean update(String s) {
+		try {
+			if (connect()) {
+				statement = con.createStatement();
+				connect();
+				statement.executeUpdate(s);
+				closeConnection();
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(DatabaseController.class.getName()).log(
+					Level.SEVERE, null, ex);
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

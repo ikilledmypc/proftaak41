@@ -1,12 +1,20 @@
 package domain;
 
-public class Photographer extends Account{
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import interfaces.IDatabase;
+
+public class Photographer extends Account {
 
 	private int photographerID;
 	private String companyName;
 	private String bankAccount;
 	private Boolean active;
-
+	private static IDatabase db;
+	private ArrayList<Photographer> photographers;
+	
 	/**
 	 * Constructor
 	 *
@@ -21,9 +29,9 @@ public class Photographer extends Account{
 	 * @param companyName
 	 * @param bankAccount
 	 */
-	public Photographer(String username, String name,
-			String address, String zipcode, String city, String email,
-			int telephone, String companyName, String bankAccount) {
+	public Photographer(String username, String name, String address,
+			String zipcode, String city, String email, int telephone,
+			String companyName, String bankAccount) {
 		super(username, name, address, zipcode, city, email, telephone);
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
@@ -90,4 +98,29 @@ public class Photographer extends Account{
 		this.photographerID = photographerID;
 	}
 
+	/**
+	 * Enable or Disable photographer account
+	 * @param photographerID
+	 */
+	public void enableDisablePhotographer(int photographerID) {
+		db = controllers.DatabaseController.getInstance();
+		ResultSet rs = db.select("SELECT isActive FROM Photographer"
+				+ " WHERE accountID='"+ photographerID);
+		
+		try {
+			if (rs.getBoolean("isActive") == true) {
+				db.update("UPDATE Photographer "
+						+ "SET isActive = '0' "
+						+ "WHERE Photographer.accountID ='"+ photographerID);
+			} else {
+				db.update("UPDATE Photographer "
+						+ "SET isActive = '1' "
+						+ "WHERE Photographer.accountID ='"+ photographerID);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }
