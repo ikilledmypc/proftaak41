@@ -53,5 +53,8 @@ public class UploadScreenController implements Initializable, ControlledScreen {
     public void handleUploadButtonAction(ActionEvent event) {
         String bla = HttpController.excutePost("http://localhost:8080/test2", "username=tim");
         System.out.println(bla);
+        
+        String bla2 = HttpController.excuteGet("http://localhost:8080/upload", "");
+        System.out.println(bla2);
     }
 }

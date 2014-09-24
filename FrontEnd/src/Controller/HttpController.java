@@ -77,4 +77,40 @@ The urlParameters is a URL encoded string.
         "fName=" + URLEncoder.encode("???", "UTF-8") +
         "&lName=" + URLEncoder.encode("???", "UTF-8")
     */
+    
+    
+    public static String excuteGet(String targetURL, String urlParameters)
+  {
+    URL url;
+    HttpURLConnection connection = null;  
+    try {
+      //Create connection
+      url = new URL(targetURL);
+      connection = (HttpURLConnection)url.openConnection();
+      connection.setRequestMethod("GET");
+
+      //Get Response	
+      InputStream is = connection.getInputStream();
+      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+      String line;
+      StringBuffer response = new StringBuffer(); 
+      while((line = rd.readLine()) != null) {
+        response.append(line);
+        response.append('\r');
+      }
+      rd.close();
+      return response.toString();
+
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      return null;
+
+    } finally {
+
+      if(connection != null) {
+        connection.disconnect(); 
+      }
+    }
+  }
 }
