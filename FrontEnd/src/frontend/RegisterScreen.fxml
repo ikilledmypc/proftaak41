@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="frontend.RegisterScreenController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.RegisterScreenController">
   <children>
-    <GridPane layoutX="57.0" layoutY="78.0" prefHeight="225.0" prefWidth="334.0">
+    <GridPane layoutX="57.0" layoutY="78.0" prefHeight="268.0" prefWidth="376.0">
       <children>
         <Label text="First name:" GridPane.halignment="RIGHT" />
-        <TextField GridPane.columnIndex="1" />
+        <TextField fx:id="TB_name" GridPane.columnIndex="1" />
         <Label text="Last name:" GridPane.rowIndex="1" />
         <Label text="Address:" GridPane.rowIndex="2" />
         <Label text="Zipcode:" GridPane.rowIndex="3" />
         <Label text="City:" GridPane.rowIndex="4" />
         <Label text="Email:" GridPane.rowIndex="5" />
         <Label text="Telephone:" GridPane.rowIndex="6" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-        <Button mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="87.0" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <TextField fx:id="TB_sirname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="TB_zip" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="TB_address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="TB_city" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="TB_email" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="TB_telepone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Button mnemonicParsing="false" onAction="#checkAvailability" prefHeight="25.0" prefWidth="113.0" text="Register" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+        <Button mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="87.0" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="9" /><TextField fx:id="TB_username" GridPane.columnIndex="1" GridPane.rowIndex="7" /><Label text="username" GridPane.rowIndex="7" /><PasswordField fx:id="TB_password" promptText="password" GridPane.columnIndex="1" GridPane.rowIndex="8" /><Label text="password" GridPane.rowIndex="8" />
       </children>
       <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="6.0" prefWidth="53.0" />
@@ -40,7 +38,9 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
   </children>

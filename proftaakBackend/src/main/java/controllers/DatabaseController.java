@@ -51,7 +51,6 @@ public class DatabaseController implements IDatabase {
 			this.host = "127.0.0.1";
 			this.userName ="root";
 			this.passWord = "";
-			e.printStackTrace();
 		}
 	}
 

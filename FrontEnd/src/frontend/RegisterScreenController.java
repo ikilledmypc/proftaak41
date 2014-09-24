@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -19,13 +20,36 @@ import javafx.fxml.Initializable;
 public class RegisterScreenController implements Initializable, ControlledScreen {
     
     ScreensController myController;
+    @FXML
+    TextField TB_name;
+    @FXML
+    TextField TB_sirname;
+    @FXML
+    TextField TB_zip;
+    @FXML
+    TextField TB_address;
+    @FXML
+    TextField TB_city;
+    @FXML
+    TextField TB_email;
+    @FXML
+    TextField TB_telepone;
+    @FXML
+    TextField TB_username;
+    @FXML
+    TextField TB_password;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    @FXML
+    public void checkAvailability(){
+       
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
