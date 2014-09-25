@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * @author Baya
  */
 public class FrontEnd extends Application {
-    
+    public static String HOST = "http://127.0.0.1:8080";
     public static String mainScreen = "main";
     public static String mainScreenFXML = "Main.fxml";
     public static String loginScreen = "loginScreen";
