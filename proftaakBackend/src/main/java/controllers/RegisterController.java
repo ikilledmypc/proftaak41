@@ -1,5 +1,9 @@
 package controllers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import interfaces.IDatabase;
 import managers.JsonManager;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,23 @@ public class RegisterController {
 		Photographer account = (Photographer) jsonManager.fromJson(json, Photographer.class.getClass());
 		account.register();
 	    return null;
+	}
+	
+	@RequestMapping("/checkAvailable")
+	public boolean available(@RequestParam(value = "username", required = true)String username){
+		IDatabase db = DatabaseController.getInstance();
+		ResultSet rst = db.select("select username from account where username = '"+ username +"'");
+		try {
+			if(!rst.next()){
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
     @RequestMapping("/test2")
