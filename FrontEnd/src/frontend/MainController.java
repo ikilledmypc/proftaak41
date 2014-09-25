@@ -45,6 +45,6 @@ public class MainController implements Initializable, ControlledScreen {
     
     @FXML
     private void handleLoadButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.loadScreen);
+        myController.setScreen(FrontEnd.downloadScreen);
     }
 }

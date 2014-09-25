@@ -2,11 +2,25 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
         <group name="personal projects">
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/RegisterScreenController.java</file>
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/RegisterScreen.fxml</file>
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/Controller/HttpController.java</file>
+=======
+        <group>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/classes/Photo.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/Main.fxml</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/LoadScreenController.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/MainController.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/LoadScreen.fxml</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/UploadScreen.fxml</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/FrontEnd.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/ScreensController.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/UploadScreenController.java</file>
+            <file>file:/C:/Users/Baya/P7-ICT/PTS4/proftaak41/FrontEnd/src/frontend/LoginScreen.fxml</file>
+>>>>>>> master
         </group>
     </open-files>
 </project-private>
