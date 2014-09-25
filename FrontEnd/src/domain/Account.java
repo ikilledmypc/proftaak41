@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import interfaces.IDatabase;
 
 public class Account {
 
@@ -19,7 +18,7 @@ public class Account {
 	private String city;
 	private String email;
 	private int telephone;
-	private static IDatabase db;
+
 
 	/**
 	 * Constructor
@@ -31,10 +30,11 @@ public class Account {
 	 * @param zipcode
 	 * @param city
 	 * @param email
+         * @param password
 	 * @param telephone
 	 */
 	public Account(String username, String name, String address,
-			String zipcode, String city, String email, int telephone) {
+			String zipcode, String city, String email, int telephone,String password) {
 		super();
 		this.username = username;
 		this.name = name;
@@ -43,6 +43,7 @@ public class Account {
 		this.city = city;
 		this.email = email;
 		this.telephone = telephone;
+                this.password = password;
 	}
 
 	/**
@@ -155,53 +156,6 @@ public class Account {
 	 */
 	public int getAccountID() {
 		return accountID;
-	}
-
-	public void register() {
-
-		db = controllers.DatabaseController.getInstance();
-		db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ('"
-				+ this.username
-				+ "','"
-				+ this.password
-				+ "','"
-				+ this.name
-				+ "','"
-				+ this.address
-				+ "','"
-				+ this.zipcode
-				+ "','"
-				+ this.city
-				+ "','"
-				+ this.email 
-				+ "','" 
-				+ this.telephone 
-				+ "')");
-
-	}
-
-	public static Account authenticate(String username, String password) {
-		db = controllers.DatabaseController.getInstance();
-		ResultSet rs = db.select("select * from Account where username ='"
-				+ username + "' and password='" + password+"'");
-		try {
-			if (!rs.next()) {
-				return null;
-			} else {
-				try {
-					Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
-					return a;
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
-				return null;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public String getPassword() {
