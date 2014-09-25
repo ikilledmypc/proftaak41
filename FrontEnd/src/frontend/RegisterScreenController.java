@@ -6,8 +6,16 @@
 package frontend;
 
 import Controller.HttpController;
+import com.google.gson.Gson;
+import domain.Account;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +28,7 @@ import javafx.scene.control.TextField;
  * @author Baya
  */
 public class RegisterScreenController implements Initializable, ControlledScreen {
-    
+
     ScreensController myController;
     @FXML
     TextField TB_name;
@@ -42,7 +50,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
     TextField TB_password;
     @FXML
     Label LB_error;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -50,68 +58,77 @@ public class RegisterScreenController implements Initializable, ControlledScreen
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+
     @FXML
-    public void register(){
-        if(checkAvailability(TB_username.getText())){
-            if(validateInput()){
-                
+    public void register()  {
+        if (checkAvailability(TB_username.getText())) {
+            if (validateInput()) {
+                try {
+                    Gson gson = new Gson();
+                    MessageDigest msgd = MessageDigest.getInstance("MD5");
+                    String password  = new BigInteger(1,msgd.digest(TB_password.getText().getBytes())).toString(16);
+                    Account a = new Account(TB_username.getText(), TB_name.getText() + " " + TB_surname.getText(), TB_address.getText(), TB_zip.getText(), TB_city.getText(), TB_email.getText(), Integer.parseInt(TB_telepone.getText()),password);
+                    HttpController.excutePost("http://127.0.0.1:8080/register", "account="+gson.toJson(a));
+                    myController.setScreen(FrontEnd.loginScreen);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(RegisterScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }else{
+        } else {
             System.out.println("gebruikersnaam bezet");
             LB_error.setText("gebruikersnaam is al in gebruik");
             TB_username.requestFocus();
         }
     }
-    
-    
-    private boolean checkAvailability(String username){
-        String s = HttpController.excuteGet("http://127.0.0.1:8080/checkAvailable?username="+username);
+
+    private boolean checkAvailability(String username) {
+        String s = HttpController.excuteGet("http://127.0.0.1:8080/checkAvailable?username=" + username);
         s = s.trim();
-       return Boolean.parseBoolean(s);
+        return Boolean.parseBoolean(s);
     }
-    
-    private boolean validateInput(){
-        if(!TB_name.getText().matches("^[\\p{L}\\s'.-]+$")){
+
+    private boolean validateInput() {
+        if (!TB_name.getText().matches("^[\\p{L}\\s'.-]+$")) {
             TB_name.requestFocus();
             LB_error.setText("geen geldige naam");
             return false;
-        } 
-        if(!TB_surname.getText().matches("^[\\p{L}\\s'.-]+$")){
+        }
+        if (!TB_surname.getText().matches("^[\\p{L}\\s'.-]+$")) {
             TB_surname.requestFocus();
             LB_error.setText("geen geldige achternaam");
             return false;
         }
-        if(!TB_address.getText().matches("^[\\w]*[\\s][0-9]*[A-z]*")){
+        if (!TB_address.getText().matches("^[\\w]*[\\s][0-9]*[A-z]*")) {
             TB_address.requestFocus();
             LB_error.setText("geen geldig adres");
             return false;
         }
-        if(!TB_city.getText().matches("^[\\p{L}\\s'.-]+$")){
+        if (!TB_city.getText().matches("^[\\p{L}\\s'.-]+$")) {
             TB_city.requestFocus();
             LB_error.setText("geen geldige stad");
             return false;
         }
-        if(!TB_email.getText().matches("^[a-z0-9._-]*@[a-z0-9-.]*[.][a-z]{2,3}$")){
+        if (!TB_email.getText().matches("^[a-z0-9._-]*@[a-z0-9-.]*[.][a-z]{2,3}$")) {
             TB_email.requestFocus();
             LB_error.setText("geen geldige email");
             return false;
         }
-        if(!TB_username.getText().matches("^[\\p{L}\\s'.-]+$")){
+        if (!TB_username.getText().matches("^[\\p{L}\\s'.-]+$")) {
             TB_username.requestFocus();
             LB_error.setText("geen geldige gebruikersnaam");
             return false;
         }
-        if(!TB_telepone.getText().matches("^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]*$")){
+        if (!TB_telepone.getText().matches("^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]*$")) {
             TB_telepone.requestFocus();
             LB_error.setText("geen geldig telefoonnummer");
             return false;
         }
-        if(!TB_password.getText().matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,8}$")){
+        if (!TB_password.getText().matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,8}$")) {
             TB_password.requestFocus();
             LB_error.setText("wachtwoord moet minimaal 1 hoofdletter, kleine letter, en cijfer bevatten en 6-13 lang zijn");
             return false;
-        }      
-        
+        }
+
         return true;
     }
 
@@ -119,10 +136,10 @@ public class RegisterScreenController implements Initializable, ControlledScreen
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-    
+
     @FXML
     public void handleBackButtonAction(ActionEvent even) {
         myController.setScreen(FrontEnd.mainScreen);
     }
-    
+
 }

@@ -19,9 +19,9 @@ import domain.Photographer;
 public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String logs(@RequestParam("json") String json) {
+	public String logs(@RequestParam("account") String json) {
 		JsonManager jsonManager = JsonManager.GetInstance();
-		Account account = (Account) jsonManager.fromJson(json, Account.class.getClass());
+		Account account = (Account) jsonManager.fromJson(json, Account.class);
 		account.register();
 	    return null;
 	}
