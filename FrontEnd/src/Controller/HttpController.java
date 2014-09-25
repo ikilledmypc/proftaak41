@@ -79,7 +79,7 @@ The urlParameters is a URL encoded string.
     */
     
     
-    public static String excuteGet(String targetURL, String urlParameters)
+    public static String excuteGet(String targetURL)
   {
     URL url;
     HttpURLConnection connection = null;  
