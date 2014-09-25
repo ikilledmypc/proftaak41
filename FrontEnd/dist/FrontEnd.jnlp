@@ -11,15 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-    <jar href="FrontEnd.jar" size="14410" download="eager" />
-=======
-<<<<<<< HEAD
-    <jar href="FrontEnd.jar" size="30577" download="eager" />
-=======
-    <jar href="FrontEnd.jar" size="30482" download="eager" />
->>>>>>> lokaal
->>>>>>> master
+    <jar href="FrontEnd.jar" size="16256" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FrontEnd" >
     <param name="requiredFXVersion" value="2.2+"/>

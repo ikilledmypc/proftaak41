@@ -5,6 +5,7 @@
  */
 package frontend;
 
+import Controller.HttpController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -47,8 +48,13 @@ public class RegisterScreenController implements Initializable, ControlledScreen
         // TODO
     }
     @FXML
-    public void checkAvailability(){
+    public void register(){
        
+    }
+    
+    
+    private boolean checkAvailability(String username){
+       return false;
     }
 
     @Override

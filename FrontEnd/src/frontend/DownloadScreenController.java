@@ -5,7 +5,7 @@
  */
 package frontend;
 
-import classes.Photo;
+import domain.Photo;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -64,12 +64,12 @@ public class DownloadScreenController implements Initializable, ControlledScreen
     
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
-        for(int i=0; i<photos.size(); i++) {
-            if(photos.get(i).code.equals(codeEntry.getText())) {
-                photos2.add(photos.get(i));
-                System.out.println(photos.get(i).code + "-" + photos.get(i).name + "-" + photos.get(i).size);
-            }
-        }
-        photoTable.setItems(photos2);
-    }
+//        for(int i=0; i<photos.size(); i++) {
+//            if(photos.get(i).code.equals(codeEntry.getText())) {
+//                photos2.add(photos.get(i));
+//                System.out.println(photos.get(i).code + "-" + photos.get(i).name + "-" + photos.get(i).size);
+//            }
+//        }
+//        photoTable.setItems(photos2);
+   }
 }
