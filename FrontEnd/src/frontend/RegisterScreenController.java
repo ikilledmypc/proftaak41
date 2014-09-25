@@ -68,7 +68,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
                     MessageDigest msgd = MessageDigest.getInstance("MD5");
                     String password  = new BigInteger(1,msgd.digest(TB_password.getText().getBytes())).toString(16);
                     Account a = new Account(TB_username.getText(), TB_name.getText() + " " + TB_surname.getText(), TB_address.getText(), TB_zip.getText(), TB_city.getText(), TB_email.getText(), Integer.parseInt(TB_telepone.getText()),password);
-                    HttpController.excutePost("http://127.0.0.1:8080/register", "account="+gson.toJson(a));
+                    HttpController.excutePost(FrontEnd.HOST+"/register", "account="+gson.toJson(a));
                     myController.setScreen(FrontEnd.loginScreen);
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(RegisterScreenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +82,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
     }
 
     private boolean checkAvailability(String username) {
-        String s = HttpController.excuteGet("http://127.0.0.1:8080/checkAvailable?username=" + username);
+        String s = HttpController.excuteGet(FrontEnd.HOST+"/checkAvailable?username=" + username);
         s = s.trim();
         return Boolean.parseBoolean(s);
     }
