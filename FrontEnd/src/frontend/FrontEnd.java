@@ -26,6 +26,8 @@ public class FrontEnd extends Application {
     public static String uploadScreenFXML = "UploadScreen.fxml";
     public static String downloadScreen = "downloadScreen";
     public static String downloadScreenFXML = "DownloadScreen.fxml";
+    public static String managementScreen = "managementPhotographer";
+    public static String managementScreenFXML = "ManagementPhotographer.fxml";
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,6 +38,7 @@ public class FrontEnd extends Application {
         mainContainer.loadScreen(FrontEnd.registerScreen, FrontEnd.registerScreenFXML);
         mainContainer.loadScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML);
         mainContainer.loadScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML);
+        mainContainer.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
         
         mainContainer.setScreen(FrontEnd.mainScreen);
         
