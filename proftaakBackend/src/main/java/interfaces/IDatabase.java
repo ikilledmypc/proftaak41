@@ -23,4 +23,11 @@ public interface IDatabase {
 	 * @return boolean
 	 */
 	public boolean delete(String s);
+	
+	/**
+	 * Update statement
+	 * @param s String
+	 * @return boolean
+	 */
+	public boolean update(String s);
 }

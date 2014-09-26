@@ -1,4 +1,8 @@
 DB.properties
+<<<<<<< HEAD
 FrontEnd/nbproject/private/*
 FrontEnd/dist/*
 FrontEnd/build/*
+=======
+/FrontEnd/dist/
+>>>>>>> enable-photographer

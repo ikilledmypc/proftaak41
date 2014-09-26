@@ -1,2 +1,6 @@
 /domain/
+<<<<<<< HEAD
 /controllers/
+=======
+/interfaces/
+>>>>>>> enable-photographer
