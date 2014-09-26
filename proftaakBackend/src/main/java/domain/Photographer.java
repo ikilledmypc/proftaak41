@@ -14,7 +14,8 @@ public class Photographer extends Account {
 	private Boolean active;
 	private static IDatabase db;
 	private ArrayList<Photographer> photographers;
-	
+	private ResultSet rs;
+
 	/**
 	 * Constructor
 	 *
@@ -100,27 +101,44 @@ public class Photographer extends Account {
 
 	/**
 	 * Enable or Disable photographer account
+	 * 
 	 * @param photographerID
 	 */
 	public void enableDisablePhotographer(int photographerID) {
 		db = controllers.DatabaseController.getInstance();
-		ResultSet rs = db.select("SELECT isActive FROM Photographer"
-				+ " WHERE accountID='"+ photographerID);
-		
+		rs = db.select("SELECT isActive FROM Photographer"
+				+ " WHERE accountID='" + photographerID);
+
 		try {
 			if (rs.getBoolean("isActive") == true) {
-				db.update("UPDATE Photographer "
-						+ "SET isActive = '0' "
-						+ "WHERE Photographer.accountID ='"+ photographerID);
+				db.update("UPDATE Photographer " + "SET isActive = '0' "
+						+ "WHERE Photographer.accountID ='" + photographerID);
 			} else {
-				db.update("UPDATE Photographer "
-						+ "SET isActive = '1' "
-						+ "WHERE Photographer.accountID ='"+ photographerID);
+				db.update("UPDATE Photographer " + "SET isActive = '1' "
+						+ "WHERE Photographer.accountID ='" + photographerID);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	/**
+	 * Search photographer AccountID
+	 * 
+	 * @param username
+	 * @return accountID or -1 if not found
+	 */
+	public int searchPhotographerID(String username) {
+		db = controllers.DatabaseController.getInstance();
+		rs = db.select("SELECT accountID FROM Account WHERE username='"
+				+ username);
+
+		try {
+			return rs.getInt("accountID");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
