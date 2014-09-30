@@ -11,8 +11,13 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="FrontEnd.jar" size="43923" download="eager" />
+=======
+    <jar href="FrontEnd.jar" size="40115" download="eager" />
+>>>>>>> master
     <jar href="lib/gson-2.3.jar" size="206853" download="eager" />
+    <jar href="lib/httpclient-4.3.5.jar" size="590533" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FrontEnd" >
     <param name="requiredFXVersion" value="2.2+"/>
