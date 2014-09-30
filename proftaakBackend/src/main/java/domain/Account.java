@@ -167,10 +167,11 @@ public class Account {
 		return accountID;
 	}
 
-	public void register() {
+	public int register() {
 
+		ResultSet result;
 		db = controllers.DatabaseController.getInstance();
-		db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ('"
+		result = db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ('"
 				+ this.username
 				+ "','"
 				+ this.password
@@ -187,7 +188,14 @@ public class Account {
 				+ "','" 
 				+ this.telephone 
 				+ "')");
-
+			try {
+				result.next();
+				System.out.println(result.getInt(1));
+				return result.getInt(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			}
 	}
 
 	public static Account authenticate(String username, String password) {

@@ -6,12 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="frontend.MainController">
-  <children>
-    <Button fx:id="loginButton" layoutX="200.0" layoutY="103.0" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="100.0" text="Login" />
-    <Button fx:id="registButton" layoutX="200.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="100.0" text="Register" />
-    <Button fx:id="uploadButton" layoutX="200.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="25.0" prefWidth="100.0" text="Upload" />
-    <Button fx:id="loadButton" layoutX="200.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleLoadButtonAction" prefHeight="25.0" prefWidth="100.0" text="Load" />
-    <Button fx:id="btnPhotographer" layoutX="200.0" layoutY="249.0" mnemonicParsing="false" onAction="#handlePhotographerAction" prefHeight="24.999908447265625" text="Manage photographer" />
-  </children>
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MainController">
+    <children>
+        <Button fx:id="loginButton" layoutX="200.0" layoutY="84.0" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="100.0" text="Login" />
+        <Button fx:id="registPhotographerButton" layoutX="200.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="100.0" text="Register User" />
+        <Button fx:id="uploadButton" layoutX="200.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="25.0" prefWidth="100.0" text="Upload" />
+        <Button fx:id="loadButton" layoutX="200.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleLoadButtonAction" prefHeight="25.0" prefWidth="100.0" text="Load" />
+        <Button fx:id="registButton" layoutX="182.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleRegisterPhotographerButtonAction" prefHeight="25.0" text="Register Photographer" />
+        <Button fx:id="btnPhotographer" layoutX="182.0" layoutY="278.0" mnemonicParsing="false" onAction="#handlePhotographerAction" prefHeight="25.0" text="Manage photographer" />
+    </children>
 </AnchorPane>

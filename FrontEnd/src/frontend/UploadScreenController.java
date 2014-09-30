@@ -51,10 +51,10 @@ public class UploadScreenController implements Initializable, ControlledScreen {
     
     @FXML
     public void handleUploadButtonAction(ActionEvent event) {
-        String bla = HttpController.excutePost("http://localhost:8080/test2", "username=tim");
+        
+        String bla = HttpController.excuteGet("http://localhost:8080/upload");
         System.out.println(bla);
         
-        //String bla2 = HttpController.excuteGet("http://localhost:8080/upload", "");
-        //System.out.println(bla2);
+        HttpController.postFile("http://localhost:8080/upload", uploadPath.getText());
     }
 }

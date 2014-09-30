@@ -112,21 +112,22 @@ public class DatabaseController implements IDatabase {
 	}
 
 	@Override
-	public boolean insert(String s) {
+	public ResultSet insert(String s) {
 		try {
 			if(connect()){
-			statement = con.createStatement();
+			statement = con.createStatement();			
 			connect();
-			statement.executeUpdate(s);
+			statement.executeUpdate(s,Statement.RETURN_GENERATED_KEYS);
+			result = statement.getGeneratedKeys();
 			closeConnection();
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(
 					Level.SEVERE, null, ex);
-			return false;
+			return null;
 		}
 		
-		return true;
+		return result;
 	}
 
 	@Override

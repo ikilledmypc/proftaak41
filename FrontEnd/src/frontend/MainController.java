@@ -16,38 +16,44 @@ import javafx.fxml.Initializable;
  * @author Baya
  */
 public class MainController implements Initializable, ControlledScreen {
+
     ScreensController myController;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-    
+
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.loginScreen);
     }
-    
+
     @FXML
     private void handleRegisterButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.registerScreen);
     }
-    
+
+    @FXML
+    private void handleRegisterPhotographerButtonAction(ActionEvent event) {
+        myController.setScreen(FrontEnd.registerPhotographerScreen);
+    }
+
     @FXML
     private void handleUploadButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.uploadScreen);
     }
-    
+
     @FXML
     private void handleLoadButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.downloadScreen);
     }
-    
+
     @FXML
     private void handlePhotographerAction(ActionEvent event) {
         myController.setScreen(FrontEnd.managementScreen);

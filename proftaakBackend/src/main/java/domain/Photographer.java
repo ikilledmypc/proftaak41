@@ -110,8 +110,42 @@ public class Photographer extends Account {
 		this.photographerID = photographerID;
 	}
 
+
+	
+	
+	public void registerPhotographer()
+	{
+		int accountdbid = super.register();
+		if(accountdbid != 0)
+		{
+			System.out.println("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+						+ accountdbid
+						+ "','"
+						+ this.companyName
+						+ "','"
+						+ this.bankAccount
+						+ "','"
+						+ 0						
+						+ "')");
+			db = controllers.DatabaseController.getInstance();
+				db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+						+ accountdbid
+						+ "','"
+						+ this.companyName
+						+ "','"
+						+ this.bankAccount
+						+ "','"
+						+ 0						
+						+ "')");
+		}
+		
+	}
+
 	/**
-	 * Enable or Disable photographer account
+	 * Search photographer AccountID
+	 * 
+	 * @param username
+	 * @return accountID or -1 if not found
 	 */
 	public void enableDisablePhotographer() {
 		try {

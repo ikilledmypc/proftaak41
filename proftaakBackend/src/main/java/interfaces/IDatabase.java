@@ -15,7 +15,7 @@ public interface IDatabase {
 	 * @param s String
 	 * @return boolean
 	 */
-	public boolean insert(String s);
+	public ResultSet insert(String s);
 
 	/**
 	 * Delete statement

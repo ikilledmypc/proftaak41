@@ -20,8 +20,9 @@ public class FileUploadController {
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("name") String name,
+    public @ResponseBody String handleFileUpload(
             @RequestParam("file") MultipartFile file){
+    	String name = "Test";
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
