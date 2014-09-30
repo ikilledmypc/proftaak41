@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FrontEnd.jar" size="40649" download="eager" />
+    <jar href="FrontEnd.jar" size="40115" download="eager" />
     <jar href="lib/gson-2.3.jar" size="206853" download="eager" />
     <jar href="lib/httpclient-4.3.5.jar" size="590533" download="eager" />
   </resources>

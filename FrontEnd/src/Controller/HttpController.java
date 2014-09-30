@@ -122,7 +122,7 @@ The urlParameters is a URL encoded string.
     }
   }
  
-    public static void postFile(String targetURL, String filePath) 
+    public static String postFile(String targetURL, String filePath) 
     {
        HttpURLConnection conn = null;
           DataOutputStream dos = null;
@@ -144,8 +144,9 @@ The urlParameters is a URL encoded string.
               conn.setRequestProperty("Connection", "Keep-Alive");
               conn.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
               dos = new DataOutputStream( conn.getOutputStream() );
+             
               dos.writeBytes(twoHyphens + boundary + lineEnd);
-              dos.writeBytes("Content-Disposition: form-data; name=\"upload\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              dos.writeBytes("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
               dos.writeBytes(lineEnd);
               // create a buffer of maximum size
               bytesAvailable = fileInputStream.available();
@@ -175,15 +176,27 @@ The urlParameters is a URL encoded string.
           }
           //------------------ read the SERVER RESPONSE
           try {
-              inStream = new DataInputStream ( conn.getInputStream() );
-              String str;
-              while (( str = inStream.readLine()) != null){
-                  //System.out.println("Server response is: " + str);
-                  //System.out.println("");
+              InputStream is = conn.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuffer response = new StringBuffer(); 
+                while((line = rd.readLine()) != null) {
+                  response.append(line);
+                  response.append('\r');
+                }
+                rd.close();
+                return response.toString();
+
+              } catch (Exception e) {
+
+                e.printStackTrace();
+                return null;
+
+              } finally {
+
+                if(conn != null) {
+                  conn.disconnect(); 
+                }
               }
-              inStream.close();
-          }catch (IOException ioex){
-              System.out.println("From (ServerResponse): " + ioex);
-          }
     }
 }
