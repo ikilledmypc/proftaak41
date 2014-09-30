@@ -24,6 +24,16 @@ public class Account {
 	/**
 	 * Constructor
 	 * 
+	 * @param username
+	 */
+        public Account(String username) {
+		super();
+		this.username = username;
+	}
+	
+	/**
+	 * Constructor
+	 * 
 	 * @param accountID
 	 * @param username
 	 * @param name
