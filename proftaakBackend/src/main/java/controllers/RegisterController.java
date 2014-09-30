@@ -27,10 +27,10 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/registerPhotographer", method = RequestMethod.POST)
-	public String logsPhotographer(@RequestParam("json") String json) {
+	public String logsPhotographer(@RequestParam("photographer") String json) {
 		JsonManager jsonManager = JsonManager.GetInstance();
-		Photographer account = (Photographer) jsonManager.fromJson(json, Photographer.class.getClass());
-		account.register();
+		Photographer photographer = (Photographer) jsonManager.fromJson(json, Photographer.class);
+		photographer.registerPhotographer();
 	    return null;
 	}
 	
