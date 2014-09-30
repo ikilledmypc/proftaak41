@@ -6,12 +6,20 @@
 
 package Controller;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.MalformedURLException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -113,4 +121,69 @@ The urlParameters is a URL encoded string.
       }
     }
   }
+ 
+    public static void postFile(String targetURL, String filePath) 
+    {
+       HttpURLConnection conn = null;
+          DataOutputStream dos = null;
+          DataInputStream inStream = null;
+          String lineEnd = "\r\n";
+          String twoHyphens = "--";
+          String boundary =  "*****";
+          int bytesRead, bytesAvailable, bufferSize;
+          byte[] buffer;
+          int maxBufferSize = 1*1024*1024;
+          try{
+              FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+              URL url = new URL(targetURL);
+              conn = (HttpURLConnection) url.openConnection();
+              conn.setDoInput(true);
+              conn.setDoOutput(true);
+              conn.setUseCaches(false);
+              conn.setRequestMethod("POST");
+              conn.setRequestProperty("Connection", "Keep-Alive");
+              conn.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
+              dos = new DataOutputStream( conn.getOutputStream() );
+              dos.writeBytes(twoHyphens + boundary + lineEnd);
+              dos.writeBytes("Content-Disposition: form-data; name=\"upload\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              dos.writeBytes(lineEnd);
+              // create a buffer of maximum size
+              bytesAvailable = fileInputStream.available();
+              bufferSize = Math.min(bytesAvailable, maxBufferSize);
+              buffer = new byte[bufferSize];
+              // read file and write it into form...
+              bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+           while (bytesRead > 0){
+               dos.write(buffer, 0, bufferSize);
+               bytesAvailable = fileInputStream.available();
+               bufferSize = Math.min(bytesAvailable, maxBufferSize);
+               bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+               //SimpleLog.write(filePath + " uploaded to " + targetURL);
+           }
+           // send multipart form data necesssary after file data...
+           dos.writeBytes(lineEnd);
+           dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+           // close streams
+           fileInputStream.close();
+           dos.flush();
+           dos.close();
+           System.out.println(filePath + " uploaded to from " + targetURL);
+          }catch (MalformedURLException ex){
+              System.out.println("From ServletCom CLIENT REQUEST:"+ex);
+          }catch (IOException ioe){
+              System.out.println("From ServletCom CLIENT REQUEST:"+ioe);
+          }
+          //------------------ read the SERVER RESPONSE
+          try {
+              inStream = new DataInputStream ( conn.getInputStream() );
+              String str;
+              while (( str = inStream.readLine()) != null){
+                  //System.out.println("Server response is: " + str);
+                  //System.out.println("");
+              }
+              inStream.close();
+          }catch (IOException ioex){
+              System.out.println("From (ServerResponse): " + ioex);
+          }
+    }
 }
