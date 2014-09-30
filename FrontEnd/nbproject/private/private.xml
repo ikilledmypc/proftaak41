@@ -12,6 +12,9 @@
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/DownloadScreenController.java</file>
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/UploadScreenController.java</file>
         </group>
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/frontend/RegisterPhotographerScreenController.java</file>
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/frontend/RegisterScreenController.java</file>
@@ -20,5 +23,6 @@
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/domain/Photographer.java</file>
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/domain/Photo.java</file>
         </group>
+>>>>>>> master
     </open-files>
 </project-private>

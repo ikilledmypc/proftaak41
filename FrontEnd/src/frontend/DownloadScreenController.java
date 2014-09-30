@@ -5,6 +5,9 @@
  */
 package frontend;
 
+import Controller.HttpController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import domain.Photo;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,8 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class DownloadScreenController implements Initializable, ControlledScreen {
     
     ScreensController myController;
-    ObservableList<Photo> photos = FXCollections.observableArrayList();
-    ObservableList<Photo> photos2 = FXCollections.observableArrayList();
+    ObservableList<Photo> photos;
     
     @FXML
     TextField codeEntry;
@@ -37,24 +39,14 @@ public class DownloadScreenController implements Initializable, ControlledScreen
     @FXML
     TableColumn colName;
     @FXML
-    TableColumn colSize;
+    TableColumn colPrice;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Photo photo1 = new Photo("123", "Photo1.jpg", "2mb");
-        Photo photo2 = new Photo("123", "Photo2.jpg", "1.5mb");
-        Photo photo3 = new Photo("123", "Photo3.jpg", "3mb");
-        Photo photo4 = new Photo("321", "Photo4.jpg", "4mb");
-        Photo photo5 = new Photo("321", "Photo5.jpg", "5.5mb");
-        photos.add(photo1);
-        photos.add(photo2);
-        photos.add(photo3);
-        photos.add(photo4);
-        photos.add(photo5);
-        colName.setCellValueFactory(new PropertyValueFactory<Photo,String>("name"));
-        colSize.setCellValueFactory(new PropertyValueFactory<Photo,String>("size"));
+        colName.setCellValueFactory(new PropertyValueFactory<Photo,String>("photoID"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<Photo,String>("price"));
     }    
 
     @Override
@@ -64,12 +56,15 @@ public class DownloadScreenController implements Initializable, ControlledScreen
     
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
-//        for(int i=0; i<photos.size(); i++) {
-//            if(photos.get(i).code.equals(codeEntry.getText())) {
-//                photos2.add(photos.get(i));
-//                System.out.println(photos.get(i).code + "-" + photos.get(i).name + "-" + photos.get(i).size);
-//            }
-//        }
-//        photoTable.setItems(photos2);
+        Gson gson = new Gson();
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText());
+        if(!returnedPhotos.equalsIgnoreCase("")) {
+            ArrayList<Photo> getPhotos = new ArrayList();
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());
+            photos = FXCollections.observableArrayList(getPhotos);
+            photoTable.setItems(photos);
+        } else {
+            System.out.println("Failed to load photos");
+        }
    }
 }
