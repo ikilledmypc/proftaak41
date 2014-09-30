@@ -15,6 +15,7 @@ import javafx.stage.Stage;
  * @author Baya
  */
 public class FrontEnd extends Application {
+
     public static String HOST = "http://127.0.0.1:8080";
     public static String mainScreen = "main";
     public static String mainScreenFXML = "Main.fxml";
@@ -22,26 +23,29 @@ public class FrontEnd extends Application {
     public static String loginScreenFXML = "LoginScreen.fxml";
     public static String registerScreen = "registerScreen";
     public static String registerScreenFXML = "RegisterScreen.fxml";
+    public static String registerPhotographerScreen = "registerPhotographerScreen";
+    public static String registerPhotographerScreenFXML = "RegisterPhotographerScreen.fxml";
     public static String uploadScreen = "uploadScreen";
     public static String uploadScreenFXML = "UploadScreen.fxml";
     public static String downloadScreen = "downloadScreen";
     public static String downloadScreenFXML = "DownloadScreen.fxml";
     public static String managementScreen = "managementPhotographer";
     public static String managementScreenFXML = "ManagementPhotographer.fxml";
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
         mainContainer.loadScreen(FrontEnd.loginScreen, FrontEnd.loginScreenFXML);
         mainContainer.loadScreen(FrontEnd.registerScreen, FrontEnd.registerScreenFXML);
+        mainContainer.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
         mainContainer.loadScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML);
         mainContainer.loadScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML);
         mainContainer.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
-        
+
         mainContainer.setScreen(FrontEnd.mainScreen);
-        
+
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root, 500, 500);
@@ -55,5 +59,5 @@ public class FrontEnd extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
