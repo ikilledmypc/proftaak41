@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Photographer extends Account {
 
+
 	private int photographerID;
 	private String companyName;
 	private String bankAccount;
@@ -35,6 +36,11 @@ public class Photographer extends Account {
 		this.bankAccount = bankAccount;
 		this.active = false;
 	}
+        
+            public Photographer(String username, boolean isActive) {
+        super(username);
+        this.active = isActive;
+    }
 
 	/**
 	 * @return the active

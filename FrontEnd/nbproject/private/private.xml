@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/domain/Account.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>54</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="personal projects">
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/LoginScreenController.java</file>
@@ -13,6 +22,13 @@
             <file>file:/C:/Users/ikilledmy/git/proftaak41/FrontEnd/src/frontend/UploadScreenController.java</file>
         </group>
 <<<<<<< HEAD
+        <group>
+            <file>file:/Users/Mike/Dropbox/school/P7/PTS4lokaal/proftaak41/FrontEnd/src/frontend/RegisterScreenController.java</file>
+            <file>file:/Users/Mike/Dropbox/school/P7/PTS4lokaal/proftaak41/FrontEnd/src/domain/Account.java</file>
+            <file>file:/Users/Mike/Dropbox/school/P7/PTS4lokaal/proftaak41/FrontEnd/src/frontend/ManagementPhotographerController.java</file>
+        </group>
+=======
+<<<<<<< HEAD
         <group/>
 =======
         <group>
@@ -23,6 +39,7 @@
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/domain/Photographer.java</file>
             <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/domain/Photo.java</file>
         </group>
+>>>>>>> master
 >>>>>>> master
     </open-files>
 </project-private>

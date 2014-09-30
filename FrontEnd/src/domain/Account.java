@@ -11,7 +11,7 @@ public class Account {
 
 	private int accountID;
 	private String username;
-	private String password;
+	String password;
 	private String name;
 	private String address;
 	private String zipcode;
@@ -44,6 +44,16 @@ public class Account {
 		this.email = email;
 		this.telephone = telephone;
                 this.password = password;
+	}
+        
+        /**
+	 * Constructor
+	 * 
+	 * @param username
+	 */
+        public Account(String username) {
+		super();
+		this.username = username;
 	}
 
 	/**

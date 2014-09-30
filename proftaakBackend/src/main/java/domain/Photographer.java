@@ -40,6 +40,17 @@ public class Photographer extends Account {
 	}
 
 	/**
+	 * Constructor
+	 *
+	 * @param username
+	 * @param isActive
+	 */
+	public Photographer(String username, boolean isActive) {
+		super(username);
+		this.active = isActive;
+	}
+
+	/**
 	 * @return the active
 	 */
 	public Boolean getActive() {
@@ -99,28 +110,7 @@ public class Photographer extends Account {
 		this.photographerID = photographerID;
 	}
 
-	/**
-	 * Enable or Disable photographer account
-	 * 
-	 * @param photographerID
-	 */
-	public void enableDisablePhotographer(int photographerID) {
-		db = controllers.DatabaseController.getInstance();
-		rs = db.select("SELECT isActive FROM Photographer"
-				+ " WHERE accountID='" + photographerID);
 
-		try {
-			if (rs.getBoolean("isActive") == true) {
-				db.update("UPDATE Photographer " + "SET isActive = '0' "
-						+ "WHERE Photographer.accountID ='" + photographerID);
-			} else {
-				db.update("UPDATE Photographer " + "SET isActive = '1' "
-						+ "WHERE Photographer.accountID ='" + photographerID);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	public void registerPhotographer()
@@ -157,17 +147,18 @@ public class Photographer extends Account {
 	 * @param username
 	 * @return accountID or -1 if not found
 	 */
-	public int searchPhotographerID(String username) {
-		db = controllers.DatabaseController.getInstance();
-		rs = db.select("SELECT accountID FROM Account WHERE username='"
-				+ username);
-
+	public void enableDisablePhotographer() {
 		try {
-			return rs.getInt("accountID");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.print(getUsername());
+			System.out.print(this.active);
+			db = controllers.DatabaseController.getInstance();
+			ResultSet rs = db.select("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
+			rs.next();
+			System.out.print(rs.getInt("accountID"));
+			System.out.print("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
+			db.update("UPDATE Photographer SET isActive = " + this.active + " WHERE Photographer.accountID = "+ rs.getInt("accountID") + "");
+		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
 		}
 	}
 }

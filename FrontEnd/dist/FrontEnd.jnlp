@@ -12,6 +12,9 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
 <<<<<<< HEAD
+    <jar href="FrontEnd.jar" size="24134" download="eager" />
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
     <jar href="FrontEnd.jar" size="41521" download="eager" />
 =======
@@ -19,6 +22,7 @@
 >>>>>>> master
 =======
     <jar href="FrontEnd.jar" size="45187" download="eager" />
+>>>>>>> master
 >>>>>>> master
     <jar href="lib/gson-2.3.jar" size="206853" download="eager" />
   </resources>
