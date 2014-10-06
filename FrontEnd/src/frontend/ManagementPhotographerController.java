@@ -7,7 +7,6 @@ package frontend;
 
 import Controller.HttpController;
 import com.google.gson.Gson;
-import domain.Account;
 import domain.Photographer;
 import java.net.URL;
 import java.util.ResourceBundle;

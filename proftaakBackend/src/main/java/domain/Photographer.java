@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import interfaces.IDatabase;
@@ -110,35 +109,25 @@ public class Photographer extends Account {
 		this.photographerID = photographerID;
 	}
 
-
-	
-	
-	public void registerPhotographer()
-	{
+	public void registerPhotographer() {
 		int accountdbid = super.register();
-		if(accountdbid != 0)
-		{
-			System.out.println("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
-						+ accountdbid
-						+ "','"
-						+ this.companyName
-						+ "','"
-						+ this.bankAccount
-						+ "','"
-						+ 0						
-						+ "')");
+		if (accountdbid != 0) {
+			System.out
+					.println("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+							+ accountdbid
+							+ "','"
+							+ this.companyName
+							+ "','"
+							+ this.bankAccount + "','" + 0 + "')");
 			db = controllers.DatabaseController.getInstance();
-				db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
-						+ accountdbid
-						+ "','"
-						+ this.companyName
-						+ "','"
-						+ this.bankAccount
-						+ "','"
-						+ 0						
-						+ "')");
+			db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+					+ accountdbid
+					+ "','"
+					+ this.companyName
+					+ "','"
+					+ this.bankAccount + "','" + 0 + "')");
 		}
-		
+
 	}
 
 	/**
@@ -152,11 +141,16 @@ public class Photographer extends Account {
 			System.out.print(getUsername());
 			System.out.print(this.active);
 			db = controllers.DatabaseController.getInstance();
-			ResultSet rs = db.select("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
+			ResultSet rs = db
+					.select("SELECT accountID FROM Account WHERE username='"
+							+ getUsername() + "'");
 			rs.next();
 			System.out.print(rs.getInt("accountID"));
-			System.out.print("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
-			db.update("UPDATE Photographer SET isActive = " + this.active + " WHERE Photographer.accountID = "+ rs.getInt("accountID") + "");
+			System.out.print("SELECT accountID FROM Account WHERE username='"
+					+ getUsername() + "'");
+			db.update("UPDATE Photographer SET isActive = " + this.active
+					+ " WHERE Photographer.accountID = "
+					+ rs.getInt("accountID") + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
