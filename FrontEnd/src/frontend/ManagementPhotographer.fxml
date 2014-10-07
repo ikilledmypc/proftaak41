@@ -29,7 +29,7 @@
     <TextField id="tbAddress" fx:id="tbZipcode" layoutX="107.0" layoutY="147.0" prefWidth="200.0" />
     <TextField id="tbAddress" fx:id="tbCity" layoutX="107.0" layoutY="169.0" prefWidth="200.0" />
     <Label fx:id="lbTelephone" layoutX="38.0" layoutY="194.0" text="Telephone:" />
-    <TextField id="tbAddress" layoutX="107.0" layoutY="191.0" prefWidth="200.0" />
+    <TextField id="tbAddress" fx:id="tbTelephone" layoutX="107.0" layoutY="191.0" prefWidth="200.0" />
     <Label fx:id="lbEmail" layoutX="38.0" layoutY="216.0" text="Email:" />
     <TextField id="tbAddress" fx:id="tbEmail" layoutX="107.0" layoutY="213.0" prefWidth="200.0" />
     <Label fx:id="lbBank" layoutX="38.0" layoutY="238.0" text="Bank:" />
