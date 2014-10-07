@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="frontend.UploadScreenController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.UploadScreenController">
   <children>
     <TextField fx:id="uploadPath" layoutX="76.0" layoutY="190.0" prefHeight="25.0" prefWidth="276.0" />
     <Button layoutX="362.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleBrowseButtonAction" prefHeight="25.0" prefWidth="89.0" text="Browse" />

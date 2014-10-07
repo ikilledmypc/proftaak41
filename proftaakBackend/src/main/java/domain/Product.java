@@ -2,9 +2,18 @@ package domain;
 
 public class Product {
 
+
+	public Product(int productID, String name, float materialPrice) {
+		super();
+		this.productID = productID;
+		this.name = name;
+		this.materialPrice = materialPrice;
+	}
+
 	private int productID;
 	private String name;
 	private float materialPrice;
+	private Photo foto;
 
 	/**
 	 * Constructor
@@ -18,6 +27,13 @@ public class Product {
 		this.materialPrice = materialPrice;
 	}
 
+
+	public Product(String name, float materialPrice, Photo foto) {
+		super();
+		this.name = name;
+		this.materialPrice = materialPrice;
+		this.foto = foto;
+	}
 	/**
 	 * @return the materialPrice
 	 */

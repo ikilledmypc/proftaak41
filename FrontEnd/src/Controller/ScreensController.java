@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package frontend;
+package Controller;
 
+import Controller.ControlledScreen;
 import java.io.File;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
@@ -51,6 +52,7 @@ public class ScreensController extends StackPane {
             return true;
         } catch(Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

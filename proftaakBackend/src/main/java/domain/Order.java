@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
@@ -7,6 +8,7 @@ public class Order {
 	private int orderID;
 	private Date date;
 	private int accountID;
+	private ArrayList<Product> products;
 
 	/**
 	 * Constructor
