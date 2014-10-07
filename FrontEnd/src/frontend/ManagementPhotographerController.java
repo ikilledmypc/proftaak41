@@ -30,21 +30,36 @@ public class ManagementPhotographerController implements Initializable, Controll
     ToggleGroup group;
     Gson gson;
 
-    @FXML Button btnSearch;
-    @FXML TextField tbSearch;
-    @FXML RadioButton False;
-    @FXML RadioButton True;
-    @FXML Button btnBack;
-    @FXML Button btnSave;
-    @FXML Label lbUsernameText;
-    @FXML TextField tbName;
-    @FXML TextField tbAddress;
-    @FXML TextField tbZipcode;
-    @FXML TextField tbCity;
-    @FXML TextField tbTelephone;
-    @FXML TextField tbEmail;
-    @FXML TextField tbBank;
-    @FXML TextField tbCompany;
+    @FXML
+    Button btnSearch;
+    @FXML
+    TextField tbSearch;
+    @FXML
+    RadioButton False;
+    @FXML
+    RadioButton True;
+    @FXML
+    Button btnBack;
+    @FXML
+    Button btnSave;
+    @FXML
+    Label lbUsernameText;
+    @FXML
+    TextField tbName;
+    @FXML
+    TextField tbAddress;
+    @FXML
+    TextField tbZipcode;
+    @FXML
+    TextField tbCity;
+    @FXML
+    TextField tbTelephone;
+    @FXML
+    TextField tbEmail;
+    @FXML
+    TextField tbBank;
+    @FXML
+    TextField tbCompany;
 
     /**
      * Initializes the controller class.
@@ -74,20 +89,24 @@ public class ManagementPhotographerController implements Initializable, Controll
     public void handleSearchButtonAction(ActionEvent event) {
         gson = new Gson();
         String account = HttpController.excuteGet(FrontEnd.HOST + "/searchPhotographer?username=" + tbSearch.getText());
-        Photographer photographer = gson.fromJson(account, Photographer.class);
-        tbAddress.setText(photographer.getAddress());
-        tbBank.setText(photographer.getBankAccount());
-        tbCity.setText(photographer.getCity());
-        tbCompany.setText(photographer.getCompanyName());
-        tbEmail.setText(photographer.getEmail());
-        tbName.setText(photographer.getName());
-        tbZipcode.setText(photographer.getZipcode());
-        tbTelephone.setText(photographer.getTelephone());
-        if (photographer.getActive()) {
-            True.setSelected(true);
-        }
-        else {
-            False.setSelected(true);
+        try {
+            Photographer photographer = gson.fromJson(account, Photographer.class);
+            lbUsernameText.setText(photographer.getUsername());
+            tbAddress.setText(photographer.getAddress());
+            tbBank.setText(photographer.getBankAccount());
+            tbCity.setText(photographer.getCity());
+            tbCompany.setText(photographer.getCompanyName());
+            tbEmail.setText(photographer.getEmail());
+            tbName.setText(photographer.getName());
+            tbZipcode.setText(photographer.getZipcode());
+            tbTelephone.setText(photographer.getTelephone());
+            if (photographer.getActive()) {
+                True.setSelected(true);
+            } else {
+                False.setSelected(true);
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
         }
     }
 
@@ -96,19 +115,18 @@ public class ManagementPhotographerController implements Initializable, Controll
         try {
             gson = new Gson();
             boolean isActive;
-            if(True.isSelected()) {
+            if (True.isSelected()) {
                 isActive = true;
-            }
-            else {
+            } else {
                 isActive = false;
             }
-            Photographer photographer = new Photographer(tbSearch.getText(), isActive);
-            HttpController.excutePost(FrontEnd.HOST+"/editPhotographerActive", "photographer="+gson.toJson(photographer));
+            Photographer photographer = new Photographer(lbUsernameText.getText(), tbName.getText(), tbAddress.getText(), tbZipcode.getText(), tbCity.getText(), tbEmail.getText(), tbTelephone.getText(), tbCompany.getText(), tbBank.getText(), isActive);
+            HttpController.excutePost(FrontEnd.HOST + "/editPhotographer", "photographer=" + gson.toJson(photographer));
             myController.setScreen(FrontEnd.managementScreen);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
 }

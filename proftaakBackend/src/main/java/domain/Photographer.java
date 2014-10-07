@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import interfaces.IDatabase;
 
@@ -12,8 +11,6 @@ public class Photographer extends Account {
 	private String bankAccount;
 	private Boolean active;
 	private static IDatabase db;
-	private ArrayList<Photographer> photographers;
-	private ResultSet rs;
 
 	/**
 	 * Constructor
@@ -158,21 +155,34 @@ public class Photographer extends Account {
 	 * @param username
 	 * @return accountID or -1 if not found
 	 */
-	public void enableDisablePhotographer() {
+	public void editPhotographer() {
 		try {
-			System.out.print(getUsername());
-			System.out.print(this.active);
 			db = controllers.DatabaseController.getInstance();
-			ResultSet rs = db
-					.select("SELECT accountID FROM Account WHERE username='"
-							+ getUsername() + "'");
-			rs.next();
-			System.out.print(rs.getInt("accountID"));
-			System.out.print("SELECT accountID FROM Account WHERE username='"
+			ResultSet rs = db.select("SELECT accountID "
+					+ "FROM Account "
+					+ "WHERE username='"
 					+ getUsername() + "'");
-			db.update("UPDATE Photographer SET isActive = " + this.active
-					+ " WHERE Photographer.accountID = "
-					+ rs.getInt("accountID") + "");
+			rs.next();
+			db.update("UPDATE Account JOIN Photographer "
+					+ "ON Account.accountID = Photographer.accountID "
+					+ "SET name ='"+ this.getName() 
+					+ "', companyname ='"+ this.getCompanyName() 
+					+ "', isActive =" + this.active 
+					+ ", address ='" + this.getAddress() 
+					+ "', zipcode ='" + this.getZipcode() 
+					+ "', city ='" + this.getCity() 
+					+ "', email ='"+ this.getEmail() 
+					+ "', telephone ='"+ this.getTelephone()
+					+ "' WHERE Photographer.accountID = " + rs.getInt("accountID") + "");
+//			db.update("UPDATE Photographer SET companyname = "+ this.companyName +", isActive = " + this.active 
+//					+ " WHERE Photographer.accountID = "
+//					+ rs.getInt("accountID") + "");
+//			db.update("UPDATE Account SET name ="+ this.getName() 
+//					+ ", address ="+ this.getAddress() 
+//					+ ", zipcode ="+ this.getZipcode() 
+//					+ ", city ="+ this.getCity() 
+//					+ ", email ="+ this.getEmail() 
+//					+ ", telephone ="+ this.getTelephone() + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

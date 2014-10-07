@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 
 import managers.JsonManager;
 
-import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.isolateAggregation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +45,7 @@ public class PhotographerController {
 			rs.next();
 			ResultSet rs1 = db
 					.select("SELECT "
-							+ "username, name, address, zipcode, city, email, telephone, companyname, bankaccount, isActive "
+							+ "Account.accountID, username, name, address, zipcode, city, email, telephone, companyname, bankaccount, isActive "
 							+ "FROM Account "
 							+ "JOIN Photographer "
 							+ "ON Account.accountID = Photographer.accountID "
@@ -61,12 +60,10 @@ public class PhotographerController {
 		}
 	}
 
-	@RequestMapping(value = "/editPhotographerActive", method = RequestMethod.POST)
-	public void editPhotographerActive(@RequestParam("photographer") String json) {
+	@RequestMapping(value = "/editPhotographer", method = RequestMethod.POST)
+	public void editPhotographer(@RequestParam("photographer") String json) {
 		jsonManager = JsonManager.GetInstance();
-		System.out.println("editPhotographerActive");
-		photographer = (Photographer) jsonManager.fromJson(json,
-				Photographer.class);
-		photographer.enableDisablePhotographer();
+		photographer = (Photographer) jsonManager.fromJson(json, Photographer.class);
+		photographer.editPhotographer();
 	}
 }
