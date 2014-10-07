@@ -28,7 +28,7 @@ public class Photographer extends Account {
      * @param bankAccount
      */
     public Photographer(String username, String name, String address,
-            String zipcode, String city, String email, int telephone, String password,
+            String zipcode, String city, String email, String telephone, String password,
             String companyName, String bankAccount) {
         super(username, name, address, zipcode, city, email, telephone, password);
         this.companyName = companyName;

@@ -35,8 +35,8 @@ public class PhotographerController {
 	 * @param username
 	 * @return true or false; default false
 	 */
-	@RequestMapping("/searchPhotographerActive")
-	public boolean searchPhotographer(
+	@RequestMapping("/searchPhotographer")
+	public Photographer searchPhotographer(
 			@RequestParam(value = "username", required = true) String username) {
 		try {
 			db = controllers.DatabaseController.getInstance();
@@ -45,13 +45,19 @@ public class PhotographerController {
 							+ username + "'");
 			rs.next();
 			ResultSet rs1 = db
-					.select("SELECT isActive FROM Photographer WHERE accountID = '"
+					.select("SELECT "
+							+ "username, name, address, zipcode, city, email, telephone, companyname, bankaccount, isActive "
+							+ "FROM Account "
+							+ "JOIN Photographer "
+							+ "ON Account.accountID = Photographer.accountID "
+							+ "WHERE Account.accountID = '"
 							+ rs.getInt("accountID") + "'");
 			rs1.next();
-			return rs1.getBoolean("isActive");
+			photographer = new Photographer(rs1.getString("username"),rs1.getString("name"), rs1.getString("address"), rs1.getString("zipcode"),rs1.getString("city"),rs1.getString("email"), rs1.getString("telephone"), rs1.getString("companyname"), rs1.getString("bankaccount"), rs1.getBoolean("isActive"));
+			return photographer;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 

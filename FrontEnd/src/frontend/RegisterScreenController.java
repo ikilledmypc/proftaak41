@@ -67,7 +67,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
                     Gson gson = new Gson();
                     MessageDigest msgd = MessageDigest.getInstance("MD5");
                     String password  = new BigInteger(1,msgd.digest(TB_password.getText().getBytes())).toString(16);
-                    Account a = new Account(TB_username.getText(), TB_name.getText() + " " + TB_surname.getText(), TB_address.getText(), TB_zip.getText(), TB_city.getText(), TB_email.getText(), Integer.parseInt(TB_telepone.getText()),password);
+                    Account a = new Account(TB_username.getText(), TB_name.getText() + " " + TB_surname.getText(), TB_address.getText(), TB_zip.getText(), TB_city.getText(), TB_email.getText(), TB_telepone.getText(),password);
                     HttpController.excutePost(FrontEnd.HOST+"/register", "account="+gson.toJson(a));
                     myController.setScreen(FrontEnd.loginScreen);
                 } catch (NoSuchAlgorithmException ex) {

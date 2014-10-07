@@ -17,7 +17,7 @@ public class Account {
 	private String zipcode;
 	private String city;
 	private String email;
-	private int telephone;
+	private String telephone;
 
 
 	/**
@@ -34,7 +34,7 @@ public class Account {
 	 * @param telephone
 	 */
 	public Account(String username, String name, String address,
-			String zipcode, String city, String email, int telephone,String password) {
+			String zipcode, String city, String email, String telephone,String password) {
 		super();
 		this.username = username;
 		this.name = name;
@@ -59,7 +59,7 @@ public class Account {
 	/**
 	 * @return the telephone
 	 */
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
@@ -67,7 +67,7 @@ public class Account {
 	 * @param telephone
 	 *            the telephone to set
 	 */
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 

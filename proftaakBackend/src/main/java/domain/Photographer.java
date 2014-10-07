@@ -30,12 +30,34 @@ public class Photographer extends Account {
 	 * @param bankAccount
 	 */
 	public Photographer(String username, String name, String address,
-			String zipcode, String city, String email, int telephone,
+			String zipcode, String city, String email, String telephone,
 			String companyName, String bankAccount) {
 		super(username, name, address, zipcode, city, email, telephone);
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
 		this.active = false;
+	}
+	
+	/**
+	 * Constructor
+	 * @param username
+	 * @param name
+	 * @param address
+	 * @param zipcode
+	 * @param city
+	 * @param email
+	 * @param telephone
+	 * @param companyName
+	 * @param bankAccount
+	 * @param isActive
+	 */
+	public Photographer(String username, String name, String address,
+			String zipcode, String city, String email, String telephone,
+			String companyName, String bankAccount, boolean isActive) {
+		super(username, name, address, zipcode, city, email, telephone);
+		this.companyName = companyName;
+		this.bankAccount = bankAccount;
+		this.active = isActive;
 	}
 
 	/**
