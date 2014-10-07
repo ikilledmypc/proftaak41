@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package frontend;
+package Controller;
 
 import Controller.HttpController;
 import com.google.gson.Gson;
 import domain.Photographer;
+import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MainController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
     <children>
         <Button fx:id="loginButton" layoutX="200.0" layoutY="84.0" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="100.0" text="Login" />
         <Button fx:id="registPhotographerButton" layoutX="200.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="100.0" text="Register User" />
