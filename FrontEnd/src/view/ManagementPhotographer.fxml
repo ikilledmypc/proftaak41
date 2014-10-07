@@ -11,14 +11,32 @@
     <Button fx:id="btnSearch" layoutX="411.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSearchButtonAction" text="Search" />
     <TextField fx:id="tbSearch" layoutX="38.0" layoutY="54.0" prefWidth="359.0" />
     <Label layoutX="38.0" layoutY="31.0" text="Search photographeraccount:" />
-    <Pane layoutX="202.0" layoutY="132.0" prefHeight="62.0" prefWidth="134.0">
+    <Pane layoutX="323.0" layoutY="103.0" prefHeight="62.0" prefWidth="134.0">
       <children>
         <Label layoutX="14.0" layoutY="14.0" text="Is Active:" />
         <RadioButton id="chbTrue" fx:id="True" layoutX="71.0" layoutY="34.0" mnemonicParsing="false" text="True" />
         <RadioButton id="chbFalse" fx:id="False" layoutX="14.0" layoutY="34.0" mnemonicParsing="false" text="False" />
       </children>
     </Pane>
-    <Button fx:id="btnBack" layoutX="131.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-    <Button fx:id="btnSave" layoutX="272.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save" />
+    <Button fx:id="btnBack" layoutX="109.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
+    <Button fx:id="btnSave" layoutX="256.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save" />
+    <Label fx:id="lbName" layoutX="38.0" layoutY="106.0" text="Name:" />
+    <TextField fx:id="tbName" layoutX="107.0" layoutY="103.0" prefWidth="200.0" />
+    <TextField fx:id="tbAddress" layoutX="107.0" layoutY="125.0" prefWidth="200.0" />
+    <Label fx:id="lbAddress" layoutX="38.0" layoutY="128.0" text="Address:" />
+    <Label fx:id="lbZipcode" layoutX="38.0" layoutY="150.0" text="Zipcode:" />
+    <Label fx:id="lbCity" layoutX="38.0" layoutY="172.0" text="City:" />
+    <TextField id="tbAddress" fx:id="tbZipcode" layoutX="107.0" layoutY="147.0" prefWidth="200.0" />
+    <TextField id="tbAddress" fx:id="tbCity" layoutX="107.0" layoutY="169.0" prefWidth="200.0" />
+    <Label fx:id="lbTelephone" layoutX="38.0" layoutY="194.0" text="Telephone:" />
+    <TextField id="tbAddress" fx:id="tbTelephone" layoutX="107.0" layoutY="191.0" prefWidth="200.0" />
+    <Label fx:id="lbEmail" layoutX="38.0" layoutY="216.0" text="Email:" />
+    <TextField id="tbAddress" fx:id="tbEmail" layoutX="107.0" layoutY="213.0" prefWidth="200.0" />
+    <Label fx:id="lbBank" layoutX="38.0" layoutY="238.0" text="Bank:" />
+    <TextField id="tbAddress" fx:id="tbBank" layoutX="107.0" layoutY="235.0" prefWidth="200.0" />
+    <Label fx:id="lbCompany" layoutX="38.0" layoutY="260.0" text="Company:" />
+    <TextField id="tbAddress" fx:id="tbCompany" layoutX="107.0" layoutY="258.0" prefWidth="200.0" />
+    <Label id="lbName" fx:id="lbUsername" layoutX="38.0" layoutY="87.0" text="Username:" />
+    <Label id="lbName" fx:id="lbUsernameText" layoutX="109.0" layoutY="87.0" text="test" />
   </children>
 </AnchorPane>

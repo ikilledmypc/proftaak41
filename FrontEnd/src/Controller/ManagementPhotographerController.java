@@ -7,7 +7,6 @@ package Controller;
 
 import Controller.HttpController;
 import com.google.gson.Gson;
-import domain.Account;
 import domain.Photographer;
 import frontend.FrontEnd;
 import java.net.URL;
@@ -16,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -33,21 +33,34 @@ public class ManagementPhotographerController implements Initializable, Controll
 
     @FXML
     Button btnSearch;
-
     @FXML
     TextField tbSearch;
-
     @FXML
     RadioButton False;
-
     @FXML
     RadioButton True;
-
     @FXML
     Button btnBack;
-
     @FXML
     Button btnSave;
+    @FXML
+    Label lbUsernameText;
+    @FXML
+    TextField tbName;
+    @FXML
+    TextField tbAddress;
+    @FXML
+    TextField tbZipcode;
+    @FXML
+    TextField tbCity;
+    @FXML
+    TextField tbTelephone;
+    @FXML
+    TextField tbEmail;
+    @FXML
+    TextField tbBank;
+    @FXML
+    TextField tbCompany;
 
     /**
      * Initializes the controller class.
@@ -76,13 +89,25 @@ public class ManagementPhotographerController implements Initializable, Controll
     @FXML
     public void handleSearchButtonAction(ActionEvent event) {
         gson = new Gson();
-        String accountActive = HttpController.excuteGet(FrontEnd.HOST + "/searchPhotographerActive?username=" + tbSearch.getText());
-        accountActive = accountActive.trim();
-        if (Boolean.parseBoolean(accountActive)) {
-            True.setSelected(true);
-        }
-        else {
-            False.setSelected(true);
+        String account = HttpController.excuteGet(FrontEnd.HOST + "/searchPhotographer?username=" + tbSearch.getText());
+        try {
+            Photographer photographer = gson.fromJson(account, Photographer.class);
+            lbUsernameText.setText(photographer.getUsername());
+            tbAddress.setText(photographer.getAddress());
+            tbBank.setText(photographer.getBankAccount());
+            tbCity.setText(photographer.getCity());
+            tbCompany.setText(photographer.getCompanyName());
+            tbEmail.setText(photographer.getEmail());
+            tbName.setText(photographer.getName());
+            tbZipcode.setText(photographer.getZipcode());
+            tbTelephone.setText(photographer.getTelephone());
+            if (photographer.getActive()) {
+                True.setSelected(true);
+            } else {
+                False.setSelected(true);
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
         }
     }
 
@@ -90,20 +115,19 @@ public class ManagementPhotographerController implements Initializable, Controll
     public void handleSaveButtonAction(ActionEvent event) {
         try {
             gson = new Gson();
-            boolean accountActive;
-            if(True.isSelected()) {
-                accountActive = true;
+            boolean isActive;
+            if (True.isSelected()) {
+                isActive = true;
+            } else {
+                isActive = false;
             }
-            else {
-                accountActive = false;
-            }
-            Photographer photographer = new Photographer(tbSearch.getText(), accountActive);
-            HttpController.excutePost(FrontEnd.HOST+"/editPhotographerActive", "photographer="+gson.toJson(photographer));
+            Photographer photographer = new Photographer(lbUsernameText.getText(), tbName.getText(), tbAddress.getText(), tbZipcode.getText(), tbCity.getText(), tbEmail.getText(), tbTelephone.getText(), tbCompany.getText(), tbBank.getText(), isActive);
+            HttpController.excutePost(FrontEnd.HOST + "/editPhotographer", "photographer=" + gson.toJson(photographer));
             myController.setScreen(FrontEnd.managementScreen);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
 }

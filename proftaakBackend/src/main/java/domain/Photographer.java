@@ -1,8 +1,6 @@
 package domain;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import interfaces.IDatabase;
 
@@ -13,8 +11,6 @@ public class Photographer extends Account {
 	private String bankAccount;
 	private Boolean active;
 	private static IDatabase db;
-	private ArrayList<Photographer> photographers;
-	private ResultSet rs;
 
 	/**
 	 * Constructor
@@ -31,12 +27,34 @@ public class Photographer extends Account {
 	 * @param bankAccount
 	 */
 	public Photographer(String username, String name, String address,
-			String zipcode, String city, String email, int telephone,
+			String zipcode, String city, String email, String telephone,
 			String companyName, String bankAccount) {
 		super(username, name, address, zipcode, city, email, telephone);
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
 		this.active = false;
+	}
+	
+	/**
+	 * Constructor
+	 * @param username
+	 * @param name
+	 * @param address
+	 * @param zipcode
+	 * @param city
+	 * @param email
+	 * @param telephone
+	 * @param companyName
+	 * @param bankAccount
+	 * @param isActive
+	 */
+	public Photographer(String username, String name, String address,
+			String zipcode, String city, String email, String telephone,
+			String companyName, String bankAccount, boolean isActive) {
+		super(username, name, address, zipcode, city, email, telephone);
+		this.companyName = companyName;
+		this.bankAccount = bankAccount;
+		this.active = isActive;
 	}
 
 	/**
@@ -110,35 +128,25 @@ public class Photographer extends Account {
 		this.photographerID = photographerID;
 	}
 
-
-	
-	
-	public void registerPhotographer()
-	{
+	public void registerPhotographer() {
 		int accountdbid = super.register();
-		if(accountdbid != 0)
-		{
-			System.out.println("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
-						+ accountdbid
-						+ "','"
-						+ this.companyName
-						+ "','"
-						+ this.bankAccount
-						+ "','"
-						+ 0						
-						+ "')");
+		if (accountdbid != 0) {
+			System.out
+					.println("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+							+ accountdbid
+							+ "','"
+							+ this.companyName
+							+ "','"
+							+ this.bankAccount + "','" + 0 + "')");
 			db = controllers.DatabaseController.getInstance();
-				db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
-						+ accountdbid
-						+ "','"
-						+ this.companyName
-						+ "','"
-						+ this.bankAccount
-						+ "','"
-						+ 0						
-						+ "')");
+			db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
+					+ accountdbid
+					+ "','"
+					+ this.companyName
+					+ "','"
+					+ this.bankAccount + "','" + 0 + "')");
 		}
-		
+
 	}
 
 	/**
@@ -147,16 +155,34 @@ public class Photographer extends Account {
 	 * @param username
 	 * @return accountID or -1 if not found
 	 */
-	public void enableDisablePhotographer() {
+	public void editPhotographer() {
 		try {
-			System.out.print(getUsername());
-			System.out.print(this.active);
 			db = controllers.DatabaseController.getInstance();
-			ResultSet rs = db.select("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
+			ResultSet rs = db.select("SELECT accountID "
+					+ "FROM Account "
+					+ "WHERE username='"
+					+ getUsername() + "'");
 			rs.next();
-			System.out.print(rs.getInt("accountID"));
-			System.out.print("SELECT accountID FROM Account WHERE username='" + getUsername() +"'");
-			db.update("UPDATE Photographer SET isActive = " + this.active + " WHERE Photographer.accountID = "+ rs.getInt("accountID") + "");
+			db.update("UPDATE Account JOIN Photographer "
+					+ "ON Account.accountID = Photographer.accountID "
+					+ "SET name ='"+ this.getName() 
+					+ "', companyname ='"+ this.getCompanyName() 
+					+ "', isActive =" + this.active 
+					+ ", address ='" + this.getAddress() 
+					+ "', zipcode ='" + this.getZipcode() 
+					+ "', city ='" + this.getCity() 
+					+ "', email ='"+ this.getEmail() 
+					+ "', telephone ='"+ this.getTelephone()
+					+ "' WHERE Photographer.accountID = " + rs.getInt("accountID") + "");
+//			db.update("UPDATE Photographer SET companyname = "+ this.companyName +", isActive = " + this.active 
+//					+ " WHERE Photographer.accountID = "
+//					+ rs.getInt("accountID") + "");
+//			db.update("UPDATE Account SET name ="+ this.getName() 
+//					+ ", address ="+ this.getAddress() 
+//					+ ", zipcode ="+ this.getZipcode() 
+//					+ ", city ="+ this.getCity() 
+//					+ ", email ="+ this.getEmail() 
+//					+ ", telephone ="+ this.getTelephone() + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

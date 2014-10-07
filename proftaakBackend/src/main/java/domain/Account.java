@@ -1,8 +1,5 @@
 package domain;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,7 +15,7 @@ public class Account {
 	private String zipcode;
 	private String city;
 	private String email;
-	private int telephone;
+	private String telephone;
 	private static IDatabase db;
 
 	/**
@@ -44,7 +41,7 @@ public class Account {
 	 * @param telephone
 	 */
 	public Account(String username, String name, String address,
-			String zipcode, String city, String email, int telephone) {
+			String zipcode, String city, String email, String telephone) {
 		super();
 		this.username = username;
 		this.name = name;
@@ -58,7 +55,7 @@ public class Account {
 	/**
 	 * @return the telephone
 	 */
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
@@ -66,7 +63,7 @@ public class Account {
 	 * @param telephone
 	 *            the telephone to set
 	 */
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
@@ -207,7 +204,7 @@ public class Account {
 				return null;
 			} else {
 				try {
-					Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getInt("telephone"));
+					Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getString("telephone"));
 					return a;
 				} catch (SQLException e) {
 					e.printStackTrace();
