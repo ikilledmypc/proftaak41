@@ -8,6 +8,7 @@ package Controller;
 import Controller.HttpController;
 import com.google.gson.Gson;
 import domain.Account;
+import domain.Photographer;
 import frontend.FrontEnd;
 import java.math.BigInteger;
 import java.net.URL;
@@ -28,6 +29,7 @@ import javafx.scene.control.TextField;
  * @author Baya
  */
 public class LoginScreenController implements Initializable, ControlledScreen {
+
     ScreensController myController;
     @FXML
     TextField TF_username;
@@ -43,20 +45,27 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     @FXML
-    public void login(){
+    public void login() {
         try {
             Gson gson = new Gson();
             MessageDigest msgd = MessageDigest.getInstance("MD5");
-            String password  = new BigInteger(1,msgd.digest(TF_password.getText().getBytes())).toString(16);
-            String accounts = HttpController.excuteGet(FrontEnd.HOST+"/authenticateAndGet?username="+TF_username.getText()+"&password="+password);
-            if(!accounts.equalsIgnoreCase("")){
-                Account a = gson.fromJson(accounts, Account.class);
-                System.out.println("Hallo "+a.getName()+"!");
-                LB_error.setText("Hallo "+a.getName()+"!");
-            }else{
-                LB_error.setText("verkeerde gebruikersnaam/wachtwoord");
+            String password = new BigInteger(1, msgd.digest(TF_password.getText().getBytes())).toString(16);
+            String accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGetPhotographer?username=" + TF_username.getText() + "&password=" + password);
+            if (!accounts.equalsIgnoreCase("")) {
+                Photographer a = gson.fromJson(accounts, Photographer.class);
+                System.out.println("Hallo Photographer " + a.getName() + "!");
+                LB_error.setText("Hallo Photographer " + a.getName() + "!");
+            } else {
+                accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
+                if (!accounts.equalsIgnoreCase("")) {
+                    Account a = gson.fromJson(accounts, Account.class);
+                    System.out.println("Hallo " + a.getName() + "!");
+                    LB_error.setText("Hallo " + a.getName() + "!");
+                } else {
+                    LB_error.setText("verkeerde gebruikersnaam/wachtwoord");
+                }
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +76,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-    
+
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.mainScreen);

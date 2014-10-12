@@ -51,6 +51,19 @@ public class Account {
 		this.email = email;
 		this.telephone = telephone;
 	}
+	
+	public Account(int accountID,String username, String name, String address,
+			String zipcode, String city, String email, String telephone) {
+		super();
+		this.accountID = accountID;
+		this.username = username;
+		this.name = name;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.city = city;
+		this.email = email;
+		this.telephone = telephone;
+	}
 
 	/**
 	 * @return the telephone
@@ -204,7 +217,7 @@ public class Account {
 				return null;
 			} else {
 				try {
-					Account a = new Account(rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getString("telephone"));
+					Account a = new Account(rs.getInt("accountID"),rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getString("telephone"));
 					return a;
 				} catch (SQLException e) {
 					e.printStackTrace();

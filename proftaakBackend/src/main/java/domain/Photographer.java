@@ -1,6 +1,7 @@
 package domain;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import interfaces.IDatabase;
 
@@ -147,6 +148,54 @@ public class Photographer extends Account {
 					+ this.bankAccount + "','" + 0 + "')");
 		}
 
+	}
+	
+	/**
+	 * Authenticate a photographer
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	
+	public static Photographer authenticate(String username, String password)
+	{
+		Account a = Account.authenticate(username, password);
+		if(a == null)
+		{
+			return null;
+		}
+		db = controllers.DatabaseController.getInstance();
+		ResultSet rs = db.select("select * from Photographer where accountID = '"+a.getAccountID()+"'");
+		
+		try {
+			if(!rs.next())
+			{
+				return null;
+			}
+			else
+			{
+				try{
+					boolean isActive = false;
+					if(rs.getInt("isActive") == 1)
+					{
+						isActive = true;
+					}
+					
+					
+					Photographer p = new Photographer(a.getUsername(),a.getName(),a.getAddress(),a.getZipcode(),a.getCity(),a.getEmail(),a.getTelephone(),rs.getString("companyName"),rs.getString("bankAccount"),isActive);
+					return p;
+				}
+				catch(SQLException e)
+				{
+					e.printStackTrace();
+				}
+				return null;
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
