@@ -20,7 +20,7 @@ import domain.Photo;
 public class FotoController {
 	
 	@RequestMapping(value = "/getAllPhotos", method = RequestMethod.GET)
-	public String getAllPhotos(@RequestParam(value = "code", required = true) String code){
+	public String getAllPhotos(@RequestParam(value = "code", required = true) String code,@RequestParam(value="accountID", required=true)int accountID){
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		ArrayList<Integer> photogroupIDs = new ArrayList<Integer>();
 		ArrayList<Integer> photoIds = new ArrayList<Integer>();
@@ -30,6 +30,7 @@ public class FotoController {
 		ResultSet rst = db.select("SELECT photogroupID FROM photoGroup WHERE code = '"+ code +"'");
 		try {
 			while(rst.next()){
+				db.insert("insert into code_redeemed_account (accountID,photogroupID) VALUES ('"+accountID +"','"+rst.getInt("photogroupID") +"')");
 				photogroupIDs.add(rst.getInt("photogroupID"));
 			}
 		} catch (SQLException e) {

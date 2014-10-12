@@ -58,7 +58,12 @@ public class DownloadScreenController implements Initializable, ControlledScreen
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();
-        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText());
+        if(MainController.loggedInAccount == null)
+        {
+            System.out.println("User not logged in");
+            return;
+        }
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText()+"&accountID="+MainController.loggedInAccount.getAccountID());
         if(!returnedPhotos.equalsIgnoreCase("")) {
             ArrayList<Photo> getPhotos = new ArrayList();
             getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());

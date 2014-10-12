@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import domain.Account;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +20,7 @@ import javafx.fxml.Initializable;
 public class MainController implements Initializable, ControlledScreen {
 
     ScreensController myController;
+    static Account loggedInAccount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

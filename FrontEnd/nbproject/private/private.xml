@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/Users/Mike/Dropbox/school/P7/PTS4lokaal/proftaak41/FrontEnd/src/frontend/ManagementPhotographerController.java</file>
-=======
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/domain/Photographer.java</file>
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/classes/Photo.java</file>
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/frontend/DownloadScreenController.java</file>
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/Controller/HttpController.java</file>
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/domain/Photo.java</file>
-            <file>file:/home/tim/git/proftaak41/FrontEnd/src/frontend/RegisterScreenController.java</file>
->>>>>>> master
+            <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/Controller/LoginScreenController.java</file>
+            <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/Controller/DownloadScreenController.java</file>
+            <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/domain/Photographer.java</file>
+            <file>file:/C:/Users/luke/git/proftaak41/FrontEnd/src/Controller/MainController.java</file>
         </group>
     </open-files>
 </project-private>

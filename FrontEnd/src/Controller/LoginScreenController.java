@@ -61,6 +61,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
                 if (!accounts.equalsIgnoreCase("")) {
                     Account a = gson.fromJson(accounts, Account.class);
+                    MainController.loggedInAccount = a;
                     System.out.println("Hallo " + a.getName() + "!");
                     LB_error.setText("Hallo " + a.getName() + "!");
                 } else {
