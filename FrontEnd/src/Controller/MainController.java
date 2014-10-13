@@ -61,4 +61,9 @@ public class MainController implements Initializable, ControlledScreen {
     private void handlePhotographerAction(ActionEvent event) {
         myController.setScreen(FrontEnd.managementScreen);
     }
+    
+    @FXML
+    private void handleBuyAction(ActionEvent event) {
+        myController.setScreen(FrontEnd.buyItemScreen);
+    }
 }
