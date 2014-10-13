@@ -16,7 +16,6 @@ public class Photographer extends Account {
 	/**
 	 * Constructor
 	 *
-	 * @param accountID
 	 * @param username
 	 * @param name
 	 * @param address
