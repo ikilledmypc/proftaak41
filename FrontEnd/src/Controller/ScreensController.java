@@ -6,8 +6,13 @@
 package Controller;
 
 import Controller.ControlledScreen;
+import domain.Account;
+import frontend.FrontEnd;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -56,6 +61,23 @@ public class ScreensController extends StackPane {
             return false;
         }
     }
+    
+    public boolean loadAccountScreen(String name, String resource,Account a) {
+        try {
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+            Parent loadScreen = (Parent) myLoader.load();
+            ControlledAccountScreen myScreenController = ((ControlledAccountScreen) myLoader.getController());
+            myScreenController.setScreenParent(this);
+            myScreenController.setAccount(a);
+            addScreen(name, loadScreen);
+            return true;
+        } catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+   
     
     public boolean setScreen(final String name) {
         if(screens.get(name) != null) {

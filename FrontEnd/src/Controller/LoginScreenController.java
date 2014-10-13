@@ -53,17 +53,25 @@ public class LoginScreenController implements Initializable, ControlledScreen {
             MessageDigest msgd = MessageDigest.getInstance("MD5");
             String password = new BigInteger(1, msgd.digest(TF_password.getText().getBytes())).toString(16);
             String accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGetPhotographer?username=" + TF_username.getText() + "&password=" + password);
-            if (!accounts.equalsIgnoreCase("")) {
+            if (!accounts.isEmpty()) {
                 Photographer a = gson.fromJson(accounts, Photographer.class);
                 System.out.println("Hallo Photographer " + a.getName() + "!");
                 LB_error.setText("Hallo Photographer " + a.getName() + "!");
+                    myController.loadAccountScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML,a);
             } else {
                 accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
                 if (!accounts.equalsIgnoreCase("")) {
-                    Account a = gson.fromJson(accounts, Account.class);
-                    MainController.loggedInAccount = a;
+                    Account a = gson.fromJson(accounts, Account.class);                    
                     System.out.println("Hallo " + a.getName() + "!");
                     LB_error.setText("Hallo " + a.getName() + "!");
+                    myController.loadAccountScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML,a);
+                    myController.loadAccountScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML,a);
+                    myController.setScreen(FrontEnd.mainScreen);
                 } else {
                     LB_error.setText("verkeerde gebruikersnaam/wachtwoord");
                 }
@@ -77,9 +85,10 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-
+    
     @FXML
-    public void handleBackButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.mainScreen);
+    public void register(){
+        myController.setScreen(FrontEnd.registerScreen);
     }
+
 }

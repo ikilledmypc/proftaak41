@@ -28,7 +28,7 @@ import javafx.scene.image.ImageView;
  *
  * @author tim
  */
-public class BuyItemScreenController implements Initializable,ControlledScreen {
+public class BuyItemScreenController extends ControlledAccountScreen implements Initializable {
 
     /**
      * Initializes the controller class.

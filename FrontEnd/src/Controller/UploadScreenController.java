@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
  *
  * @author Baya
  */
-public class UploadScreenController implements Initializable, ControlledScreen {
+public class UploadScreenController extends ControlledAccountScreen implements Initializable {
     
     ScreensController myController;
     

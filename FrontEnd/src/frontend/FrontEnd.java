@@ -39,17 +39,17 @@ public class FrontEnd extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
         System.out.println("test");
         mainContainer.loadScreen(FrontEnd.loginScreen, FrontEnd.loginScreenFXML);
         mainContainer.loadScreen(FrontEnd.registerScreen, FrontEnd.registerScreenFXML);
-        mainContainer.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
-        mainContainer.loadScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML);
-        mainContainer.loadScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML);
-        mainContainer.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
-        mainContainer.loadScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
+//        mainContainer.loadScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML);
 
-        mainContainer.setScreen(FrontEnd.mainScreen);
+        mainContainer.setScreen(FrontEnd.loginScreen);
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
