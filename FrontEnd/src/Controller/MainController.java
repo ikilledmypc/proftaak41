@@ -70,4 +70,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
     private void handleBuyAction(ActionEvent event) {
         myController.setScreen(FrontEnd.buyItemScreen);
     }
+    @FXML
+    public void opencart(){
+        myController.loadAccountScreen("cart", "/view/CartFXML.fxml", loggedInAccount);
+        myController.setScreen("cart");
+    }
 }
