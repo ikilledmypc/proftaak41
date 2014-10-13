@@ -17,14 +17,18 @@ import javafx.fxml.Initializable;
  *
  * @author Baya
  */
-public class MainController implements Initializable, ControlledScreen {
+public class MainController extends ControlledAccountScreen implements Initializable {
 
     ScreensController myController;
-    static Account loggedInAccount;
+    private Account loggedInAccount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public void SetAccount(Account a){
+        this.loggedInAccount = a;
     }
 
     @Override

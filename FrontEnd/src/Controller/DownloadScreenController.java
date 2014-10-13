@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Baya
  */
-public class DownloadScreenController implements Initializable, ControlledScreen {
+public class DownloadScreenController extends ControlledAccountScreen implements Initializable {
     
     ScreensController myController;
     ObservableList<Photo> photos;
@@ -58,12 +58,12 @@ public class DownloadScreenController implements Initializable, ControlledScreen
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();
-        if(MainController.loggedInAccount == null)
-        {
-            System.out.println("User not logged in");
-            return;
-        }
-        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText()+"&accountID="+MainController.loggedInAccount.getAccountID());
+//        if(MainController.loggedInAccount == null)
+//        {
+//            System.out.println("User not logged in");
+//            return;
+//        }
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText()+"&accountID="+this.loggedInAccount.getAccountID());
         if(!returnedPhotos.equalsIgnoreCase("")) {
             ArrayList<Photo> getPhotos = new ArrayList();
             getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());

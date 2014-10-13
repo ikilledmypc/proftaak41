@@ -123,9 +123,9 @@ public class RegisterScreenController implements Initializable, ControlledScreen
             LB_error.setText("geen geldig telefoonnummer");
             return false;
         }
-        if (!TB_password.getText().matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,8}$")) {
+        if (!TB_password.getText().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
             TB_password.requestFocus();
-            LB_error.setText("wachtwoord moet minimaal 1 hoofdletter, kleine letter, en cijfer bevatten en 6-13 lang zijn");
+            LB_error.setText("wachtwoord moet minimaal 1 hoofdletter, kleine letter, een cijfer , een vreemd teken bevatten en 8 lang zijn");
             return false;
         }
 
@@ -139,7 +139,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
 
     @FXML
     public void handleBackButtonAction(ActionEvent even) {
-        myController.setScreen(FrontEnd.mainScreen);
+        myController.setScreen(FrontEnd.loginScreen);
     }
 
 }

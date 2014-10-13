@@ -59,16 +59,6 @@ public class RegisterController {
 	    return json;
 	}
     
-    @RequestMapping("/authenticateAndGet")
-    public Account authenticateAndGet(@RequestParam(value="username", required=true)String username,@RequestParam(value="password", required=true)String password){
-    	Account a = Account.authenticate(username, password);
-    	return a;
-    }
     
-    @RequestMapping("/authenticateAndGetPhotographer")
-    public Photographer authenticateAndGetPhotographer(@RequestParam(value="username", required=true)String username,@RequestParam(value="password", required=true)String password){
-    	Photographer a = Photographer.authenticate(username, password);
-    	return a;
-    }
 
 }
