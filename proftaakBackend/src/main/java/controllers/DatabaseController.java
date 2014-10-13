@@ -99,7 +99,6 @@ public class DatabaseController implements IDatabase {
 		try {
 			if(connect()){
 			statement = con.createStatement();
-			connect();
 			result = statement.executeQuery(s);
 			closeConnection();
 			}
@@ -116,7 +115,6 @@ public class DatabaseController implements IDatabase {
 		try {
 			if(connect()){
 			statement = con.createStatement();			
-			connect();
 			statement.executeUpdate(s,Statement.RETURN_GENERATED_KEYS);
 			result = statement.getGeneratedKeys();
 			closeConnection();
@@ -135,7 +133,6 @@ public class DatabaseController implements IDatabase {
 		try {
 			if(connect()){
 			statement = con.createStatement();
-			connect();
 			statement.executeUpdate(s);
 			closeConnection();
 			}
@@ -153,7 +150,6 @@ public class DatabaseController implements IDatabase {
 		try {
 			if (connect()) {
 				statement = con.createStatement();
-				connect();
 				statement.executeUpdate(s);
 				closeConnection();
 			}

@@ -22,6 +22,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -34,9 +36,11 @@ import javafx.util.Duration;
 public class ScreensController extends StackPane {
     
     private HashMap<String, Node> screens = new HashMap<>();
+    private Stage stage;
     
-    public ScreensController() {
+    public ScreensController(Stage s) {
         super();
+        this.stage = s;
     }
     
     public void addScreen(String name, Node screen) {
@@ -91,7 +95,10 @@ public class ScreensController extends StackPane {
                     @Override
                     public void handle(ActionEvent t) {
                         getChildren().remove(0);
-                        getChildren().add(0, screens.get(name));
+                        AnchorPane n =  (AnchorPane) screens.get(name);
+                        getChildren().add(0,n );
+                        stage.setWidth(n.getPrefWidth());
+                        stage.setHeight(n.getPrefHeight());
                         Timeline fadeIn = new Timeline(
                             new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                             new KeyFrame(new Duration(400), new KeyValue(opacity, 1.0)));

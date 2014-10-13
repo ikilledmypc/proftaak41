@@ -12,11 +12,11 @@
         <Font size="14.0" />
       </font>
     </Label>
-    <Label layoutX="102.0" layoutY="194.0" text="Username:" textAlignment="RIGHT" />
-    <Label layoutX="104.0" layoutY="222.0" text="Password:" textAlignment="RIGHT" />
+    <Label layoutX="88.0" layoutY="194.0" text="Username:" textAlignment="RIGHT" />
+    <Label layoutX="91.0" layoutY="223.0" text="Password:" textAlignment="RIGHT" />
     <TextField fx:id="TF_username" layoutX="167.0" layoutY="190.0" prefHeight="25.0" prefWidth="187.0" />
     <PasswordField fx:id="TF_password" layoutX="167.0" layoutY="218.0" prefHeight="25.0" prefWidth="187.0" />
-    <Button layoutX="263.0" layoutY="256.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="91.0" text="Login" />
+    <Button defaultButton="true" layoutX="263.0" layoutY="256.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="91.0" text="Login" />
     <Label fx:id="LB_error" layoutX="14.0" layoutY="63.0" prefHeight="58.0" prefWidth="481.0" textAlignment="CENTER" textFill="RED" wrapText="true">
 <font>
 <Font name="System Bold" size="24.0" />
