@@ -2,6 +2,8 @@ package domain;
 
 public class Status {
 
+	
+
 	private int statusID;
 	private String status;
 
@@ -12,6 +14,16 @@ public class Status {
 	 */
 	public Status(String status) {
 		super();
+		this.status = status;
+	}
+	
+	/**
+	 * @param statusID
+	 * @param status
+	 */
+	public Status(int statusID, String status) {
+		super();
+		this.statusID = statusID;
 		this.status = status;
 	}
 
