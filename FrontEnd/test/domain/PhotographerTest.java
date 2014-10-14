@@ -18,6 +18,21 @@ import static org.junit.Assert.*;
  */
 public class PhotographerTest {
     
+    Photographer photographer;
+	Photographer photographer2;
+	
+	int photographerID = 1;
+	String username = "username";
+	String name = "name";
+	String address = "address";
+	String zipcode = "zipcode";
+	String city = "city";
+	String email = "email";
+	String telephone = "telephone";
+	String companyName = "companyName";
+	String bankAccount = "bankAccount";
+	boolean isActive = true;
+    
     public PhotographerTest() {
     }
     
@@ -31,6 +46,8 @@ public class PhotographerTest {
     
     @Before
     public void setUp() {
+        photographer = new Photographer(username, name, address, zipcode, city, email, telephone, companyName, bankAccount, isActive);
+	photographer2 = new Photographer(username, isActive);
     }
     
     @After
@@ -42,13 +59,7 @@ public class PhotographerTest {
      */
     @Test
     public void testGetActive() {
-        System.out.println("getActive");
-        Photographer instance = null;
-        Boolean expResult = null;
-        Boolean result = instance.getActive();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(true, photographer2.getActive());
     }
 
     /**
@@ -56,12 +67,8 @@ public class PhotographerTest {
      */
     @Test
     public void testSetActive() {
-        System.out.println("setActive");
-        Boolean active = null;
-        Photographer instance = null;
-        instance.setActive(active);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        photographer2.setActive(false);
+        assertEquals(false, photographer2.getActive());
     }
 
     /**
@@ -69,13 +76,7 @@ public class PhotographerTest {
      */
     @Test
     public void testGetBankAccount() {
-        System.out.println("getBankAccount");
-        Photographer instance = null;
-        String expResult = "";
-        String result = instance.getBankAccount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("name", photographer.getName());
     }
 
     /**
@@ -83,12 +84,8 @@ public class PhotographerTest {
      */
     @Test
     public void testSetBankAccount() {
-        System.out.println("setBankAccount");
-        String bankAccount = "";
-        Photographer instance = null;
-        instance.setBankAccount(bankAccount);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        photographer.setBankAccount("NL87INGB6868865");
+		assertEquals("NL87INGB6868865", photographer.getBankAccount());
     }
 
     /**
@@ -96,13 +93,7 @@ public class PhotographerTest {
      */
     @Test
     public void testGetCompanyName() {
-        System.out.println("getCompanyName");
-        Photographer instance = null;
-        String expResult = "";
-        String result = instance.getCompanyName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("companyName", photographer.getCompanyName());
     }
 
     /**
@@ -110,39 +101,7 @@ public class PhotographerTest {
      */
     @Test
     public void testSetCompanyName() {
-        System.out.println("setCompanyName");
-        String companyName = "";
-        Photographer instance = null;
-        instance.setCompanyName(companyName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        photographer.setCompanyName("test");
+		assertEquals("test", photographer.getCompanyName());
     }
-
-    /**
-     * Test of getPhotographerID method, of class Photographer.
-     */
-    @Test
-    public void testGetPhotographerID() {
-        System.out.println("getPhotographerID");
-        Photographer instance = null;
-        int expResult = 0;
-        int result = instance.getPhotographerID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setPhotographerID method, of class Photographer.
-     */
-    @Test
-    public void testSetPhotographerID() {
-        System.out.println("setPhotographerID");
-        int photographerID = 0;
-        Photographer instance = null;
-        instance.setPhotographerID(photographerID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
