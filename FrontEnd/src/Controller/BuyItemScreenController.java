@@ -57,7 +57,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
        CMB_items.valueProperty().addListener(new ChangeListener<Product>(){
            @Override
            public void changed(ObservableValue<? extends Product> observable, Product oldValue, Product newValue) {
-               LBL_productPrice.setText(newValue.getMaterialPrice()+"");
+               LBL_productPrice.setText("\u20ac"+newValue.getMaterialPrice()+"");
            }           
        });
        
@@ -72,6 +72,14 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+    }
+    
+    @FXML
+    public void addToCart(){
+        Gson gson = new Gson();
+        Product p = (Product) CMB_items.getSelectionModel().getSelectedItem();        
+        String sProduct = gson.toJson(p);
+        HttpController.excutePost(FrontEnd.HOST+"/addToCart", "product="+sProduct+"&username="+this.loggedInAccount.getUsername());
     }
     
 }
