@@ -3,6 +3,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import controllers.DatabaseController;
 import interfaces.IDatabase;
 
 public class Account {
@@ -16,7 +17,7 @@ public class Account {
 	private String city;
 	private String email;
 	private String telephone;
-	private static IDatabase db;
+
 
 	/**
 	 * Constructor
@@ -178,7 +179,7 @@ public class Account {
 	}
 
 	public int register() {
-
+		DatabaseController db = DatabaseController.getInstance();
 		ResultSet result;
 		db = controllers.DatabaseController.getInstance();
 		result = db.insert("insert into account (username,password,name,address,zipcode,city,email,telephone) values ('"
@@ -209,7 +210,7 @@ public class Account {
 	}
 
 	public static Account authenticate(String username, String password) {
-		db = controllers.DatabaseController.getInstance();
+		DatabaseController db = controllers.DatabaseController.getInstance();
 		ResultSet rs = db.select("select * from Account where username ='"
 				+ username + "' and password='" + password+"'");
 		try {
@@ -218,6 +219,7 @@ public class Account {
 			} else {
 				try {
 					Account a = new Account(rs.getInt("accountID"),rs.getString("username"),rs.getString("name"),rs.getString("address"),rs.getString("zipcode"),rs.getString("city"),rs.getString("email"),rs.getString("telephone"));
+					db.closeConnection();
 					return a;
 				} catch (SQLException e) {
 					e.printStackTrace();

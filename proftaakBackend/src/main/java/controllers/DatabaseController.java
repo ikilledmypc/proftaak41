@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author MSI
  */
-public class DatabaseController implements IDatabase {
+public class DatabaseController implements IDatabase{
 
 	private ResultSet result;
 	private Statement statement;
@@ -31,7 +31,7 @@ public class DatabaseController implements IDatabase {
 	private String userName;
 	private String passWord;
 	private Connection con;
-	private static DatabaseController instance = null;
+	private static DatabaseController instance ;
 
 	/**
 	 * Constructor
@@ -100,7 +100,7 @@ public class DatabaseController implements IDatabase {
 			if(connect()){
 			statement = con.createStatement();
 			result = statement.executeQuery(s);
-			closeConnection();
+			//closeConnection();
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(
