@@ -19,7 +19,7 @@ import domain.Photographer;
 public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String logs(@RequestParam("account") String json) {
+	public String register(@RequestParam("account") String json) {
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Account account = (Account) jsonManager.fromJson(json, Account.class);
 		account.register();
@@ -27,7 +27,7 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/registerPhotographer", method = RequestMethod.POST)
-	public String logsPhotographer(@RequestParam("photographer") String json) {
+	public String registerPhotographer(@RequestParam("photographer") String json) {
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Photographer photographer = (Photographer) jsonManager.fromJson(json, Photographer.class);
 		photographer.registerPhotographer();
@@ -52,11 +52,10 @@ public class RegisterController {
 	}
 	
     @RequestMapping("/test2")
-	public String test2(@RequestParam(value="username", required=true)String username) {
-		JsonManager jsonManager = JsonManager.GetInstance();
-		Account a = new Account("testuser","jaap","nowareinnoware 13","1234AB","noware","info@test.nl","1235663345");
-		String json = jsonManager.toJson(a);
-	    return json;
+	public Account test2() {
+		Photographer f = new Photographer("username","name","address","zipcode","city","email","telephone","compname","1");
+		
+	    return (Account) f;
 	}
     
     
