@@ -3,7 +3,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import interfaces.IDatabase;
+import controllers.DatabaseController;
 
 public class Photographer extends Account {
 
@@ -11,7 +11,6 @@ public class Photographer extends Account {
 	private String companyName;
 	private String bankAccount;
 	private Boolean active;
-	private static IDatabase db;
 
 	/**
 	 * Constructor
@@ -52,6 +51,29 @@ public class Photographer extends Account {
 			String zipcode, String city, String email, String telephone,
 			String companyName, String bankAccount, boolean isActive) {
 		super(username, name, address, zipcode, city, email, telephone);
+		this.companyName = companyName;
+		this.bankAccount = bankAccount;
+		this.active = isActive;
+	}
+	
+	/**
+	 * Constructor
+	 * @param username
+	 * @param name
+	 * @param address
+	 * @param zipcode
+	 * @param city
+	 * @param email
+	 * @param telephone
+	 * @param companyName
+	 * @param bankAccount
+	 * @param isActive
+	 */
+	public Photographer(int accountID,String username, String name, String address,
+			String zipcode, String city, String email, String telephone,
+			String companyName, String bankAccount, boolean isActive) {
+		super(accountID,username, name, address, zipcode, city, email, telephone);
+		this.photographerID = accountID;
 		this.companyName = companyName;
 		this.bankAccount = bankAccount;
 		this.active = isActive;
@@ -138,13 +160,14 @@ public class Photographer extends Account {
 							+ this.companyName
 							+ "','"
 							+ this.bankAccount + "','" + 0 + "')");
-			db = controllers.DatabaseController.getInstance();
+			DatabaseController db = controllers.DatabaseController.getInstance();
 			db.insert("insert into photographer (accountID, companyname, bankaccount, isActive) values ('"
 					+ accountdbid
 					+ "','"
 					+ this.companyName
 					+ "','"
 					+ this.bankAccount + "','" + 0 + "')");
+			db.closeConnection();
 		}
 
 	}
@@ -156,20 +179,20 @@ public class Photographer extends Account {
 	 * @return
 	 */
 	
-	public static Photographer authenticate(String username, String password)
+	public static Account authenticate(String username, String password)
 	{
 		Account a = Account.authenticate(username, password);
 		if(a == null)
 		{
 			return null;
 		}
-		db = controllers.DatabaseController.getInstance();
+		DatabaseController db = controllers.DatabaseController.getInstance();
 		ResultSet rs = db.select("select * from Photographer where accountID = '"+a.getAccountID()+"'");
 		
 		try {
 			if(!rs.next())
 			{
-				return null;
+				return a;
 			}
 			else
 			{
@@ -181,8 +204,10 @@ public class Photographer extends Account {
 					}
 					
 					
-					Photographer p = new Photographer(a.getUsername(),a.getName(),a.getAddress(),a.getZipcode(),a.getCity(),a.getEmail(),a.getTelephone(),rs.getString("companyName"),rs.getString("bankAccount"),isActive);
+					Photographer p = new Photographer(a.getAccountID(),a.getUsername(),a.getName(),a.getAddress(),a.getZipcode(),a.getCity(),a.getEmail(),a.getTelephone(),rs.getString("companyName"),rs.getString("bankAccount"),isActive);
+					db.closeConnection();
 					return p;
+					
 				}
 				catch(SQLException e)
 				{
@@ -205,7 +230,7 @@ public class Photographer extends Account {
 	 */
 	public void editPhotographer() {
 		try {
-			db = controllers.DatabaseController.getInstance();
+			DatabaseController db = controllers.DatabaseController.getInstance();
 			ResultSet rs = db.select("SELECT accountID "
 					+ "FROM Account "
 					+ "WHERE username='"
