@@ -7,11 +7,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BuyItemScreenController">
+<AnchorPane id="AnchorPane" prefHeight="431.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BuyItemScreenController">
    <children>
       <ImageView fx:id="IMG_photo" fitHeight="285.0" fitWidth="397.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ComboBox fx:id="CMB_items" layoutX="14.0" layoutY="307.0" prefHeight="25.0" prefWidth="230.0" />
-      <Button fx:id="BT_addToCart" layoutX="436.0" layoutY="348.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="150.0" text="add to cart" />
+      <Button fx:id="BT_addToCart" layoutX="436.0" layoutY="348.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="150.0" text="add to cart" />
       <Label layoutX="264.0" layoutY="312.0" text="price product:" />
       <Label layoutX="264.0" layoutY="333.0" text="price photo:" />
       <Label layoutX="321.0" layoutY="356.0" text="total:" />

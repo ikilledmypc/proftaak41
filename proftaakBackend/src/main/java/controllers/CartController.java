@@ -14,7 +14,7 @@ import domain.ShoppingCart;
 
 @RestController
 public class CartController {
-	HashMap<String,ShoppingCart> carts;
+	HashMap<String,ShoppingCart> carts = new HashMap<>();
 	
 	@RequestMapping(value="/setCart", method=RequestMethod.POST)
 	public void setCart(@RequestParam(value = "username", required = true) String username,
@@ -25,24 +25,29 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/addToCart", method=RequestMethod.POST)
-	public void addToCart(@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "product", required = true) String product,@RequestParam(value = "id", required = true) int id){
+	public String addToCart(@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "product", required = true) String product){
 		Gson gson = new Gson();
 		Product oproduct = gson.fromJson(product, Product.class);
-		ShoppingCart sc = getCart(username);
+		ShoppingCart sc = carts.get(username);
 		if(sc!=null){
-			sc.putProduct(id, oproduct);
+			sc.putProduct(oproduct);
+			System.out.println("product added to cart");
+			return gson.toJson(sc);
 		}else{
+			System.out.println("no cart found: creating one");
 			ShoppingCart shopcart = new ShoppingCart();
-			shopcart.putProduct(id, oproduct);
+			shopcart.putProduct(oproduct);
 			carts.put(username, shopcart);
+			return gson.toJson(shopcart);
 		}
+		
 	}
 	
 	@RequestMapping(value="/getCart", method=RequestMethod.GET)
-	public ShoppingCart getCart(@RequestParam(value = "username", required = true) String username){
-		return carts.get(username);
-		
+	public String getCart(@RequestParam(value = "username", required = true) String username){
+		Gson gson = new Gson();
+		return gson.toJson(carts.get(username));		
 	}
 
 }

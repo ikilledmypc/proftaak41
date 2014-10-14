@@ -13,7 +13,7 @@ public class Product {
 	private int productID;
 	private String name;
 	private float materialPrice;
-	private Photo foto;
+	private Photo photo;
 
 	/**
 	 * Constructor
@@ -26,14 +26,27 @@ public class Product {
 		this.name = name;
 		this.materialPrice = materialPrice;
 	}
+	public Product(int productID, String name, float materialPrice,Photo photo) {
+		super();
+		this.productID = productID;
+		this.name = name;
+		this.materialPrice = materialPrice;
+		this.photo = photo;
+	}
 
 
 	public Product(String name, float materialPrice, Photo foto) {
 		super();
 		this.name = name;
 		this.materialPrice = materialPrice;
-		this.foto = foto;
+		this.photo = foto;
 	}
+        
+        @Override
+        public String toString(){
+            return this.name + " | \u20ac"+this.materialPrice;
+        }
+        
 	/**
 	 * @return the materialPrice
 	 */
@@ -48,12 +61,6 @@ public class Product {
 	public void setMaterialPrice(float materialPrice) {
 		this.materialPrice = materialPrice;
 	}
-        
-        @Override
-        public String toString(){
-            return name +" | euro:"+ materialPrice;
-            
-        }
 
 	/**
 	 * @return the name

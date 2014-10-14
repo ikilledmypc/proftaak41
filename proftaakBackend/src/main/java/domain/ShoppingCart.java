@@ -6,10 +6,12 @@ import java.util.HashMap;
 
 
 public class ShoppingCart {
-	HashMap<Integer,Product> products;
+	HashMap<Integer,Product> products = new HashMap<>();
+	//ArrayList<Product> products = new ArrayList<>();
 	
-	public void putProduct(int i,Product p){
-		products.put(i,p);
+	public void putProduct(Product p){
+		products.put(products.size(),p);
+		//products.add(p);
 	}
 	
 	public void removeProduct(int i){
