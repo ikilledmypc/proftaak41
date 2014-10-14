@@ -13,7 +13,7 @@ public class Product {
 	private int productID;
 	private String name;
 	private float materialPrice;
-	private Photo foto;
+	private Photo photo;
 
 	/**
 	 * Constructor
@@ -26,13 +26,20 @@ public class Product {
 		this.name = name;
 		this.materialPrice = materialPrice;
 	}
+	public Product(int productID, String name, float materialPrice,Photo photo) {
+		super();
+		this.productID = productID;
+		this.name = name;
+		this.materialPrice = materialPrice;
+		this.photo = photo;
+	}
 
 
 	public Product(String name, float materialPrice, Photo foto) {
 		super();
 		this.name = name;
 		this.materialPrice = materialPrice;
-		this.foto = foto;
+		this.photo = foto;
 	}
 	/**
 	 * @return the materialPrice

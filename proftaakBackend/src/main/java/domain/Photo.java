@@ -20,6 +20,13 @@ public class Photo {
 		this.uploadDate = uploadDate;
 		this.price = price;
 	}
+	
+	public Photo(int id,Date uploadDate, float price) {
+		super();
+		this.uploadDate = uploadDate;
+		this.price = price;
+		this.photoID = id;
+	}
 
 	/**
 	 * @return the price
