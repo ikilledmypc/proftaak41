@@ -26,10 +26,6 @@ public class MainController extends ControlledAccountScreen implements Initializ
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
-    public void SetAccount(Account a){
-        this.loggedInAccount = a;
-    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {

@@ -117,7 +117,7 @@ public class DatabaseController implements IDatabase{
 			statement = con.createStatement();			
 			statement.executeUpdate(s,Statement.RETURN_GENERATED_KEYS);
 			result = statement.getGeneratedKeys();
-			closeConnection();
+			//closeConnection();
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DatabaseController.class.getName()).log(

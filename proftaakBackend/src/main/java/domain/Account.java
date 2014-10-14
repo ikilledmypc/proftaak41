@@ -202,7 +202,9 @@ public class Account {
 			try {
 				result.next();
 				System.out.println(result.getInt(1));
-				return result.getInt(1);
+				int returnval = result.getInt(1);
+				db.closeConnection();				
+				return returnval;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return 0;
