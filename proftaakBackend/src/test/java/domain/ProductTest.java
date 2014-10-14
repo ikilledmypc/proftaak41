@@ -73,7 +73,10 @@ public class ProductTest {
 	 */
 	@Test
 	public void testProductIntStringFloat() {
-		fail("Not yet implemented"); // TODO
+		Product p = new Product(productID, name, materialPrice);
+		assertEquals(productID, p.getProductID());
+		assertEquals(name, p.getName());
+		assertEquals(materialPrice, p.getMaterialPrice(), 0.0001);
 	}
 
 	/**
@@ -81,7 +84,9 @@ public class ProductTest {
 	 */
 	@Test
 	public void testProductStringFloat() {
-		fail("Not yet implemented"); // TODO
+		Product p = new Product(name, materialPrice);
+		assertEquals(name, p.getName());
+		assertEquals(materialPrice, p.getMaterialPrice(), 0.0001);
 	}
 
 	/**
@@ -89,7 +94,9 @@ public class ProductTest {
 	 */
 	@Test
 	public void testProductStringFloatPhoto() {
-		fail("Not yet implemented"); // TODO
+		Product p = new Product(name, materialPrice, foto);
+		assertEquals(name, p.getName());
+		assertEquals(materialPrice, p.getMaterialPrice(), 0.0001);
 	}
 
 	/**
