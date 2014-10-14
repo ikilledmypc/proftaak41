@@ -1,5 +1,5 @@
 DB.properties
-FrontEnd/nbproject/private/
-FrontEnd/dist/
-FrontEnd/build/
+FrontEnd/nbproject/private/*
+FrontEnd/dist/*
+FrontEnd/build/*
 
