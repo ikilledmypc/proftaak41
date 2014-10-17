@@ -44,10 +44,20 @@ public class CartController {
 		
 	}
 	
+	public ShoppingCart getOrCreate(String username){
+		ShoppingCart cart = carts.get(username);
+		if(cart!=null){
+			return cart;
+		}
+		cart = new ShoppingCart();
+		carts.put(username, cart);
+		return cart;
+	}
+	
 	@RequestMapping(value="/getCart", method=RequestMethod.GET)
 	public String getCart(@RequestParam(value = "username", required = true) String username){
 		Gson gson = new Gson();
-		return gson.toJson(carts.get(username));		
+		return gson.toJson(getOrCreate(username));		
 	}
 
 }

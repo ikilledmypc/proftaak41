@@ -13,6 +13,10 @@ public class Product {
 	private int productID;
 	private String name;
 	private float materialPrice;
+	public Photo getPhoto() {
+		return photo;
+	}
+
 	private Photo photo;
 
 	/**
@@ -47,6 +51,11 @@ public class Product {
 	public float getMaterialPrice() {
 		return materialPrice;
 	}
+	
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+
 
 	/**
 	 * @param materialPrice
