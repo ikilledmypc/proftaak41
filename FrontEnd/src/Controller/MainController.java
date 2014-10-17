@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 public class MainController extends ControlledAccountScreen implements Initializable {
 
     ScreensController myController;
-    private Account loggedInAccount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,7 +67,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
     }
     @FXML
     public void opencart(){
-        myController.loadAccountScreen("cart", "/view/CartFXML.fxml", loggedInAccount);
+        myController.loadAccountScreen("cart", "/view/CartFXML.fxml", this.loggedInAccount);
         myController.setScreen("cart");
     }
 }

@@ -15,6 +15,10 @@ public class ShoppingCart {
 	public void removeProduct(int i){
 		products.remove(i);
 	}
+        
+        public HashMap<Integer, Product> GetProducts(){
+            return this.products;
+        }
 	
 
 }

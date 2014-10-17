@@ -13,6 +13,10 @@ public class Product {
 	private int productID;
 	private String name;
 	private float materialPrice;
+	public Photo getPhoto() {
+		return photo;
+	}
+
 	private Photo photo;
 
 	/**
@@ -41,18 +45,17 @@ public class Product {
 		this.materialPrice = materialPrice;
 		this.photo = foto;
 	}
-        
-        @Override
-        public String toString(){
-            return this.name + " | \u20ac"+this.materialPrice;
-        }
-        
 	/**
 	 * @return the materialPrice
 	 */
 	public float getMaterialPrice() {
 		return materialPrice;
 	}
+	
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+
 
 	/**
 	 * @param materialPrice

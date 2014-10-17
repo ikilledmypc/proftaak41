@@ -1,5 +1,2 @@
-/domain/
 /controllers/
-/Main/
-/interfaces/
-/managers/
+/domain/
