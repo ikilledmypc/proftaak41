@@ -2,22 +2,35 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.util.Pair;
 
 
 
 public class ShoppingCart {
-	HashMap<Integer,Product> products;
+        /*
+            key = productid +photoid
+        */
+	HashMap<String,Product> products = new HashMap<>();
 	
-	public void putProduct(int i,Product p){
-		products.put(i,p);
+	public void putProduct(Product p){
+            String key =p.getProductID()+""+p.getPhoto().getPhotoID();
+            Product productex = products.get(key);
+            if(p!=null){
+               productex.addAmount(1);
+            }
+            products.put(key,p);
 	}
 	
 	public void removeProduct(int i){
 		products.remove(i);
 	}
         
-        public HashMap<Integer, Product> GetProducts(){
-            return this.products;
+        public ArrayList<Product> GetProducts(){
+            ArrayList<Product> arrproducts = new ArrayList<>();
+            for( Product op : products.values()){
+                arrproducts.add(op);
+            }        
+            return arrproducts;
         }
 	
 

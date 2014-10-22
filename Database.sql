@@ -83,10 +83,13 @@ CREATE TABLE IF NOT EXISTS `Order` (
 DROP TABLE IF EXISTS Order_Photo_Product;
 CREATE TABLE IF NOT EXISTS Order_Photo_Product (
   orderID int(11) NOT NULL DEFAULT '0',
-  photoproductID int(11) NOT NULL DEFAULT '0',
   numberOf int(11) NOT NULL,
-  PRIMARY KEY (orderID,photoproductID),
-  KEY photoproductID_idxfk (photoproductID)
+  photoID int(11) NOT NULL,
+  productID int(11) NOT NULL,
+  KEY photoID_idxfk_1 (photoID),
+  KEY productID_idxfk (productID),
+  PRIMARY KEY (orderID,productID,photoID)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
