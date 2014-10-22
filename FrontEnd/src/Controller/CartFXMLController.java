@@ -8,11 +8,13 @@ package Controller;
 
 import com.google.gson.Gson;
 import domain.Account;
+
 import domain.Product;
 import domain.ShoppingCart;
 import frontend.FrontEnd;
 import java.awt.Color;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +47,7 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
     VBox HB_product;
     @FXML
     ScrollPane SP_scroll;
+    private ShoppingCart shoppingcart;
 
 
     /**
@@ -65,12 +68,17 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
         Gson gson = new Gson();
         String scart = HttpController.excuteGet(FrontEnd.HOST+"/getCart?username="+a.getUsername());
         ShoppingCart cart = gson.fromJson(scart,ShoppingCart.class);
-        HashMap<Integer,Product> products = cart.GetProducts();
-         Collection c = products.values();
-        Iterator itr = c.iterator();
-        while (itr.hasNext()) {
-          TP_productContainer.getChildren().add(this.buildItem((Product) itr.next()));
+        this.shoppingcart = cart;
+        ArrayList<Product> products = cart.GetProducts();
+        for(Product p : products){            
+          TP_productContainer.getChildren().add(this.buildItem(p));
         }
+    }
+    
+    @FXML
+    public void placeOrder(){
+        Gson gson = new Gson();
+        HttpController.excutePost(FrontEnd.HOST+"/placeOrder","cart="+gson.toJson(this.shoppingcart)+"&accountID=2");
     }
     
     private HBox buildItem(Product p){
@@ -88,13 +96,13 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
             l2.setPrefWidth(100);
             l2.setText("\u20ac"+(p.getMaterialPrice()+p.getPhoto().getPrice()));
             l2.setPadding(new Insets(0, 20, 0, 0));
-//            Label l3 = new Label();
-//            l3.setAlignment(Pos.CENTER_RIGHT);
-//            l3.setPrefWidth(70);
-//            l3.setText("aantal:");
-//            TextField tb = new TextField();
-//            tb.setText(i + "");
-//            tb.setPrefWidth(50);
+            Label l3 = new Label();
+            l3.setAlignment(Pos.CENTER_RIGHT);
+            l3.setPrefWidth(70);
+            l3.setText("aantal:");
+            TextField tb = new TextField();
+            tb.setText(p.getAmount()+"");
+            tb.setPrefWidth(50);
             Button b = new Button();
             b.setPrefSize(10, 10);
             b.setText("X");
@@ -105,7 +113,7 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
             b.setAlignment(Pos.CENTER);
             b.setStyle("-fx-background-color: red; -fx-background-radius: 20; -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );");
             
-            hb.getChildren().addAll(delteCont, l, l2);
+            hb.getChildren().addAll(delteCont, l, l2,l3,tb);
             return hb;
     }
     
