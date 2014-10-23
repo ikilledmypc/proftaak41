@@ -48,11 +48,13 @@ public class DownloadScreenController extends ControlledAccountScreen implements
     public void initialize(URL url, ResourceBundle rb) {
         colName.setCellValueFactory(new PropertyValueFactory<Photo,String>("photoID"));
         colPrice.setCellValueFactory(new PropertyValueFactory<Photo,String>("price"));
+        
     }    
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+        getRedeemed();
     }
     
     @FXML
@@ -73,4 +75,16 @@ public class DownloadScreenController extends ControlledAccountScreen implements
             System.out.println("Failed to load photos");
         }
    }
+    
+    private void getRedeemed()
+    {
+        Gson gson = new Gson();
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getPreviousRedeemed?accountID="+this.loggedInAccount.getAccountID());
+        if(!returnedPhotos.equalsIgnoreCase("")) {
+            ArrayList<Photo> getPhotos = new ArrayList();
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());
+            photos = FXCollections.observableArrayList(getPhotos);
+            photoTable.setItems(photos);
+        }
+    }
 }
