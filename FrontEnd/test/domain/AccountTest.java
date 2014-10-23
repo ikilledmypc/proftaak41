@@ -5,6 +5,7 @@
  */
 package domain;
 
+import Controller.RegisterScreenController;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -170,4 +171,5 @@ public class AccountTest {
         account2.setUsername("mike");
 	assertEquals("mike", account2.getUsername());
     }
+    
 }

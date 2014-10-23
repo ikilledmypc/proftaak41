@@ -44,6 +44,17 @@ public class CartController {
 		
 	}
 	
+	@RequestMapping(value="/removeProduct", method=RequestMethod.POST)
+	public void removeProduct(@RequestParam(value = "username", required = true) String username,@RequestParam(value = "key", required = true) String key){
+		ShoppingCart cart = getOrCreate(username);
+		cart.removeProduct(key);
+	}
+	
+	@RequestMapping(value="/clearCart", method=RequestMethod.GET)
+	public void emptyCart(@RequestParam(value = "username", required = true) String username){
+		carts.remove(username);
+	}
+	
 	public ShoppingCart getOrCreate(String username){
 		ShoppingCart cart = carts.get(username);
 		if(cart!=null){

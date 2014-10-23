@@ -131,6 +131,7 @@ public class RegisterScreenController implements Initializable, ControlledScreen
 
         return true;
     }
+    
 
     @Override
     public void setScreenParent(ScreensController screenPage) {

@@ -8,7 +8,6 @@ package Controller;
 
 import com.google.gson.Gson;
 import domain.Account;
-
 import domain.Product;
 import domain.ShoppingCart;
 import frontend.FrontEnd;
@@ -19,6 +18,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -55,8 +57,8 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SP_scroll.setStyle("-fx-background-color: white;");
-        TP_productContainer.setStyle("-fx-background-color: white;");
+        SP_scroll.setStyle("-fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0;");
+        //TP_productContainer.setStyle("-fx-background-color: black;");
         TP_productContainer.setPadding(new Insets(10, 10, 10, 10));
         
         
@@ -76,9 +78,26 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
     }
     
     @FXML
+    public void clearCart(){
+        HttpController.excuteGet(FrontEnd.HOST+"/clearCart?username="+this.loggedInAccount.getUsername());
+        TP_productContainer.getChildren().clear();
+    }
+    
+    @FXML
     public void placeOrder(){
         Gson gson = new Gson();
         HttpController.excutePost(FrontEnd.HOST+"/placeOrder","cart="+gson.toJson(this.shoppingcart)+"&accountID=2");
+    }
+    
+    @FXML
+    public void removeProduct(Event event){
+        String key = ((Button) event.getSource()).getId();
+        HttpController.excutePost(FrontEnd.HOST+"/removeProduct", "username="+this.loggedInAccount.getUsername()+"&key="+key);
+        this.shoppingcart.removeProduct(key);
+        this.TP_productContainer.getChildren().clear();
+        for(Product p: this.shoppingcart.GetProducts()){            
+            this.TP_productContainer.getChildren().add(buildItem(p));
+        }
     }
     
     private HBox buildItem(Product p){
@@ -104,6 +123,15 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
             tb.setText(p.getAmount()+"");
             tb.setPrefWidth(50);
             Button b = new Button();
+            b.setOnAction(new EventHandler(){
+
+                 @Override
+                 public void handle(Event event) {
+                     removeProduct(event);
+                 }
+
+            });
+            b.setId(p.getProductID()+""+p.getPhoto().getPhotoID());
             b.setPrefSize(10, 10);
             b.setText("X");
             Pane delteCont= new Pane();
@@ -111,8 +139,7 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
             delteCont.setPrefWidth(60);
             delteCont.getChildren().add(b);
             b.setAlignment(Pos.CENTER);
-            b.setStyle("-fx-background-color: red; -fx-background-radius: 20; -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );");
-            
+            b.setStyle("-fx-background-color: red; -fx-background-radius: 20; -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );");            
             hb.getChildren().addAll(delteCont, l, l2,l3,tb);
             return hb;
     }

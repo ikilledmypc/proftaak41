@@ -7,9 +7,13 @@ import javafx.util.Pair;
 
 
 public class ShoppingCart {
+    
+    
         /*
             key = productid +photoid
         */
+    
+    
 	HashMap<String,Product> products = new HashMap<>();
 	
 	public void putProduct(Product p){
@@ -21,8 +25,12 @@ public class ShoppingCart {
             products.put(key,p);
 	}
 	
-	public void removeProduct(int i){
-		products.remove(i);
+	public void removeProduct(String key){
+		Product p =products.get(key);
+                p.setAmount(p.getAmount()-1);
+                if(p.getAmount()==0){
+                    this.products.remove(key);
+                }
 	}
         
         public ArrayList<Product> GetProducts(){

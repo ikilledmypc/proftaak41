@@ -13,7 +13,7 @@
             <TilePane fx:id="TP_productContainer" prefWidth="410.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="14.0" layoutY="416.0" mnemonicParsing="false" text="empty" />
       <Button layoutX="466.0" layoutY="401.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="56.0" prefWidth="109.0" text="checkout" />
+      <Button layoutX="14.0" layoutY="416.0" mnemonicParsing="false" onAction="#clearCart" text="empty" />
    </children>
 </AnchorPane>
