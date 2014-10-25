@@ -13,6 +13,7 @@ import domain.Product;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,7 +35,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
      * Initializes the controller class.
      */
     ScreensController myController;
-    Image photo;
+    Photo photo;
     @FXML
     ComboBox CMB_items;
     @FXML
@@ -64,9 +65,8 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
        
     } 
     
-    public void setPhoto(Image photo){
+    public void setPhoto(Photo photo){
         this.photo = photo;
-        IMG_photo.setImage(photo);
     }
 
     @Override
@@ -76,8 +76,11 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     
     @FXML
     public void addToCart(){
+        
         Gson gson = new Gson();
-        Product p = (Product) CMB_items.getSelectionModel().getSelectedItem();        
+        Product p = (Product) CMB_items.getSelectionModel().getSelectedItem();
+        p.setPhoto(new Photo(new Date(), 12));
+        //p.addAmount(1);
         String sProduct = gson.toJson(p);
         HttpController.excutePost(FrontEnd.HOST+"/addToCart", "product="+sProduct+"&username="+this.loggedInAccount.getUsername());
     }

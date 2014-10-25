@@ -2,17 +2,43 @@ package domain;
 
 public class Product {
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public Product(int productID, String name, int amount, float materialPrice, Photo photo) {
+        this.productID = productID;
+        this.name = name;
+        this.amount = amount;
+        this.materialPrice = materialPrice;
+        this.photo = photo;
+    }
+
 
 	public Product(int productID, String name, float materialPrice) {
 		super();
 		this.productID = productID;
 		this.name = name;
 		this.materialPrice = materialPrice;
+                this.amount =1;
 	}
 
 	private int productID;
 	private String name;
+        private int amount;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void addAmount(int amount) {
+        this.amount += amount;
+    }
 	private float materialPrice;
+	public Photo getPhoto() {
+		return photo;
+	}
+
 	private Photo photo;
 
 	/**
@@ -25,34 +51,38 @@ public class Product {
 		super();
 		this.name = name;
 		this.materialPrice = materialPrice;
+                 this.amount =1;
 	}
 	public Product(int productID, String name, float materialPrice,Photo photo) {
 		super();
-		this.productID = productID;
+		this.productID = productID;                
 		this.name = name;
 		this.materialPrice = materialPrice;
 		this.photo = photo;
+                 this.amount =1;
 	}
 
 
 	public Product(String name, float materialPrice, Photo foto) {
 		super();
 		this.name = name;
+                
 		this.materialPrice = materialPrice;
 		this.photo = foto;
+                 this.amount =1;
 	}
-        
-        @Override
-        public String toString(){
-            return this.name + " | \u20ac"+this.materialPrice;
-        }
-        
 	/**
 	 * @return the materialPrice
 	 */
 	public float getMaterialPrice() {
 		return materialPrice;
 	}
+	
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+        
+
 
 	/**
 	 * @param materialPrice
@@ -91,4 +121,9 @@ public class Product {
 	public void setProductID(int productID) {
 		this.productID = productID;
 	}
+        
+        @Override
+        public String toString(){
+            return this.name + " \u20ac "+this.materialPrice;
+        }
 }
