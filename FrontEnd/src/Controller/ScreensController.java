@@ -71,8 +71,8 @@ public class ScreensController extends StackPane {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledAccountScreen myScreenController = ((ControlledAccountScreen) myLoader.getController());
-            myScreenController.setScreenParent(this);
             myScreenController.setAccount(a);
+            myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
         } catch(IOException e) {
