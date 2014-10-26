@@ -33,6 +33,14 @@ public class ShoppingCart {
                 }
 	}
         
+        public int getItemCount(){
+            int amount=0;
+            for(Product p :products.values()){
+                amount +=p.getAmount();
+            }
+            return amount;
+        }
+        
         public ArrayList<Product> GetProducts(){
             ArrayList<Product> arrproducts = new ArrayList<>();
             for( Product op : products.values()){
