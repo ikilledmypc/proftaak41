@@ -7,7 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 import domain.Product;
 
@@ -29,6 +33,13 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return products;
+		
+	}
+	@RequestMapping(value ="/addProduct", method =  RequestMethod.POST)
+	public void addProduct(@RequestParam("product") String jproduct){
+		Gson gson = new Gson();
+		Product p = gson.fromJson(jproduct, Product.class);
+		p.addToDB();
 		
 	}
 	

@@ -69,13 +69,13 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 
                 if(a instanceof Photographer)
                 {
-                   System.out.println("Hallo Photographer " + a.getName() + "!");
-                    LB_error.setText("Hallo Photographer " + a.getName() + "!"); 
+                   System.out.println("Hello Photographer " + a.getName() + "!");
+                    LB_error.setText("Hello Photographer " + a.getName() + "!"); 
                 }
                 else
                 {
-                   System.out.println("Hallo User " + a.getName() + "!");
-                    LB_error.setText("Hallo User " + a.getName() + "!");  
+                   System.out.println("Hello User " + a.getName() + "!");
+                    LB_error.setText("Hello User " + a.getName() + "!");  
                 }
                 
                 myController.loadAccountScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML, a);
@@ -84,7 +84,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 myController.loadAccountScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML, a);
                 myController.setScreen(FrontEnd.mainScreen);
             } else {
-                LB_error.setText("verkeerde gebruikersnaam/wachtwoord");
+                LB_error.setText("Wrong username/password");
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
