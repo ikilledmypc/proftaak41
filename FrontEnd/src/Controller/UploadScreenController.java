@@ -8,6 +8,7 @@ package Controller;
 import Controller.HttpController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import domain.PhotoGroup;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         String bla = HttpController.excuteGet("http://localhost:8080/upload");
         System.out.println(bla);
         
-        HttpController.postFile("http://localhost:8080/upload", uploadPath.getText());
+        HttpController.postFile("http://localhost:8080/upload?photoID=" + 1 , uploadPath.getText());
     }
     
     @FXML
@@ -89,13 +90,15 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     public void handleCreateGroupButtonAction(ActionEvent event){
         String code = generateCode();
         String groupName = groupNameField.getText();
-        String photogroupid = HttpController.excuteGet(FrontEnd.HOST+"/createPhotoGroup?accountID="+this.loggedInAccount.getAccountID()
-         +"&code=" + code + "&groupName=" + groupName + "&isPublic=" + isPublic);
+        String photogroupid = HttpController.excutePost(FrontEnd.HOST+"/createPhotoGroup", "photogroup=" + 
+                gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic, 0)));
         if(!photogroupid.equalsIgnoreCase("")){
             int groupID = gson.fromJson(photogroupid, new TypeToken<Integer>(){}.getType());
         }
+        int id = 10;
         for(String s : paths){
-            HttpController.postFile("http://localhost:8080/upload", s);
+            HttpController.postFile("http://localhost:8080/upload?photoID=" + id, s);
+            id++;
         }
         groupCode.setText(code);
     }

@@ -15,7 +15,7 @@
     <Label layoutX="76.0" layoutY="240.0" text="Group Photos" />
     <Label layoutX="76.0" layoutY="175.0" text="Choose your files to upload" />
     <Label layoutX="76.0" layoutY="260.0" text="Groupname:" />
-    <TextField fx:id="groupNameFIeld" layoutX="76.0" layoutY="280.0" prefHeight="25.0" prefWidth="276.0" />
+    <TextField fx:id="groupNameField" layoutX="76.0" layoutY="280.0" prefHeight="25.0" prefWidth="276.0" />
     <Label layoutX="76.0" layoutY="310.0" text="Public" />
     <CheckBox fx:id="isPublic" layoutX="115.0" layoutY="310.0" />
     <Button layoutX="76.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="83.0" text="Back" />
