@@ -140,8 +140,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
                     stage.setTitle("My New Stage Title");
                     stage.setScene(new Scene(root,640,430));
                     stage.show();
-                    stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler(){
-
+                    stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler(){
                         @Override
                         public void handle(Event event) {
                             updateCart();
