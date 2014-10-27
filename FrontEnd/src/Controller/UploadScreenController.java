@@ -6,12 +6,19 @@
 package Controller;
 
 import Controller.HttpController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import frontend.FrontEnd;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 /**
@@ -22,9 +29,18 @@ import javafx.scene.control.TextField;
 public class UploadScreenController extends ControlledAccountScreen implements Initializable {
     
     ScreensController myController;
-    
+    ArrayList<String> paths;
+    boolean isPublic = true;
+    Gson gson = new Gson();
+
     @FXML
     TextField uploadPath;
+    @FXML
+    TextField multipleUploadPath;
+    @FXML
+    TextField groupCode;
+    @FXML
+    TextField groupNameField;
 
     /**
      * Initializes the controller class.
@@ -57,5 +73,44 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         System.out.println(bla);
         
         HttpController.postFile("http://localhost:8080/upload", uploadPath.getText());
+    }
+    
+    @FXML
+    public void handleBrowseButtonAction2(ActionEvent event) {
+        paths = myController.chooseMulitpleFiles();
+        String path = "";
+        for(String s : paths){
+            path = path + "'" + s;
+        }
+        multipleUploadPath.setText(path);
+    }
+    
+    @FXML
+    public void handleCreateGroupButtonAction(ActionEvent event){
+        String code = generateCode();
+        String groupName = groupNameField.getText();
+        String photogroupid = HttpController.excuteGet(FrontEnd.HOST+"/createPhotoGroup?accountID="+this.loggedInAccount.getAccountID()
+         +"&code=" + code + "&groupName=" + groupName + "&isPublic=" + isPublic);
+        if(!photogroupid.equalsIgnoreCase("")){
+            int groupID = gson.fromJson(photogroupid, new TypeToken<Integer>(){}.getType());
+        }
+        for(String s : paths){
+            HttpController.postFile("http://localhost:8080/upload", s);
+        }
+        groupCode.setText(code);
+    }
+    
+    public String generateCode(){
+        Random rand = new Random(); 
+        int code = rand.nextInt(899999) + 100000;
+        String hashcode = Integer.toHexString(code);
+        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode );
+        if(bezet.equals("true")){
+            generateCode();
+        }
+        else{
+            return hashcode; 
+        }
+        return "";
     }
 }
