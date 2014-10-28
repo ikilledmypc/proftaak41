@@ -26,11 +26,20 @@ public class FileUploadController {
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
+                
+             // Creating the directory to store file
+                String rootPath = System.getProperty("default.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+                
                 BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
+                        new BufferedOutputStream(new FileOutputStream(new File(name + ".jpg")));
                 stream.write(bytes);
                 stream.close();
-                return "You successfully uploaded " + name + " into " + name + "-uploaded !";
+                
+                
+                return "You successfully uploaded " + name + " into " + name + ".jpg !";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }
