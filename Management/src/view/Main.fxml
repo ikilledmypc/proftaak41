@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="786.0" prefWidth="1132.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+    <children>
+        <Button fx:id="uploadButton" layoutX="936.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="25.0" prefWidth="100.0" text="Upload" />
+        <Button fx:id="registButton" layoutX="953.0" layoutY="681.0" mnemonicParsing="false" onAction="#handleRegisterPhotographerButtonAction" prefHeight="25.0" text="Register Photographer" />
+      <HBox layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="276.0">
+         <children>
+            <Label text="Hello">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+            <Label fx:id="LBL_username" text="Testuser">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="678.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="438.0">
+         <children>
+            <Button fx:id="BTN_cart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#opencart" prefHeight="39.0" prefWidth="134.0" text="cart" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Button>
+              <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButtonAction" prefHeight="40.0" prefWidth="118.0" text="Load" />
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="64.0" prefHeight="677.0" prefWidth="869.0">
+         <content>
+            <TilePane fx:id="TP_photoContainer" prefHeight="668.0" prefWidth="846.0" />
+         </content>
+      </ScrollPane>
+    </children>
+</AnchorPane>
