@@ -11,6 +11,7 @@ import frontend.FrontEnd;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
@@ -134,10 +135,9 @@ public class ScreensController extends StackPane {
         }
     }
 
-    public String chooseFile() {
+    public List<File> chooseFile() {
         Stage newStage = new Stage();
         FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(newStage);
-        return file.getAbsoluteFile().toString();
+        return  chooser.showOpenMultipleDialog(newStage);
     }
 }
