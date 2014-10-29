@@ -9,6 +9,15 @@ public class Photo {
 	private int photoID;
 	private Date uploadDate;
 	private float price;
+        private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 	/**
 	 * Constructor
