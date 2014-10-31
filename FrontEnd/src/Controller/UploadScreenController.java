@@ -46,7 +46,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     
     ScreensController myController;
     
-    private HashMap<Photo,TextField> selectedPhotos = new HashMap<>();
+    private HashMap<File,TextField> selectedPhotos = new HashMap<>();
     @FXML
     TilePane TP_photos;
 
@@ -89,10 +89,10 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         Iterator it = selectedPhotos.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
-            Photo p =((Photo) pairs.getKey());
-            p.setName(((TextField)pairs.getValue()).getId());
-            p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
-            photos.add(p);
+//            File p =((Photo) pairs.getKey());
+//            p.setName(((TextField)pairs.getValue()).getId());
+//            p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
+//            photos.add(p);
             it.remove(); // avoids a ConcurrentModificationException
         }
         
@@ -124,7 +124,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             priceLabel.setText("price:  \u20ac");
             hbox.getChildren().addAll(priceLabel,price);
             item.getChildren().addAll(iv,hbox);
-            selectedPhotos.put(new Photo(new Date(), 1), price);
+            selectedPhotos.put(file, price);
             return item;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
