@@ -1,5 +1,7 @@
 package domain;
 
+import controllers.DatabaseController;
+
 public class Product {
 
 	private int productID;
@@ -59,6 +61,12 @@ public class Product {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	
+	public void addToDB(){
+		DatabaseController db = DatabaseController.getInstance();
+		db.insert("insert into product name,materialprice values('"+this.name+"',"+this.materialPrice+")");
+		db.closeConnection();
 	}
 
 	/**

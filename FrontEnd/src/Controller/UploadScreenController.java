@@ -5,22 +5,35 @@
  */
 package Controller;
 
-import Controller.HttpController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import domain.PhotoGroup;
+import domain.Photo;
 import frontend.FrontEnd;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -42,13 +55,21 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     TextField groupCode;
     @FXML
     TextField groupNameField;
+    
+    private HashMap<File,TextField> selectedPhotos = new HashMap<>();
+    @FXML
+    TilePane TP_photos;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        TP_photos.setVgap(20);
+        TP_photos.setHgap(20);
+//        for(int i=0;i<4;i++){
+//            TP_photos.getChildren().add(buildItem("/resources/placeholderPhoto.jpg"));
+//        }
     }    
 
     @Override
@@ -58,8 +79,10 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
-        String path = myController.chooseFile();
-        uploadPath.setText(path);
+        List<File> files = myController.chooseFile();
+        for(File f :files){
+            TP_photos.getChildren().add(buildItem(f));
+        }
     }
     
     @FXML
@@ -70,9 +93,18 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     @FXML
     public void handleUploadButtonAction(ActionEvent event) {
         
-        String bla = HttpController.excuteGet("http://localhost:8080/upload");
-        System.out.println(bla);
-        
+        //String bla = HttpController.excuteGet("http://localhost:8080/upload");
+        //System.out.println(bla);
+        ArrayList<Photo> photos = new ArrayList<>();
+        Iterator it = selectedPhotos.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+//            File p =((Photo) pairs.getKey());
+//            p.setName(((TextField)pairs.getValue()).getId());
+//            p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
+//            photos.add(p);
+            it.remove(); // avoids a ConcurrentModificationException
+        }
         HttpController.postFile("http://localhost:8080/upload?photoID=" + 1 , uploadPath.getText());
     }
     
@@ -116,4 +148,36 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         }
         return "";
     }
+        
+      //  HttpController.postFile("http://localhost:8080/upload", uploadPath.getText());
+    
+    
+    
+    private VBox buildItem(File file){
+        try {
+            VBox item = new VBox();
+            item.setStyle("-fx-border-color: black;");
+            item.setSpacing(10);
+            ImageView iv = new ImageView();
+            Image image = new Image(new FileInputStream(file));
+            iv.setPreserveRatio(true);
+            iv.setFitWidth(400);
+            iv.setImage(image);
+            HBox hbox = new HBox();
+            hbox.setAlignment(Pos.CENTER);
+            TextField price = new TextField();
+            price.setId(file.getName());
+            price.setText("6.50");
+            Label priceLabel = new Label();
+            priceLabel.setText("price:  \u20ac");
+            hbox.getChildren().addAll(priceLabel,price);
+            item.getChildren().addAll(iv,hbox);
+            selectedPhotos.put(file, price);
+            return item;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

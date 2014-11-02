@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Photo {
 
+    
+
 	private int photoID;
 	private String name;
 	private Date uploadDate;
@@ -28,6 +30,12 @@ public class Photo {
 		this.height = height;
 		this.width = width;
 	}
+        
+        public Photo(int photoID, Date uploadDate, float price) {
+        this.photoID = photoID;
+        this.uploadDate = uploadDate;
+        this.price = price;
+    }
 
     public Photo(String string, String photo1jpg, String mb) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
