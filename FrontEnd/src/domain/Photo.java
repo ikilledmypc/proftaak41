@@ -7,28 +7,28 @@ public class Photo {
     
 
 	private int photoID;
+	private String name;
 	private Date uploadDate;
 	private float price;
-        private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	private int height;
+	private int width;
 
 	/**
 	 * Constructor
 	 * 
+	 * @param name
 	 * @param uploadDate
 	 * @param price
+	 * @param height
+	 * @param width
 	 */
-	public Photo(Date uploadDate, float price) {
+	public Photo(String name, Date uploadDate, float price, int height, int width) {
 		super();
+		this.name = name;
 		this.uploadDate = uploadDate;
 		this.price = price;
+		this.height = height;
+		this.width = width;
 	}
         
         public Photo(int photoID, Date uploadDate, float price) {
@@ -84,5 +84,50 @@ public class Photo {
 	 */
 	public void setPhotoID(int photoID) {
 		this.photoID = photoID;
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height
+	 *            the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+        
+        /**
+	 * @return the width
+	 */
+	public int getwidth() {
+		return width;
+	}
+
+	/**
+	 * @param width
+	 *            the width to set
+	 */
+	public void setwidth(int width) {
+		this.width = width;
 	}
 }

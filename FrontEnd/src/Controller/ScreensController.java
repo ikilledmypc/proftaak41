@@ -10,6 +10,7 @@ import domain.Account;
 import frontend.FrontEnd;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -139,5 +140,16 @@ public class ScreensController extends StackPane {
         Stage newStage = new Stage();
         FileChooser chooser = new FileChooser();
         return  chooser.showOpenMultipleDialog(newStage);
+    }
+    
+    public ArrayList<String> chooseMulitpleFiles() {
+        Stage newStage = new Stage();
+        FileChooser chooser = new FileChooser();
+        List<File> file = (List<File>)chooser.showOpenMultipleDialog(newStage);
+        ArrayList<String> filePaths = new ArrayList<String>();
+        for(File f : file){
+            filePaths.add(f.getAbsolutePath().toString());
+        }
+        return filePaths;
     }
 }

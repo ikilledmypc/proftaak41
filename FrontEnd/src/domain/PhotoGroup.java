@@ -1,8 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package domain;
 
-public class Photogroup {
-
-	private int photogroupID;
+/**
+ *
+ * @author Joël
+ */
+public class PhotoGroup {
+    
+    private int photogroupID;
 	private int accountID;
 	private String code;
 	private String groupName;
@@ -18,7 +27,7 @@ public class Photogroup {
 	 * @param isPublic
 	 * @param parentPhotogroupID
 	 */
-	public Photogroup(int accountID, String code, String groupName,
+	public PhotoGroup(int accountID, String code, String groupName,
 			Boolean isPublic, int parentPhotogroupID) {
 		super();
 		this.accountID = accountID;

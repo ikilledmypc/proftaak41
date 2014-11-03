@@ -57,7 +57,7 @@ public class FotoController {
 				while(rst.next()){
 					long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
 					newDate = new Date(millisecs);
-					photo = new Photo(newDate, (float)rst.getDouble("price"));
+					photo = new Photo(rst.getString("name"), newDate, (float)rst.getDouble("price"), rst.getInt("height"), rst.getInt("width"));
 					photo.setPhotoID(rst.getInt("photoID"));
 					photos.add(photo);
 				}
@@ -102,7 +102,7 @@ public class FotoController {
 				while(rst.next()){
 					long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
 					newDate = new Date(millisecs);
-					photo = new Photo(newDate, (float)rst.getDouble("price"));
+					photo = new Photo(rst.getString("name"), newDate, (float)rst.getDouble("price"), rst.getInt("height"), rst.getInt("width"));
 					photo.setPhotoID(rst.getInt("photoID"));
 					photos.add(photo);
 				}
