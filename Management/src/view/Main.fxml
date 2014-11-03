@@ -25,7 +25,7 @@
           <children>
             <Button fx:id="btnAddProduct" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddProductButtonAction" prefWidth="63.0" text="Add" />
             <Button fx:id="btnEditProduct" layoutX="25.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleEditProductButtonAction" prefWidth="63.0" text="Edit" />
-            <Button fx:id="btnDeleteProduct" layoutX="25.0" layoutY="91.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="btnDeleteProduct" layoutX="25.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleDeleteProductButtonAction" text="Delete" />
           </children>
         </AnchorPane>
       </content>
