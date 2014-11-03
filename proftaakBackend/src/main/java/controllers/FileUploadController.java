@@ -2,16 +2,27 @@ package controllers;
 
 import interfaces.IDatabase;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
 import managers.JsonManager;
 
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,26 +47,33 @@ public class FileUploadController {
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(
-            @RequestParam("file") MultipartFile file,
-			@RequestParam(value = "photoID", required = true)int photoID){
-    	String name = "Test";
-        if (!file.isEmpty()) {
-            try {
+            @RequestParam("file") MultipartFile file){
+    	String path = file.getOriginalFilename().toString();
+    	String name =path+".jpg";
+    	if (!file.isEmpty()) {
+            try {          	
                 byte[] bytes = file.getBytes();
                 
+                
              // Creating the directory to store file
-                String rootPath = System.getProperty("default.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
+                String rootPath = System.getProperty("user.dir");
+                File dir = new File(rootPath + File.separator + "Photos"+File.separator+"thumbnails");
+                if (!dir.exists()){
                     dir.mkdirs();
+
+                }
+                	
+                
+             // Create the file on server
+                File serverFile = new File(rootPath + File.separator + "Photos" + File.separator + name);
                 
                 BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(Integer.toString(photoID) + "-uploaded")));
+                		new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                
-                
-                return "You successfully uploaded " + name + " into " + name + ".jpg !";
+                BufferedImage thumbnail =  Scalr.resize(ImageIO.read(serverFile), 300);
+                ImageIO.write(thumbnail, "jpg", new File(dir.getAbsolutePath()+ File.separator + name));
+                return "You successfully uploaded " + name + " into " + serverFile.getAbsolutePath() + "!";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }
@@ -63,6 +81,33 @@ public class FileUploadController {
             return "You failed to upload " + name + " because the file was empty.";
         }
     }
+    
+    public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException 
+    {
+            File convFile = new File( multipart.getOriginalFilename());
+            multipart.transferTo(convFile);
+            return convFile;
+    }
+    
+    private BufferedImage scaleImage(BufferedImage source,double ratio) {
+    	  int w = (int) (source.getWidth() * ratio);
+    	  int h = (int) (source.getHeight() * ratio);
+    	  BufferedImage bi = getCompatibleImage(w, h);
+    	  Graphics2D g2d = bi.createGraphics();
+    	  double xScale = (double) w / source.getWidth();
+    	  double yScale = (double) h / source.getHeight();
+    	  AffineTransform at = AffineTransform.getScaleInstance(xScale,yScale);
+    	  g2d.drawRenderedImage(source, at);
+    	  g2d.dispose();
+    	  return bi;
+    	}
+    private BufferedImage getCompatibleImage(int w, int h) {
+    	  GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	  GraphicsDevice gd = ge.getDefaultScreenDevice();
+    	  GraphicsConfiguration gc = gd.getDefaultConfiguration();
+    	  BufferedImage image = gc.createCompatibleImage(w, h);
+    	  return image;
+    	}
     
     @RequestMapping(value="/uploadThumbnail", method=RequestMethod.POST)
     public @ResponseBody String handleThumbnailUpload(
@@ -137,7 +182,7 @@ public class FileUploadController {
 	}
     
     @RequestMapping(value = "/uploadGroupPhoto", method = RequestMethod.POST)
-	public String uploadGroupPhotos(@RequestParam(value = "photo", required = true)String photoJson,
+	public int uploadGroupPhotos(@RequestParam(value = "photo", required = true)String photoJson,
 			@RequestParam(value = "photogroupID", required = true)int photogroupID){
     	JsonManager jsonManager = JsonManager.GetInstance();
 		IDatabase db = DatabaseController.getInstance();
@@ -154,14 +199,14 @@ public class FileUploadController {
 		rst = db.select("SELECT MAX(photoID) AS ID FROM Photo");
 		try {
 			while(rst.next()){
-				photoID = rst.getInt("ID");
+				photoID = rst.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		rst = db.insert("INSERT INTO PHOTOGROUP_PHOTO VALUES('" + photogroupID + "', '" + photoID + "')");
-		return "true";
+		return photoID;
 	}
     
     @RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)

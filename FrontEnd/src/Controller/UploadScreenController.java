@@ -46,7 +46,7 @@ import javax.imageio.ImageIO;
  * @author Baya
  */
 public class UploadScreenController extends ControlledAccountScreen implements Initializable {
-    
+
     ScreensController myController;
     ArrayList<String> paths;
     Gson gson = new Gson();
@@ -60,8 +60,8 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     TextField groupCode;
     @FXML
     TextField groupNameField;
-    
-    private HashMap<File,TextField> selectedPhotos = new HashMap<>();
+
+    private HashMap<File, TextField> selectedPhotos = new HashMap<>();
     @FXML
     TilePane TP_photos;
 
@@ -75,86 +75,76 @@ public class UploadScreenController extends ControlledAccountScreen implements I
 //        for(int i=0;i<4;i++){
 //            TP_photos.getChildren().add(buildItem("/resources/placeholderPhoto.jpg"));
 //        }
-    }    
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-    
+
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
         files = myController.chooseFile();
-        for(File f :files){
+        for (File f : files) {
             TP_photos.getChildren().add(buildItem(f));
         }
     }
-    
+
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.mainScreen);
     }
-    
+
     @FXML
     public void handleUploadButtonAction(ActionEvent event) throws IOException {
-        
-        //String bla = HttpController.excuteGet("http://localhost:8080/upload");
-        //System.out.println(bla);
-        ArrayList<Photo> photos = new ArrayList<>();
-        Iterator it = selectedPhotos.entrySet().iterator();
-        //while (it.hasNext()) {
-            //Map.Entry pairs = (Map.Entry)it.next();
-  //          File p =((Photo) pairs.getKey());
-  //          p.setName(((TextField)pairs.getValue()).getId());
-  //          p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
-  //          photos.add(p);
-            //it.remove(); // avoids a ConcurrentModificationException
-        //}
-        while(it.hasNext()){
-            Map.Entry pairs = (Map.Entry)it.next();
-            File p =((File) pairs.getKey());
-            Image image = new Image(new FileInputStream(p));
-            Photo photo = new Photo("name", new Date(), Float.parseFloat(((TextField)pairs.getValue()).getText()), (int)image.getHeight(),(int)image.getWidth());
-            photos.add(photo);
-        }
-        
-        if(photos.isEmpty()){
-            
-        }
-        if(photos.size() == 1){
-            for(Photo p:photos){
-                System.out.println(p.getPrice()+" "+p.getName());
-                HttpController.excutePost(FrontEnd.HOST+"/uploadPhoto", "photo=" + gson.toJson(p));
-            }
-        }
-        if(photos.size() > 1){
+        String photogroupid = "";
+        if (selectedPhotos.size() > 1) {
             String code = generateCode();
             String groupName = groupNameField.getText();
-            String photogroupid = HttpController.excutePost(FrontEnd.HOST+"/createPhotoGroup", "photogroup=" + 
-                gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
+            photogroupid = HttpController.excutePost(FrontEnd.HOST + "/createPhotoGroup", "photogroup="
+                    + gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
             groupCode.setText(code);
-            for(Photo p:photos){
-                System.out.println(p.getPrice()+" "+p.getName());
-                HttpController.excutePost(FrontEnd.HOST+"/uploadGroupPhoto", "photo=" + gson.toJson(p) + "&photogroupID=" + photogroupid);
+        }
+        for (Map.Entry pairs : selectedPhotos.entrySet()) {
+            File p = ((File) pairs.getKey());
+            BufferedImage image = ImageIO.read(p);
+            Photo photo = new Photo(p.getName(), new Date(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
+
+            if (selectedPhotos.size() > 1) {
+                String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
+                photoid = photoid.trim();
+                String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(),Integer.parseInt(photoid));
+                System.out.println(bla);
             }
         }
+
     }
-    
-    public String generateCode(){
-        Random rand = new Random(); 
+
+    @FXML
+    public void handleBrowseButtonAction2(ActionEvent event
+    ) {
+        paths = myController.chooseMulitpleFiles();
+        String path = "";
+        for (String s : paths) {
+            path = path + "'" + s;
+        }
+
+    }
+
+    public String generateCode() {
+        Random rand = new Random();
         int code = rand.nextInt(899999) + 100000;
         String hashcode = Integer.toHexString(code);
-        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode );
-        if(bezet.equals("true")){
+        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode);
+        if (bezet.equals("true")) {
             generateCode();
-        }
-        else{
-            return hashcode; 
+        } else {
+            return hashcode;
         }
         return "";
     }
-    
-    private VBox buildItem(File file){
+
+    private VBox buildItem(File file) {
         try {
             VBox item = new VBox();
             item.setStyle("-fx-border-color: black;");
@@ -171,8 +161,8 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             price.setText("6.50");
             Label priceLabel = new Label();
             priceLabel.setText("price:  \u20ac");
-            hbox.getChildren().addAll(priceLabel,price);
-            item.getChildren().addAll(iv,hbox);
+            hbox.getChildren().addAll(priceLabel, price);
+            item.getChildren().addAll(iv, hbox);
             selectedPhotos.put(file, price);
             return item;
         } catch (FileNotFoundException ex) {
