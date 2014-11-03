@@ -10,9 +10,11 @@ import com.google.gson.reflect.TypeToken;
 import domain.PhotoGroup;
 import domain.Photo;
 import frontend.FrontEnd;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -46,6 +49,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     ArrayList<String> paths;
     boolean isPublic = true;
     Gson gson = new Gson();
+    List<File> files;
 
     @FXML
     TextField uploadPath;
@@ -79,7 +83,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
-        List<File> files = myController.chooseFile();
+        files = myController.chooseFile();
         for(File f :files){
             TP_photos.getChildren().add(buildItem(f));
         }
@@ -91,7 +95,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     }
     
     @FXML
-    public void handleUploadButtonAction(ActionEvent event) {
+    public void handleUploadButtonAction(ActionEvent event) throws IOException {
         
         //String bla = HttpController.excuteGet("http://localhost:8080/upload");
         //System.out.println(bla);
@@ -105,7 +109,13 @@ public class UploadScreenController extends ControlledAccountScreen implements I
 //            photos.add(p);
             it.remove(); // avoids a ConcurrentModificationException
         }
-        HttpController.postFile("http://localhost:8080/upload?photoID=" + 1 , uploadPath.getText());
+        int id = 10;
+        for(File f : files){
+            HttpController.postFile("http://localhost:8080/upload?photoID=" + id , f.getAbsolutePath());
+            java.awt.Image img = ImageIO.read(f).getScaledInstance(100, 100, BufferedImage.SCALE_SMOOTH);
+            HttpController.postFile("http://localhost:8080/uploadThumbnail?file= " + img + "&photoID=" + id , f.getAbsolutePath());
+            id++;
+        }
     }
     
     @FXML

@@ -63,6 +63,35 @@ public class FileUploadController {
         }
     }
     
+    @RequestMapping(value="/uploadThumbnail", method=RequestMethod.POST)
+    public @ResponseBody String handleThumbnailUpload(
+            @RequestParam("file") MultipartFile file,
+			@RequestParam(value = "photoID", required = true)int photoID){
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                
+             // Creating the directory to store file
+                String rootPath = System.getProperty("default.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+                
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(new File(Integer.toString(photoID) + "-Thumbnail")));
+                stream.write(bytes);
+                stream.close();
+                
+                
+                return "You successfully uploaded " + name + " into " + name + ".jpg !";
+            } catch (Exception e) {
+                return "You failed to upload " + name + " => " + e.getMessage();
+            }
+        } else {
+            return "You failed to upload " + name + " because the file was empty.";
+        }
+    }
+    
     @RequestMapping(value = "/createPhotoGroup", method = RequestMethod.POST)
 	public String createPhotoGroup(@RequestParam(value = "photogroup", required = true)String photogroupJson){
 		IDatabase db = DatabaseController.getInstance();
