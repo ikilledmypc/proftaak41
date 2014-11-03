@@ -10,6 +10,10 @@ import domain.Account;
 import domain.Photo;
 import domain.ShoppingCart;
 import frontend.FrontEnd;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -26,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -42,22 +47,27 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     ScreensController myController;
     private ShoppingCart shoppingCart;
-    
+
     @FXML
     Label LBL_username;
 
     @FXML
     TilePane TP_photoContainer;
-    
+
     @FXML
     Button BTN_cart;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        FileOutputStream fos = null;
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
         for (int i = 0; i < 30; i++) {
-            TP_photoContainer.getChildren().add(buildPhotoItem(new Photo(i, new Date(), (float) 2.3)));
+            try {
+                TP_photoContainer.getChildren().add(buildPhotoItem(new Photo(i, new Date(), (float) 2.3),ThumbnailManager.getThumnail("KxUHaU0.jpg")));
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -107,57 +117,64 @@ public class MainController extends ControlledAccountScreen implements Initializ
     private void handleBuyAction(ActionEvent event) {
         myController.setScreen(FrontEnd.buyItemScreen);
     }
-    
-    private void updateCart(){
+
+    private void updateCart() {
         Gson gson = new Gson();
-       String sCart= HttpController.excuteGet(FrontEnd.HOST+"/getCart?username="+this.loggedInAccount.getUsername());
-       ShoppingCart s = gson.fromJson(sCart, ShoppingCart.class);
-       this.shoppingCart =s;
-       BTN_cart.setText("cart ("+s.getItemCount()+" items)");
+        String sCart = HttpController.excuteGet(FrontEnd.HOST + "/getCart?username=" + this.loggedInAccount.getUsername());
+        ShoppingCart s = gson.fromJson(sCart, ShoppingCart.class);
+        this.shoppingCart = s;
+        BTN_cart.setText("cart (" + s.getItemCount() + " items)");
     }
-    
+
     @FXML
     public void opencart() {
         myController.loadAccountScreen("cart", "/view/CartFXML.fxml", this.loggedInAccount);
         myController.setScreen("cart");
     }
 
-    public VBox buildPhotoItem(final Photo p) {
-        VBox item = new VBox(5);
-        item.setPrefSize(250, 230);
-        ImageView photo = new ImageView("resources/placeholderPhoto.jpg");
-        photo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                try {
-                    Parent root;
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
-                    root = loader.load();
-                    BuyItemScreenController controller = loader.getController();
-                    controller.setAccount(loggedInAccount);
-                    controller.setPhoto(p);
-                    Stage stage = new Stage();
-                    stage.setTitle("My New Stage Title");
-                    stage.setScene(new Scene(root,640,430));
-                    stage.show();
-                    stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler(){
-                        @Override
-                        public void handle(Event event) {
-                            updateCart();
-                        }
-                        
-                    });
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+    public VBox buildPhotoItem(final Photo p, File f) {
+        try {
+            VBox item = new VBox(5);
+            item.setPrefSize(250, 230);
+            Image image = new Image(new FileInputStream(f));
+            ImageView photo = new ImageView("resources/placeholderPhoto.jpg");
+            photo.setImage(image);
+            photo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+                @Override
+                public void handle(Event event) {
+                    try {
+                        Parent root;
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
+                        root = loader.load();
+                        BuyItemScreenController controller = loader.getController();
+                        controller.setAccount(loggedInAccount);
+                        controller.setPhoto(p);
+                        Stage stage = new Stage();
+                        stage.setTitle("My New Stage Title");
+                        stage.setScene(new Scene(root, 640, 430));
+                        stage.show();
+                        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+                            @Override
+                            public void handle(Event event) {
+                                updateCart();
+                            }
+
+                        });
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        });
-        photo.setFitWidth(250);
-        photo.setFitHeight(200);
-        Label name = new Label(p.getPhotoID() + " " + p.getUploadDate());
-        item.getChildren().add(photo);
-        item.getChildren().add(name);
-        return item;
+            });
+            photo.setFitWidth(250);
+            photo.setFitHeight(200);
+            Label name = new Label(p.getPhotoID() + " " + p.getUploadDate());
+            item.getChildren().add(photo);
+            item.getChildren().add(name);
+            return item;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

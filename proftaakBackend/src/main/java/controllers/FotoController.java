@@ -2,14 +2,27 @@ package controllers;
 
 import interfaces.IDatabase;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -112,5 +125,17 @@ public class FotoController {
 		}
 		Gson gson = new Gson();
 		return gson.toJson(photos);
+	}
+	
+	@RequestMapping("/getThumbnail")
+	public ResponseEntity<byte[]> testphoto(@RequestParam(value="filename", required=true)String filename) throws IOException {
+		String rootPath = System.getProperty("user.dir");
+		String dir = rootPath + File.separator + "Photos"+File.separator+"thumbnails"+File.separator;
+
+	    final HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.IMAGE_JPEG);
+	    byte[] image = IOUtils.toByteArray(new FileInputStream(dir+filename));
+
+	    return new ResponseEntity<byte[]>(image, headers, HttpStatus.CREATED);
 	}
 }

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -108,6 +109,34 @@ The urlParameters is a URL encoded string.
       }
       rd.close();
       return response.toString();
+
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      return null;
+
+    } finally {
+
+      if(connection != null) {
+        connection.disconnect(); 
+      }
+    }
+  }
+    
+    public static byte[]  excuteGetFile(String targetURL)
+  {
+    URL url;
+    HttpURLConnection connection = null;  
+    try {
+      //Create connection
+      url = new URL(targetURL);
+      connection = (HttpURLConnection)url.openConnection();
+      connection.setRequestMethod("GET");
+
+      //Get Response	
+      InputStream is = connection.getInputStream();
+     
+      return IOUtils.toByteArray(is);
 
     } catch (Exception e) {
 
