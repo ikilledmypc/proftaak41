@@ -99,14 +99,15 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         
         //String bla = HttpController.excuteGet("http://localhost:8080/upload");
         //System.out.println(bla);
-        ArrayList<Photo> photos = new ArrayList<>();
         Iterator it = selectedPhotos.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
-//            File p =((Photo) pairs.getKey());
+           File p =((File) pairs.getKey());
 //            p.setName(((TextField)pairs.getValue()).getId());
 //            p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
 //            photos.add(p);
+            String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath());
+            System.out.println(bla);
             it.remove(); // avoids a ConcurrentModificationException
         }
         /*
@@ -119,17 +120,14 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         }
         */
         
+        String bla1 = HttpController.excuteGet("http://localhost:8080/upload");
+        System.out.println(bla1);
+        /*
         for(Photo p:photos){
             System.out.println(p.getPrice()+" "+p.getName());
             String bla = HttpController.postFile("http://localhost:8080/upload", "C:\\Users\\Mr. Jin\\Downloads\\cover.jpg");
-        }
-        
-        String bla = HttpController.excuteGet("http://localhost:8080/upload");
-        System.out.println(bla);
-        
-        String bla2 = HttpController.postFile("http://localhost:8080/upload", "C:\\Users\\Mr. Jin\\Downloads\\cover.jpg");
-        System.out.println(bla2);
-            
+        }*/
+                 
     }
     
     @FXML
