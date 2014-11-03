@@ -109,6 +109,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
 //            photos.add(p);
             it.remove(); // avoids a ConcurrentModificationException
         }
+        /*
         int id = 10;
         for(File f : files){
             HttpController.postFile("http://localhost:8080/upload?photoID=" + id , f.getAbsolutePath());
@@ -116,6 +117,19 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             HttpController.postFile("http://localhost:8080/uploadThumbnail?file= " + img + "&photoID=" + id , f.getAbsolutePath());
             id++;
         }
+        */
+        
+        for(Photo p:photos){
+            System.out.println(p.getPrice()+" "+p.getName());
+            String bla = HttpController.postFile("http://localhost:8080/upload", "C:\\Users\\Mr. Jin\\Downloads\\cover.jpg");
+        }
+        
+        String bla = HttpController.excuteGet("http://localhost:8080/upload");
+        System.out.println(bla);
+        
+        String bla2 = HttpController.postFile("http://localhost:8080/upload", "C:\\Users\\Mr. Jin\\Downloads\\cover.jpg");
+        System.out.println(bla2);
+            
     }
     
     @FXML

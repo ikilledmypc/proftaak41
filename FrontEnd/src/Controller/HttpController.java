@@ -124,6 +124,9 @@ The urlParameters is a URL encoded string.
  
     public static String postFile(String targetURL, String filePath) 
     {
+        String fileName = filePath.substring(filePath.lastIndexOf("\\")+1, filePath.length());
+        System.out.println("Filename: " + fileName);
+        
        HttpURLConnection conn = null;
           DataOutputStream dos = null;
           DataInputStream inStream = null;
@@ -147,6 +150,9 @@ The urlParameters is a URL encoded string.
              
               dos.writeBytes(twoHyphens + boundary + lineEnd);
               dos.writeBytes("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              //System.out.println("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              //System.out.println("Content-Disposition: form-data; name=\"" + fileName +  "\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              //dos.writeBytes();
               dos.writeBytes(lineEnd);
               // create a buffer of maximum size
               bytesAvailable = fileInputStream.available();
