@@ -32,7 +32,7 @@
         <Label text="Company name" GridPane.rowIndex="7" />
         <TextField fx:id="TB_companyname" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Label text="Bank account" GridPane.rowIndex="8" />
-        <PasswordField fx:id="TB_bankaccount" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <TextField id="TB_telepone" fx:id="TB_bankaccount" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       </children>
       <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="6.0" prefWidth="53.0" />
