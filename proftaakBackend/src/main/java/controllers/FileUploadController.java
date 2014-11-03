@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -48,11 +49,11 @@ public class FileUploadController {
     public @ResponseBody String handleFileUpload(
             @RequestParam("file") MultipartFile file){
     	String path = file.getOriginalFilename().toString();
-    	String name = path.substring(path.lastIndexOf("\\")+1, path.length());
+    	String name =path+".jpg";
     	if (!file.isEmpty()) {
             try {          	
                 byte[] bytes = file.getBytes();
-                BufferedImage thumbnail =  Scalr.resize(ImageIO.read(multipartToFile(file)), 300);
+                
                 
              // Creating the directory to store file
                 String rootPath = System.getProperty("user.dir");
@@ -70,6 +71,7 @@ public class FileUploadController {
                 		new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
+                BufferedImage thumbnail =  Scalr.resize(ImageIO.read(serverFile), 300);
                 ImageIO.write(thumbnail, "jpg", new File(dir.getAbsolutePath()+ File.separator + name));
                 return "You successfully uploaded " + name + " into " + serverFile.getAbsolutePath() + "!";
             } catch (Exception e) {
@@ -142,22 +144,23 @@ public class FileUploadController {
 		IDatabase db = DatabaseController.getInstance();
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Photogroup photogroup = (Photogroup) jsonManager.fromJson(photogroupJson, Photogroup.class);
-		int groupcode = 0;
+		String photogroupID = "";
 		int isPublic = 0;
 		if(photogroup.getIsPublic()){
 			isPublic = 1;
 		}
 		ResultSet rst = db.insert("INSERT INTO PHOTOGROUP (accountID, code, groupName, isPublic)VALUES('" + photogroup.getAccountID() + "','" + photogroup.getCode() + "'"
 				+ ",'" + photogroup.getGroupName() + "', '" + isPublic + "')");
+		
+		rst = db.select("SELECT photogroupID FROM photogroup WHERE code='" + photogroup.getCode() + "'" );
 		try {
 			while(rst.next()){
-				groupcode = rst.getInt("code");
+				photogroupID = rst.getString("photogroupID");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Gson gson = new Gson();
-		return gson.toJson(groupcode);
+		return photogroupID;
 	}
     
     @RequestMapping(value = "/checkCodeavailability", method = RequestMethod.GET)
@@ -178,24 +181,45 @@ public class FileUploadController {
 		return "true";
 	}
     
-    @RequestMapping(value = "/uploadGroupPhotos", method = RequestMethod.PUT)
-	public String uploadGroupPhotos(@RequestParam(value = "photos", required = true)ArrayList<Photo> photos,
+    @RequestMapping(value = "/uploadGroupPhoto", method = RequestMethod.POST)
+	public int uploadGroupPhotos(@RequestParam(value = "photo", required = true)String photoJson,
 			@RequestParam(value = "photogroupID", required = true)int photogroupID){
+    	JsonManager jsonManager = JsonManager.GetInstance();
 		IDatabase db = DatabaseController.getInstance();
+		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
 		int photoID = 0;
-		for(Photo p : photos){
-		    ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price) VALUES('" + p.getName() + "', '" + p.getUploadDate() + "'"
-		    		+ ", '" + p.getPrice() + "')");
-		    try {
-				while(rst.next()){
-					photoID = rst.getInt("photoid");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			String date = sdf.format(photo.getUploadDate());
+		
+		ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price, size, height, width) VALUES('" + photo.getName() + "', '" + date + "'"
+		    		+ ", '" + photo.getPrice() + "', '" + 12 + "', '" + photo.getHeight() + "', '" + photo.getwidth() + "')");
+		
+		rst = db.select("SELECT MAX(photoID) AS ID FROM Photo");
+		try {
+			while(rst.next()){
+				photoID = rst.getInt(1);
 			}
-			rst = db.insert("INSERT INTO PHOTOGROUP_PHOTO VALUES('" + photogroupID + "', '" + photoID + "')");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		Gson gson = new Gson();
-		return gson.toJson(true);
+		
+		rst = db.insert("INSERT INTO PHOTOGROUP_PHOTO VALUES('" + photogroupID + "', '" + photoID + "')");
+		return photoID;
+	}
+    
+    @RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
+	public String uploadPhoto(@RequestParam(value = "photo", required = true)String photoJson){
+    	JsonManager jsonManager = JsonManager.GetInstance();
+		IDatabase db = DatabaseController.getInstance();
+		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(photo.getUploadDate());
+		
+		ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price, size, height, width) VALUES('" + photo.getName() + "', '" + date + "'"
+		    		+ ", '" + photo.getPrice() + "', '" + 12 + "', '" + photo.getHeight() + "', '" + photo.getwidth() + "')");
+		return "true";
 	}
 }

@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -44,23 +46,22 @@ import javax.imageio.ImageIO;
  * @author Baya
  */
 public class UploadScreenController extends ControlledAccountScreen implements Initializable {
-    
+
     ScreensController myController;
     ArrayList<String> paths;
-    boolean isPublic = true;
     Gson gson = new Gson();
     List<File> files;
 
     @FXML
     TextField uploadPath;
     @FXML
-    TextField multipleUploadPath;
+    CheckBox isPublic;
     @FXML
     TextField groupCode;
     @FXML
     TextField groupNameField;
-    
-    private HashMap<File,TextField> selectedPhotos = new HashMap<>();
+
+    private HashMap<File, TextField> selectedPhotos = new HashMap<>();
     @FXML
     TilePane TP_photos;
 
@@ -74,109 +75,76 @@ public class UploadScreenController extends ControlledAccountScreen implements I
 //        for(int i=0;i<4;i++){
 //            TP_photos.getChildren().add(buildItem("/resources/placeholderPhoto.jpg"));
 //        }
-    }    
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-    
+
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
         files = myController.chooseFile();
-        for(File f :files){
+        for (File f : files) {
             TP_photos.getChildren().add(buildItem(f));
         }
     }
-    
+
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.mainScreen);
     }
-    
+
     @FXML
     public void handleUploadButtonAction(ActionEvent event) throws IOException {
-        
-        //String bla = HttpController.excuteGet("http://localhost:8080/upload");
-        //System.out.println(bla);
-        Iterator it = selectedPhotos.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry)it.next();
-           File p =((File) pairs.getKey());
-//            p.setName(((TextField)pairs.getValue()).getId());
-//            p.setPrice(Float.parseFloat(((TextField)pairs.getValue()).getText()));                    
-//            photos.add(p);
-            String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath());
-            System.out.println(bla);
-            it.remove(); // avoids a ConcurrentModificationException
+        String photogroupid = "";
+        if (selectedPhotos.size() > 1) {
+            String code = generateCode();
+            String groupName = groupNameField.getText();
+            photogroupid = HttpController.excutePost(FrontEnd.HOST + "/createPhotoGroup", "photogroup="
+                    + gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
+            groupCode.setText(code);
         }
-        /*
-        int id = 10;
-        for(File f : files){
-            HttpController.postFile("http://localhost:8080/upload?photoID=" + id , f.getAbsolutePath());
-            java.awt.Image img = ImageIO.read(f).getScaledInstance(100, 100, BufferedImage.SCALE_SMOOTH);
-            HttpController.postFile("http://localhost:8080/uploadThumbnail?file= " + img + "&photoID=" + id , f.getAbsolutePath());
-            id++;
+        for (Map.Entry pairs : selectedPhotos.entrySet()) {
+            File p = ((File) pairs.getKey());
+            BufferedImage image = ImageIO.read(p);
+            Photo photo = new Photo(p.getName(), new Date(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
+
+            if (selectedPhotos.size() > 1) {
+                String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
+                photoid = photoid.trim();
+                String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(),Integer.parseInt(photoid));
+                System.out.println(bla);
+            }
         }
-        */
-        
-        String bla1 = HttpController.excuteGet("http://localhost:8080/upload");
-        System.out.println(bla1);
-        /*
-        for(Photo p:photos){
-            System.out.println(p.getPrice()+" "+p.getName());
-            String bla = HttpController.postFile("http://localhost:8080/upload", "C:\\Users\\Mr. Jin\\Downloads\\cover.jpg");
-        }*/
-                 
+
     }
-    
-    
+
     @FXML
-    public void handleBrowseButtonAction2(ActionEvent event) {
+    public void handleBrowseButtonAction2(ActionEvent event
+    ) {
         paths = myController.chooseMulitpleFiles();
         String path = "";
-        for(String s : paths){
+        for (String s : paths) {
             path = path + "'" + s;
         }
-        multipleUploadPath.setText(path);
+
     }
-    
-    @FXML
-    public void handleCreateGroupButtonAction(ActionEvent event){
-        String code = generateCode();
-        String groupName = groupNameField.getText();
-        String photogroupid = HttpController.excutePost(FrontEnd.HOST+"/createPhotoGroup", "photogroup=" + 
-                gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic, 0)));
-        if(!photogroupid.equalsIgnoreCase("")){
-            int groupID = gson.fromJson(photogroupid, new TypeToken<Integer>(){}.getType());
-        }
-        int id = 10;
-        for(String s : paths){
-            HttpController.postFile("http://localhost:8080/upload?photoID=" + id, s);
-            id++;
-        }
-        groupCode.setText(code);
-    }
-    
-    public String generateCode(){
-        Random rand = new Random(); 
+
+    public String generateCode() {
+        Random rand = new Random();
         int code = rand.nextInt(899999) + 100000;
         String hashcode = Integer.toHexString(code);
-        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode );
-        if(bezet.equals("true")){
+        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode);
+        if (bezet.equals("true")) {
             generateCode();
-        }
-        else{
-            return hashcode; 
+        } else {
+            return hashcode;
         }
         return "";
     }
-        
-      //  HttpController.postFile("http://localhost:8080/upload", uploadPath.getText());
-    
-    
-    
-    private VBox buildItem(File file){
+
+    private VBox buildItem(File file) {
         try {
             VBox item = new VBox();
             item.setStyle("-fx-border-color: black;");
@@ -193,8 +161,8 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             price.setText("6.50");
             Label priceLabel = new Label();
             priceLabel.setText("price:  \u20ac");
-            hbox.getChildren().addAll(priceLabel,price);
-            item.getChildren().addAll(iv,hbox);
+            hbox.getChildren().addAll(priceLabel, price);
+            item.getChildren().addAll(iv, hbox);
             selectedPhotos.put(file, price);
             return item;
         } catch (FileNotFoundException ex) {

@@ -151,7 +151,7 @@ The urlParameters is a URL encoded string.
     }
   }
  
-    public static String postFile(String targetURL, String filePath) 
+    public static String postFile(String targetURL, String filePath, int id) 
     {
         String fileName = filePath.substring(filePath.lastIndexOf("\\")+1, filePath.length());
         System.out.println("Filename: " + fileName);
@@ -178,11 +178,14 @@ The urlParameters is a URL encoded string.
               dos = new DataOutputStream( conn.getOutputStream() );
              
               dos.writeBytes(twoHyphens + boundary + lineEnd);
-              dos.writeBytes("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
+              dos.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"" + filePath +"\"" + lineEnd);
+              //dos.writeBytes("Content-Disposition: form-data; id=\"id\"; value=\"" + id +"\"" + lineEnd);
               //System.out.println("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
               //System.out.println("Content-Disposition: form-data; name=\"" + fileName +  "\";" + " filename=\"" + filePath +"\"" + lineEnd);
               //dos.writeBytes();
+              
               dos.writeBytes(lineEnd);
+              
               // create a buffer of maximum size
               bytesAvailable = fileInputStream.available();
               bufferSize = Math.min(bytesAvailable, maxBufferSize);
