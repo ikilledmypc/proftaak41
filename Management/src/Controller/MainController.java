@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import domain.Account;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,11 +37,6 @@ public class MainController extends ControlledAccountScreen implements Initializ
         
     }
 
-    @Override
-    public void setAccount(Account a) {
-        this.loggedInAccount = a;
-        LBL_username.setText(a.getName());
-    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {

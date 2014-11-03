@@ -5,9 +5,6 @@
  */
 package Controller;
 
-import com.google.gson.Gson;
-import domain.Account;
-import domain.Photographer;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,36 +42,10 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     @FXML
     public void login() {
         try {
-            Gson gson = new Gson();
-            String password = TF_password.getText();
-            String accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
-            Account account;
-            if (!accounts.isEmpty()) {
-                try
-                { account = gson.fromJson(accounts, Photographer.class);
-                    if(((Photographer)account).getPhotographerID() == 0)
-                    {
-                        account = gson.fromJson(accounts, Account.class);
-                    }
-                }
-                catch(ClassCastException e)
-                {
-                    account = gson.fromJson(accounts, Account.class);
-                }
+            if ("admin".equals(TF_username.getText()) && "admin".equals(TF_password.getText())) {
                 
-                if(account instanceof Photographer)
-                {
-                   System.out.println("Hello Photographer " + account.getName() + "!");
-                    LB_error.setText("Hello Photographer " + account.getName() + "!"); 
-                }
-                else
-                {
-                   System.out.println("Hello User " + account.getName() + "!");
-                    LB_error.setText("Hello User " + account.getName() + "!");  
-                }
-                
-                myController.loadAccountScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML, account);
-                myController.setScreen(FrontEnd.mainScreen);
+                myController.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
+                myController.setScreen(FrontEnd.managementScreen);
             } else {
                 LB_error.setText("Wrong username/password");
             }
@@ -86,11 +57,6 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
-    }
-
-    @FXML
-    public void register() {
-        myController.setScreen(FrontEnd.registerScreen);
     }
 
 }

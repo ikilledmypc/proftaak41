@@ -1,11 +1,5 @@
 package domain;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Account {
 
     private int accountID;
@@ -21,7 +15,6 @@ public class Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address
@@ -47,7 +40,6 @@ public class Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address

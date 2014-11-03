@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Photographer extends Account {
@@ -16,7 +15,6 @@ public class Photographer extends Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address
@@ -24,6 +22,7 @@ public class Photographer extends Account {
      * @param city
      * @param email
      * @param telephone
+     * @param password
      * @param companyName
      * @param bankAccount
      */

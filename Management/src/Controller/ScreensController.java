@@ -128,11 +128,4 @@ public class ScreensController extends StackPane {
             return true;
         }
     }
-
-    public String chooseFile() {
-        Stage newStage = new Stage();
-        FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(newStage);
-        return file.getAbsoluteFile().toString();
-    }
 }
