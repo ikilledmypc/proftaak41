@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author Mike Rooijackers
+ * @author Baya
  */
 public class RegisterScreenController implements Initializable, ControlledScreen {
 

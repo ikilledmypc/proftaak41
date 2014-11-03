@@ -44,8 +44,10 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         try {
             if ("admin".equals(TF_username.getText()) && "admin".equals(TF_password.getText())) {
                 
+                myController.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
+                myController.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
                 myController.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
-                myController.setScreen(FrontEnd.managementScreen);
+                myController.setScreen(FrontEnd.mainScreen);
             } else {
                 LB_error.setText("Wrong username/password");
             }

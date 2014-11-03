@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import com.google.gson.Gson;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,54 +13,63 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.TilePane;
 
 /**
+ * FXML Controller class
  *
- * @author Mike Rooijackers
+ * @author Mike
  */
-public class MainController extends ControlledAccountScreen implements Initializable {
+public class MainController implements Initializable, ControlledScreen {
 
     ScreensController myController;
+    Gson gson;
     
     @FXML
-    Label LBL_username;
-
+    Button btnEdit;
     @FXML
-    TilePane TP_photoContainer;
+    Button btnRegister;
+    @FXML
+    Button btnAddProduct;
+    @FXML
+    Button btnEditProduct;
+    @FXML
+    Button btnDeleteProduct;
     
-    @FXML
-    Button BTN_cart;
-
+    
+    /**
+     * Initializes the controller class.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }
-
+    }    
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-
+    
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.loginScreen);
-    }
-
-    @FXML
-    private void handleRegisterButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.registerScreen);
-    }
-
-    @FXML
-    private void handleRegisterPhotographerButtonAction(ActionEvent event) {
+    public void handleRegisterButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.registerPhotographerScreen);
     }
-
+    
     @FXML
-    private void handlePhotographerAction(ActionEvent event) {
+    public void handleEditButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.managementScreen);
     }
+    
+    @FXML
+    public void handleAddProductButtonAction(ActionEvent event) {
+    }
+    
+    @FXML
+    public void handleEditProductButtonAction(ActionEvent event) {
+    }
+    
+    @FXML
+    public void handleDeleteProductButtonAction(ActionEvent event) {
+    }
+    
 }
