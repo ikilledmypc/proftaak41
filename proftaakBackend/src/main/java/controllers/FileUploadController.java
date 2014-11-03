@@ -35,26 +35,28 @@ public class FileUploadController {
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(
-            @RequestParam("file") MultipartFile file,
-			@RequestParam(value = "photoID", required = true)int photoID){
-    	String name = "Test";
-        if (!file.isEmpty()) {
-            try {
+            @RequestParam("file") MultipartFile file){
+    	String path = file.getOriginalFilename().toString();
+    	String name = path.substring(path.lastIndexOf("\\")+1, path.length());
+    	if (!file.isEmpty()) {
+            try {          	
                 byte[] bytes = file.getBytes();
                 
              // Creating the directory to store file
-                String rootPath = System.getProperty("default.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
+                String rootPath = System.getProperty("user.dir");
+                File dir = new File(rootPath + File.separator + "Photos");
                 if (!dir.exists())
                     dir.mkdirs();
                 
+             // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + name);
+                
                 BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(Integer.toString(photoID) + "-uploaded")));
+                		new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                
-                
-                return "You successfully uploaded " + name + " into " + name + ".jpg !";
+                return "You successfully uploaded " + name + " into " + serverFile.getAbsolutePath() + "!";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }
