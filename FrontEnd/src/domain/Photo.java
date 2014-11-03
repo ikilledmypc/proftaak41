@@ -3,9 +3,7 @@ package domain;
 import java.util.Date;
 
 public class Photo {
-
     
-
 	private int photoID;
 	private String name;
 	private Date uploadDate;
