@@ -67,6 +67,7 @@ public class FileUploadController {
     public @ResponseBody String handleThumbnailUpload(
             @RequestParam("file") MultipartFile file,
 			@RequestParam(value = "photoID", required = true)int photoID){
+    	String name = "Test";
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();

@@ -50,7 +50,7 @@ public class ProductTest {
 
         cal.set(2013, Calendar.JANUARY, 9, 10, 11, 12);
         uploadDate = cal.getTime();
-        foto = new Photo(uploadDate, price);
+        foto = new Photo(productID, uploadDate, price);
         product3 = new Product(name, materialPrice, foto);
     }
 
