@@ -1,0 +1,20 @@
+
+Onvoldoende
+
+kredietlimiet ontbreekt in class diagram
+
+bij de sequence diagrammen is de bedoeling om methodes te selecteren 
+uit de klasses van je klassediagram. Als er een ontbreekt voeg je
+die toe in je klassediagram en kunt die dan selecteren
+
+sequence diagram: overboeken
+bij overboeken moet het saldo en de kredietlimiet worden gecheckt
+
+sequence diagram: nieuw account
+vanuit de GUI verwacht ik een methode aanroep van een methode in Bank.
+
+sequence diagram: stort
+stort Bedrag is geen method in Bankrekening (deze bevat wel stort)
+Maar wat zijn de stappen die moeten gebeuren voordat ik kan
+storten. Hoe navigeer je naar Bankrekening. Er zijn er meerdere
+dus die kun je niet zomaar benaderen.
