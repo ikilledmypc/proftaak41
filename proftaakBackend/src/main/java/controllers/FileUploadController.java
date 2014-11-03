@@ -2,15 +2,26 @@ package controllers;
 
 import interfaces.IDatabase;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 import managers.JsonManager;
 
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,21 +52,25 @@ public class FileUploadController {
     	if (!file.isEmpty()) {
             try {          	
                 byte[] bytes = file.getBytes();
+                BufferedImage thumbnail =  Scalr.resize(ImageIO.read(multipartToFile(file)), 300);
                 
              // Creating the directory to store file
                 String rootPath = System.getProperty("user.dir");
-                File dir = new File(rootPath + File.separator + "Photos");
-                if (!dir.exists())
+                File dir = new File(rootPath + File.separator + "Photos"+File.separator+"thumbnails");
+                if (!dir.exists()){
                     dir.mkdirs();
+
+                }
+                	
                 
              // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
+                File serverFile = new File(rootPath + File.separator + "Photos" + File.separator + name);
                 
                 BufferedOutputStream stream =
                 		new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
+                ImageIO.write(thumbnail, "jpg", new File(dir.getAbsolutePath()+ File.separator + name));
                 return "You successfully uploaded " + name + " into " + serverFile.getAbsolutePath() + "!";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
@@ -64,6 +79,33 @@ public class FileUploadController {
             return "You failed to upload " + name + " because the file was empty.";
         }
     }
+    
+    public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException 
+    {
+            File convFile = new File( multipart.getOriginalFilename());
+            multipart.transferTo(convFile);
+            return convFile;
+    }
+    
+    private BufferedImage scaleImage(BufferedImage source,double ratio) {
+    	  int w = (int) (source.getWidth() * ratio);
+    	  int h = (int) (source.getHeight() * ratio);
+    	  BufferedImage bi = getCompatibleImage(w, h);
+    	  Graphics2D g2d = bi.createGraphics();
+    	  double xScale = (double) w / source.getWidth();
+    	  double yScale = (double) h / source.getHeight();
+    	  AffineTransform at = AffineTransform.getScaleInstance(xScale,yScale);
+    	  g2d.drawRenderedImage(source, at);
+    	  g2d.dispose();
+    	  return bi;
+    	}
+    private BufferedImage getCompatibleImage(int w, int h) {
+    	  GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	  GraphicsDevice gd = ge.getDefaultScreenDevice();
+    	  GraphicsConfiguration gc = gd.getDefaultConfiguration();
+    	  BufferedImage image = gc.createCompatibleImage(w, h);
+    	  return image;
+    	}
     
     @RequestMapping(value="/uploadThumbnail", method=RequestMethod.POST)
     public @ResponseBody String handleThumbnailUpload(

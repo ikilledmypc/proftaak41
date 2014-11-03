@@ -130,6 +130,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
                  
     }
     
+    
     @FXML
     public void handleBrowseButtonAction2(ActionEvent event) {
         paths = myController.chooseMulitpleFiles();
