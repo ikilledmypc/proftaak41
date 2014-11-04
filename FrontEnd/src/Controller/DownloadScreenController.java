@@ -29,10 +29,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Baya
  */
 public class DownloadScreenController extends ControlledAccountScreen implements Initializable {
-    
+
     ScreensController myController;
     ObservableList<Photo> photos;
-    
+    ArrayList<Photo> photoslist;
     @FXML
     TextField codeEntry;
     @FXML
@@ -41,22 +41,26 @@ public class DownloadScreenController extends ControlledAccountScreen implements
     TableColumn colName;
     @FXML
     TableColumn colPrice;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colName.setCellValueFactory(new PropertyValueFactory<Photo,String>("photoID"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<Photo,String>("price"));
-        
-    }    
+        colName.setCellValueFactory(new PropertyValueFactory<Photo, String>("photoID"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<Photo, String>("price"));
+        photoslist = new ArrayList<>();
+
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
-        getRedeemed();
+        this.photoslist =getRedeemed();
+        photos = FXCollections.observableArrayList(this.photoslist);
+        photoTable.setItems(photos);
     }
-    
+
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();
@@ -65,26 +69,43 @@ public class DownloadScreenController extends ControlledAccountScreen implements
 //            System.out.println("User not logged in");
 //            return;
 //        }
-        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getAllPhotos?code="+codeEntry.getText()+"&accountID="+this.loggedInAccount.getAccountID());
-        if(!returnedPhotos.equalsIgnoreCase("")) {
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getAllPhotos?code=" + codeEntry.getText() + "&accountID=" + this.loggedInAccount.getAccountID());
+        if (!returnedPhotos.equalsIgnoreCase("")) {
             ArrayList<Photo> getPhotos = new ArrayList();
-            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>() {
+            }.getType());
             photos = FXCollections.observableArrayList(getPhotos);
             photoTable.setItems(photos);
         } else {
             System.out.println("Failed to load photos");
         }
-   }
+    }
     
-    private void getRedeemed()
-    {
+    public ArrayList<Photo> getPhotosList(){
+        return this.photoslist;
+    }
+
+    private ArrayList<Photo> getRedeemed() {
         Gson gson = new Gson();
-        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST+"/getPreviousRedeemed?accountID="+this.loggedInAccount.getAccountID());
-        if(!returnedPhotos.equalsIgnoreCase("")) {
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getPreviousRedeemed?accountID=" + this.loggedInAccount.getAccountID());
+        if (!returnedPhotos.equalsIgnoreCase("")) {
             ArrayList<Photo> getPhotos = new ArrayList();
-            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>(){}.getType());
-            photos = FXCollections.observableArrayList(getPhotos);
-            photoTable.setItems(photos);
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>() {
+            }.getType());
+            return getPhotos;
         }
+        return null;
+    }
+    
+        public static ArrayList<Photo> getOwnedPhotos(int id) {
+        Gson gson = new Gson();
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getPreviousRedeemed?accountID=" + id);
+        if (!returnedPhotos.equalsIgnoreCase("")) {
+            ArrayList<Photo> getPhotos = new ArrayList();
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>() {
+            }.getType());
+            return getPhotos;
+        }
+        return null;
     }
 }

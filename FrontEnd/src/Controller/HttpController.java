@@ -178,7 +178,7 @@ The urlParameters is a URL encoded string.
               dos = new DataOutputStream( conn.getOutputStream() );
              
               dos.writeBytes(twoHyphens + boundary + lineEnd);
-              dos.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"" + filePath +"\"" + lineEnd);
+              dos.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"" + id +"\"" + lineEnd);
               //dos.writeBytes("Content-Disposition: form-data; id=\"id\"; value=\"" + id +"\"" + lineEnd);
               //System.out.println("Content-Disposition: form-data; name=\"file\";" + " filename=\"" + filePath +"\"" + lineEnd);
               //System.out.println("Content-Disposition: form-data; name=\"" + fileName +  "\";" + " filename=\"" + filePath +"\"" + lineEnd);

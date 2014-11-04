@@ -11,10 +11,14 @@ import com.google.gson.reflect.TypeToken;
 import domain.Photo;
 import domain.Product;
 import frontend.FrontEnd;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -59,7 +63,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
        Gson gson = new Gson();
        ArrayList<Product> items =gson.fromJson(itemsString,new TypeToken<ArrayList<Product>>(){}.getType());
        CMB_items.getItems().addAll(items);
-       IMG_photo.setImage(new Image("/resources/placeholderPhoto.jpg"));
+      
        CMB_items.valueProperty().addListener(new ChangeListener<Product>(){
            @Override
            public void changed(ObservableValue<? extends Product> observable, Product oldValue, Product newValue) {
@@ -74,6 +78,11 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     public void setPhoto(Photo photo){
         this.photo = photo;
         LBL_photoPrice.setText("\u20ac"+photo.getPrice());
+        try {
+            IMG_photo.setImage(new Image(new FileInputStream(ThumbnailManager.getThumnail(this.photo.getPhotoID()+".jpg"))));
+        } catch (IOException ex) {
+            Logger.getLogger(BuyItemScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

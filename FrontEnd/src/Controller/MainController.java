@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -47,7 +48,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     ScreensController myController;
     private ShoppingCart shoppingCart;
-
+    private ArrayList<Photo> ownedPhotos; 
     @FXML
     Label LBL_username;
 
@@ -62,19 +63,33 @@ public class MainController extends ControlledAccountScreen implements Initializ
         FileOutputStream fos = null;
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
-        for (int i = 0; i < 30; i++) {
-            try {
-                TP_photoContainer.getChildren().add(buildPhotoItem(new Photo(i, new Date(), (float) 2.3),ThumbnailManager.getThumnail("KxUHaU0.jpg")));
-            } catch (IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        for (int i = 0; i < 30; i++) {
+//            try {
+//                TP_photoContainer.getChildren().add(buildPhotoItem(new Photo(i, new Date(), (float) 2.3),ThumbnailManager.getThumnail("KxUHaU0.jpg")));
+//            } catch (IOException ex) {
+//                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+    }
+    
+    public void setRedeemedPhotos(ArrayList<Photo> photos){
+        this.ownedPhotos = photos;
     }
 
     @Override
     public void setAccount(Account a) {
         this.loggedInAccount = a;
         LBL_username.setText(a.getName());
+        this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
+        if(this.ownedPhotos!=null){
+            for(Photo p: this.ownedPhotos){
+                try {
+                    TP_photoContainer.getChildren().add(buildPhotoItem(p,ThumbnailManager.getThumnail(p.getPhotoID()+".jpg")));
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
         updateCart();
     }
 
