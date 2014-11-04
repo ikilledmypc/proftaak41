@@ -62,6 +62,7 @@ public class MainController implements Initializable, ControlledScreen {
     
     @FXML
     public void handleAddProductButtonAction(ActionEvent event) {
+         myController.setScreen(FrontEnd.addProductScreen);
     }
     
     @FXML

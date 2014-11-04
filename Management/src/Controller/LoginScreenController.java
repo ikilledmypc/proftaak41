@@ -47,6 +47,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 myController.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
                 myController.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
                 myController.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
+                myController.loadScreen(FrontEnd.addProductScreen, FrontEnd.addProductScreenFXML);
                 myController.setScreen(FrontEnd.mainScreen);
             } else {
                 LB_error.setText("Wrong username/password");
