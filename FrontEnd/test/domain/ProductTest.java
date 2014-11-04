@@ -88,7 +88,7 @@ public class ProductTest {
      */
     @Test
     public void testSetName() {
-        product.setName("muismat");;
+        product.setName("muismat");
         assertEquals("muismat", product.getName());
     }
 

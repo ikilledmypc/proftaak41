@@ -86,7 +86,9 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     public void handleBrowseButtonAction(ActionEvent event) {
         files = myController.chooseFile();
         for (File f : files) {
-            TP_photos.getChildren().add(buildItem(f));
+            VBox h = buildItem(f);
+            if(h!=null)
+            TP_photos.getChildren().add(h);
         }
     }
 
@@ -98,38 +100,28 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     @FXML
     public void handleUploadButtonAction(ActionEvent event) throws IOException {
         String photogroupid = "";
-        if (selectedPhotos.size() > 1) {
-            String code = generateCode();
-            String groupName = groupNameField.getText();
-            photogroupid = HttpController.excutePost(FrontEnd.HOST + "/createPhotoGroup", "photogroup="
-                    + gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
-            groupCode.setText(code);
-        }
+        // if (selectedPhotos.size() > 1) {
+        String code = generateCode();
+        String groupName = groupNameField.getText();
+        photogroupid = HttpController.excutePost(FrontEnd.HOST + "/createPhotoGroup", "photogroup="
+                + gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
+        groupCode.setText(code);
+        //}
         for (Map.Entry pairs : selectedPhotos.entrySet()) {
             File p = ((File) pairs.getKey());
             BufferedImage image = ImageIO.read(p);
             Photo photo = new Photo(p.getName(), new Date(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
 
-            if (selectedPhotos.size() > 1) {
-                String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
-                photoid = photoid.trim();
-                String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(),Integer.parseInt(photoid));
-                System.out.println(bla);
-            }
+            //if (selectedPhotos.size() > 1) {
+            String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
+            photoid = photoid.trim();
+            String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(), Integer.parseInt(photoid));
+            System.out.println(bla);
+            // }
         }
 
     }
 
-    @FXML
-    public void handleBrowseButtonAction2(ActionEvent event
-    ) {
-        paths = myController.chooseMulitpleFiles();
-        String path = "";
-        for (String s : paths) {
-            path = path + "'" + s;
-        }
-
-    }
 
     public String generateCode() {
         Random rand = new Random();
@@ -163,11 +155,15 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             priceLabel.setText("price:  \u20ac");
             hbox.getChildren().addAll(priceLabel, price);
             item.getChildren().addAll(iv, hbox);
-            selectedPhotos.put(file, price);
+            if (selectedPhotos.get(file) != null) {
+                return null;
+            }
+            selectedPhotos.putIfAbsent(file, price);
             return item;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 

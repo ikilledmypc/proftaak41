@@ -9,7 +9,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1132.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UploadScreenController">
   <children>
-    <TextField fx:id="uploadPath" layoutX="344.0" layoutY="65.0" prefHeight="25.0" prefWidth="276.0" />
     <Button layoutX="630.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleBrowseButtonAction" prefHeight="25.0" prefWidth="89.0" text="Browse" />
     <Button layoutX="630.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="25.0" prefWidth="89.0" text="Upload" />
     <Label layoutX="344.0" layoutY="20.0" text="Choose your files to upload" />
@@ -18,7 +17,7 @@
     <Label layoutX="344.0" layoutY="125.0" text="Public?" />
     <CheckBox fx:id="isPublic" layoutX="450.0" layoutY="125.0" />
     <Label layoutX="344.0" layoutY="155.0" text="Your group code is:" />
-    <TextField fx:id="groupCode" layoutX="450.0" layoutY="155.0"/>
+    <TextField fx:id="groupCode" layoutX="450.0" layoutY="155.0" />
       <ScrollPane layoutX="14.0" layoutY="185.0" prefHeight="630.0" prefWidth="1034.0">
          <content>
             <TilePane fx:id="TP_photos" prefHeight="628.0" prefWidth="1018.0" />
