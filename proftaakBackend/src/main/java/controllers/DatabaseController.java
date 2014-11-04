@@ -98,6 +98,7 @@ public class DatabaseController implements IDatabase{
 	public ResultSet select(String s) {
 		try {
 			if(connect()){
+				System.out.println(s);
 			statement = con.createStatement();
 			result = statement.executeQuery(s);
 			//closeConnection();
@@ -114,6 +115,7 @@ public class DatabaseController implements IDatabase{
 	public ResultSet insert(String s) {
 		try {
 			if(connect()){
+			System.out.println(s);
 			statement = con.createStatement();			
 			statement.executeUpdate(s,Statement.RETURN_GENERATED_KEYS);
 			result = statement.getGeneratedKeys();

@@ -44,7 +44,7 @@ public class FotoController {
 		try {
 			while(rst.next()){
 				
-				ResultSet codur = db.select("SELECT * FROM code_redeemed_account WHERE accountID="+accountID+", AND photogroupID="+rst.getInt("photogroupID") +"");
+				ResultSet codur = db.select("SELECT * FROM code_redeemed_account WHERE accountID="+accountID+" AND photogroupID="+rst.getInt("photogroupID") +"");
 				if(!codur.next())
 				{
 					db.insert("insert into code_redeemed_account (accountID,photogroupID) VALUES ('"+accountID +"','"+rst.getInt("photogroupID") +"')");
