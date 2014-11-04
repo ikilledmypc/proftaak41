@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="177.310546875" prefWidth="345.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.AddProductScreenController">
+<AnchorPane id="AnchorPane" prefHeight="204.310546875" prefWidth="345.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.AddProductScreenController">
   <children>
     <Button fx:id="btnBack" layoutX="70.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
     <Button fx:id="btnSave" layoutX="172.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save" />

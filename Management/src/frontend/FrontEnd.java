@@ -29,7 +29,7 @@ public class FrontEnd extends Application {
     public static String managementScreen = "managementPhotographer";
     public static String managementScreenFXML = "/view/ManagementPhotographer.fxml";
     public static String addProductScreen = "addProductScreen";
-    public static String addProductScreenFXML = "/view/addProductScreen.FXML";
+    public static String addProductScreenFXML = "/view/AddProductScreen.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
