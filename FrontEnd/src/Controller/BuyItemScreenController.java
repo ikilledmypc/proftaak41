@@ -79,7 +79,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
         this.photo = photo;
         LBL_photoPrice.setText("\u20ac"+photo.getPrice());
         try {
-            IMG_photo.setImage(new Image(new FileInputStream(ThumbnailManager.getThumnail(this.photo.getPhotoID()+".jpg"))));
+            IMG_photo.setImage(new Image(new FileInputStream(ThumbnailManager.getThumnail(this.photo.getPhotoID()+""))));
         } catch (IOException ex) {
             Logger.getLogger(BuyItemScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }

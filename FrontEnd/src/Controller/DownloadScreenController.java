@@ -8,6 +8,7 @@ package Controller;
 import Controller.HttpController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import domain.Account;
 import domain.Photo;
 import frontend.FrontEnd;
 import java.net.URL;
@@ -56,11 +57,15 @@ public class DownloadScreenController extends ControlledAccountScreen implements
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+    }
+    
+    @Override
+    public void setAccount(Account a){
+        this.loggedInAccount = a;
         this.photoslist =getRedeemed();
         photos = FXCollections.observableArrayList(this.photoslist);
         photoTable.setItems(photos);
     }
-
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();

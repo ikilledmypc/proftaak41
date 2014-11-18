@@ -39,7 +39,7 @@ public class FotoController {
 		ArrayList<Integer> photoIds = new ArrayList<Integer>();
 		Photo photo;
 		Date newDate;
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		ResultSet rst = db.select("SELECT photogroupID FROM photoGroup WHERE code = '"+ code +"'");
 		try {
 			while(rst.next()){
@@ -78,6 +78,7 @@ public class FotoController {
 				e.printStackTrace();
 			}
 		}
+		db.closeConnection();
 		Gson gson = new Gson();
 		return gson.toJson(photos);
 	}
@@ -90,7 +91,7 @@ public class FotoController {
 		ArrayList<Integer> photoIds = new ArrayList<Integer>();
 		Photo photo;
 		Date newDate;
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		ResultSet rst = db.select("SELECT photogroupID FROM code_redeemed_account WHERE accountID = '"+ accountID +"'");
 		try {
 			while(rst.next()){
@@ -123,6 +124,7 @@ public class FotoController {
 				e.printStackTrace();
 			}
 		}
+		db.closeConnection();
 		Gson gson = new Gson();
 		return gson.toJson(photos);
 	}
