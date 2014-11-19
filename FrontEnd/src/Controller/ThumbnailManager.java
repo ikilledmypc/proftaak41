@@ -21,13 +21,13 @@ public class ThumbnailManager {
     public static File getThumnail(String photoname) throws IOException{
         FileOutputStream fos = null;
         try {
-            File f = new File("thumb"+File.separator+photoname);
+            File f = new File("thumb"+File.separator+photoname+".jpg");
             if(f.exists() && !f.isDirectory()) { 
                 
                 return f;
             } 
             System.out.println("thumb not found downloading..");
-            byte[] file =  HttpController.excuteGetFile(FrontEnd.HOST + "/getThumbnail?filename="+photoname);            
+            byte[] file =  HttpController.excuteGetFile(FrontEnd.HOST + "/getThumbnail?filename="+photoname+".jpg");            
             fos = new FileOutputStream(f);
             fos.write(file);
             fos.close();

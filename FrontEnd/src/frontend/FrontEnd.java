@@ -37,7 +37,7 @@ public class FrontEnd extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        Group root = new Group();
         ScreensController mainContainer = new ScreensController(primaryStage);
 //        mainContainer.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
         System.out.println("test");
@@ -51,7 +51,7 @@ public class FrontEnd extends Application {
 
         mainContainer.setScreen(FrontEnd.loginScreen);
 
-        Group root = new Group();
+        
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
