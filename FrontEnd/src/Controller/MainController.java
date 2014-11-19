@@ -53,9 +53,8 @@ import workers.ThumbnailDownloadWorker;
  */
 public class MainController extends ControlledAccountScreen implements Initializable {
 
-
     private ShoppingCart shoppingCart;
-    private ArrayList<Photo> ownedPhotos; 
+    private ArrayList<Photo> ownedPhotos;
     @FXML
     Label LBL_username;
 
@@ -69,21 +68,17 @@ public class MainController extends ControlledAccountScreen implements Initializ
     public void initialize(URL url, ResourceBundle rb) {
         FileOutputStream fos = null;
         TP_photoContainer.setHgap(10);
-        TP_photoContainer.setVgap(10); 
+        TP_photoContainer.setVgap(10);
+
     }
-    
-    public void setRedeemedPhotos(ArrayList<Photo> photos){
+
+    public void setRedeemedPhotos(ArrayList<Photo> photos) {
         this.ownedPhotos = photos;
     }
 
-    @Override
-    public void setAccount(Account a) {
-        this.loggedInAccount = a;
-        LBL_username.setText(a.getName());
-        this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
-        if(this.ownedPhotos!=null){
-            HashMap<Photo,File> photofiles;
-            ThumbnailDownloadWorker tdm = new ThumbnailDownloadWorker(this.ownedPhotos);            
+    public void loadThumbs() {
+        if (this.ownedPhotos != null) {
+            ThumbnailDownloadWorker tdm = new ThumbnailDownloadWorker(this.ownedPhotos);
             new Thread(tdm).start();
             try {
                 this.parent.displaySplashProgress(tdm, "downloading photos...");
@@ -91,34 +86,34 @@ public class MainController extends ControlledAccountScreen implements Initializ
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             tdm.stateProperty().addListener(new ChangeListener<Worker.State>() {
-            @Override
-            public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
-               if(newValue == Worker.State.SUCCEEDED){
-//                   try {
-//                       HashMap<Photo,File> photofiles = (HashMap<Photo,File>) tdm.get();
-//                       for(Map.Entry<Photo,File> item :photofiles.entrySet()){
-//                           TP_photoContainer.getChildren().add(buildPhotoItem(item.getKey(),item.getValue()));
-//                       }
-//                       
-//                   } catch (InterruptedException ex) {
-//                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//                   } catch (ExecutionException ex) {
-//                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//                   }
-              }
-            }            
-        });
-//            for(Photo p: this.ownedPhotos){
-//                try {
-//                    TP_photoContainer.getChildren().add(buildPhotoItem(p,ThumbnailManager.getThumnail(p.getPhotoID()+".jpg")));
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
+                @Override
+                public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+                    if (newValue == Worker.State.SUCCEEDED) {
+                   try {
+                       HashMap<Photo,File> photofiles = (HashMap<Photo,File>) tdm.get();
+                       for(Map.Entry<Photo,File> item :photofiles.entrySet()){
+                           TP_photoContainer.getChildren().add(buildPhotoItem(item.getKey(),item.getValue()));
+                       }
+                       
+                   } catch (InterruptedException ex) {
+                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                   } catch (ExecutionException ex) {
+                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                    }
+                }
+            });
         }
-        updateCart();
     }
 
+    @Override
+    public void setAccount(Account a) {
+        this.loggedInAccount = a;
+        LBL_username.setText(a.getName());
+        this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
+        loadThumbs();
+        updateCart();
+    }
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
@@ -144,8 +139,6 @@ public class MainController extends ControlledAccountScreen implements Initializ
     private void handleLoadButtonAction(ActionEvent event) {
         this.parent.setScreen(FrontEnd.downloadScreen);
     }
-
-
 
     private void updateCart() {
         Gson gson = new Gson();

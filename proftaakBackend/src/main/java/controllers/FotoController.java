@@ -133,7 +133,7 @@ public class FotoController {
 	public ResponseEntity<byte[]> testphoto(@RequestParam(value="filename", required=true)String filename) throws IOException {
 		String rootPath = System.getProperty("user.dir");
 		String dir = rootPath + File.separator + "Photos"+File.separator+"thumbnails"+File.separator;
-
+		//String dir = rootPath + File.separator + "Photos"+File.separator; FULL IMAGE INSTEAD OF THUMB 
 	    final HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.IMAGE_JPEG);
 	    byte[] image = IOUtils.toByteArray(new FileInputStream(dir+filename));
