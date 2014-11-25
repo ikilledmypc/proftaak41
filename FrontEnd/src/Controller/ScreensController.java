@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
@@ -36,7 +38,7 @@ import javafx.util.Duration;
  * @author Baya
  */
 public class ScreensController extends StackPane {
-
+    public Locale locale = new Locale("nl","NL");
     private HashMap<String, Node> screens = new HashMap<>();
     private Stage stage;
 
@@ -56,6 +58,7 @@ public class ScreensController extends StackPane {
     public boolean loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+            myLoader.setResources(ResourceBundle.getBundle("Bundles.lang", locale));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenController = ((ControlledScreen) myLoader.getController());
             myScreenController.setScreenParent(this);
@@ -71,6 +74,7 @@ public class ScreensController extends StackPane {
     public boolean loadAccountScreen(String name, String resource, Account a) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+            myLoader.setResources(ResourceBundle.getBundle("Bundles.lang", locale));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledAccountScreen myScreenController = ((ControlledAccountScreen) myLoader.getController());
             myScreenController.setAccount(a);
@@ -81,6 +85,10 @@ public class ScreensController extends StackPane {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public void setLanguage(Locale l){
+        this.locale = l ;
     }
 
     public boolean setScreen(final String name) {

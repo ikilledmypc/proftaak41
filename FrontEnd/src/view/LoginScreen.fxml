@@ -7,13 +7,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginScreenController">
   <children>
-    <Label layoutX="107.0" layoutY="120.0" text="Login with your username and password">
+    <Label layoutX="107.0" layoutY="120.0" text="%loginprompt">
       <font>
         <Font size="14.0" />
       </font>
     </Label>
-    <Label layoutX="93.0" layoutY="173.0" text="Username:" textAlignment="RIGHT" />
-    <Label layoutX="96.0" layoutY="202.0" text="Password:" textAlignment="RIGHT" />
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="28.0" layoutY="174.0" prefHeight="15.0" prefWidth="139.0" text="%username" textAlignment="RIGHT" />
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="28.0" layoutY="202.0" prefHeight="15.0" prefWidth="139.0" text="%passwordbox" textAlignment="RIGHT" />
     <TextField fx:id="TF_username" layoutX="172.0" layoutY="169.0" prefHeight="25.0" prefWidth="187.0" />
     <PasswordField fx:id="TF_password" layoutX="172.0" layoutY="197.0" prefHeight="25.0" prefWidth="187.0" />
     <Button defaultButton="true" layoutX="268.0" layoutY="235.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="91.0" text="Login" />
