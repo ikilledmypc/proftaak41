@@ -141,7 +141,7 @@ public class FileUploadController {
     
     @RequestMapping(value = "/createPhotoGroup", method = RequestMethod.POST)
 	public String createPhotoGroup(@RequestParam(value = "photogroup", required = true)String photogroupJson){
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		JsonManager jsonManager = JsonManager.GetInstance();
 		Photogroup photogroup = (Photogroup) jsonManager.fromJson(photogroupJson, Photogroup.class);
 		String photogroupID = "";
@@ -160,12 +160,13 @@ public class FileUploadController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		db.closeConnection();
 		return photogroupID;
 	}
     
     @RequestMapping(value = "/checkCodeavailability", method = RequestMethod.GET)
 	public String checkCodeavailability(@RequestParam(value = "hashcode", required = true)String hashcode){
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		String groupcode = "";
 		ResultSet rst = db.select("SELECT code FROM PHOTOGROUP WHERE code = '" + hashcode + "'");
 		try {
@@ -176,8 +177,10 @@ public class FileUploadController {
 			e.printStackTrace();
 		}
 		if(groupcode == ""){
+			db.closeConnection();
 			return "false";
 		}
+		db.closeConnection();
 		return "true";
 	}
     
@@ -185,7 +188,7 @@ public class FileUploadController {
 	public int uploadGroupPhotos(@RequestParam(value = "photo", required = true)String photoJson,
 			@RequestParam(value = "photogroupID", required = true)int photogroupID){
     	JsonManager jsonManager = JsonManager.GetInstance();
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
 		int photoID = 0;
 		java.text.SimpleDateFormat sdf = 
@@ -206,13 +209,14 @@ public class FileUploadController {
 		}
 		
 		rst = db.insert("INSERT INTO PHOTOGROUP_PHOTO VALUES('" + photogroupID + "', '" + photoID + "')");
+		db.closeConnection();
 		return photoID;
 	}
     
     @RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
 	public String uploadPhoto(@RequestParam(value = "photo", required = true)String photoJson){
     	JsonManager jsonManager = JsonManager.GetInstance();
-		IDatabase db = DatabaseController.getInstance();
+		DatabaseController db = DatabaseController.getInstance();
 		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
 		java.text.SimpleDateFormat sdf = 
 			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -220,6 +224,7 @@ public class FileUploadController {
 		
 		ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price, size, height, width) VALUES('" + photo.getName() + "', '" + date + "'"
 		    		+ ", '" + photo.getPrice() + "', '" + 12 + "', '" + photo.getHeight() + "', '" + photo.getwidth() + "')");
+		db.closeConnection();
 		return "true";
 	}
 }

@@ -131,6 +131,7 @@ The urlParameters is a URL encoded string.
       //Create connection
       url = new URL(targetURL);
       connection = (HttpURLConnection)url.openConnection();
+      
       connection.setRequestMethod("GET");
 
       //Get Response	

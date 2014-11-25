@@ -18,7 +18,7 @@ public abstract class ControlledAccountScreen implements ControlledScreen {
     @Override
     public void setScreenParent(ScreensController screenPage){
         this.parent =screenPage;
-    };
+    }
     
     public void setAccount(Account a){
         loggedInAccount = a;

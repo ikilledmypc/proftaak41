@@ -55,8 +55,10 @@ public class DatabaseController implements IDatabase{
 
 	/**
 	 * Connection
+	 * @throws SQLException 
 	 */
-	public boolean connect() {
+	public boolean connect() throws SQLException {
+		if(con==null || con.isClosed()){
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection("jdbc:mysql://"+this.host+"/pt4?" +"user="+this.userName+"&password="+this.passWord);
@@ -68,6 +70,8 @@ public class DatabaseController implements IDatabase{
 			ex.printStackTrace();
 			return false;
 		}
+		}
+		return true;
 
 	}
 

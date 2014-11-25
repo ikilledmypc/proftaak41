@@ -18,9 +18,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -39,6 +45,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import workers.ThumbnailDownloadWorker;
 
 /**
  *
@@ -46,9 +53,8 @@ import javafx.stage.WindowEvent;
  */
 public class MainController extends ControlledAccountScreen implements Initializable {
 
-    ScreensController myController;
     private ShoppingCart shoppingCart;
-    private ArrayList<Photo> ownedPhotos; 
+    private ArrayList<Photo> ownedPhotos;
     @FXML
     Label LBL_username;
 
@@ -63,17 +69,41 @@ public class MainController extends ControlledAccountScreen implements Initializ
         FileOutputStream fos = null;
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
-//        for (int i = 0; i < 30; i++) {
-//            try {
-//                TP_photoContainer.getChildren().add(buildPhotoItem(new Photo(i, new Date(), (float) 2.3),ThumbnailManager.getThumnail("KxUHaU0.jpg")));
-//            } catch (IOException ex) {
-//                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+
     }
-    
-    public void setRedeemedPhotos(ArrayList<Photo> photos){
+
+    public void setRedeemedPhotos(ArrayList<Photo> photos) {
         this.ownedPhotos = photos;
+    }
+
+    public void loadThumbs() {
+        if (this.ownedPhotos != null) {
+            ThumbnailDownloadWorker tdm = new ThumbnailDownloadWorker(this.ownedPhotos);
+            new Thread(tdm).start();
+            try {
+                this.parent.displaySplashProgress(tdm, "downloading photos...");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tdm.stateProperty().addListener(new ChangeListener<Worker.State>() {
+                @Override
+                public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+                    if (newValue == Worker.State.SUCCEEDED) {
+                   try {
+                       HashMap<Photo,File> photofiles = (HashMap<Photo,File>) tdm.get();
+                       for(Map.Entry<Photo,File> item :photofiles.entrySet()){
+                           TP_photoContainer.getChildren().add(buildPhotoItem(item.getKey(),item.getValue()));
+                       }
+                       
+                   } catch (InterruptedException ex) {
+                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                   } catch (ExecutionException ex) {
+                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -81,56 +111,33 @@ public class MainController extends ControlledAccountScreen implements Initializ
         this.loggedInAccount = a;
         LBL_username.setText(a.getName());
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
-        if(this.ownedPhotos!=null){
-            for(Photo p: this.ownedPhotos){
-                try {
-                    TP_photoContainer.getChildren().add(buildPhotoItem(p,ThumbnailManager.getThumnail(p.getPhotoID()+".jpg")));
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        loadThumbs();
         updateCart();
-    }
-
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        myController = screenPage;
     }
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.loginScreen);
+        this.parent.setScreen(FrontEnd.loginScreen);
     }
 
     @FXML
     private void handleRegisterButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.registerScreen);
+        this.parent.setScreen(FrontEnd.registerScreen);
     }
 
     @FXML
     private void handleRegisterPhotographerButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.registerPhotographerScreen);
+        this.parent.setScreen(FrontEnd.registerPhotographerScreen);
     }
 
     @FXML
     private void handleUploadButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.uploadScreen);
+        this.parent.setScreen(FrontEnd.uploadScreen);
     }
 
     @FXML
     private void handleLoadButtonAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.downloadScreen);
-    }
-
-    @FXML
-    private void handlePhotographerAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.managementScreen);
-    }
-
-    @FXML
-    private void handleBuyAction(ActionEvent event) {
-        myController.setScreen(FrontEnd.buyItemScreen);
+        this.parent.setScreen(FrontEnd.downloadScreen);
     }
 
     private void updateCart() {
@@ -143,8 +150,8 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     @FXML
     public void opencart() {
-        myController.loadAccountScreen("cart", "/view/CartFXML.fxml", this.loggedInAccount);
-        myController.setScreen("cart");
+        this.parent.loadAccountScreen("cart", "/view/CartFXML.fxml", this.loggedInAccount);
+        this.parent.setScreen("cart");
     }
 
     public VBox buildPhotoItem(final Photo p, File f) {
