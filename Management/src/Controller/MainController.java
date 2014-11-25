@@ -6,6 +6,7 @@
 package Controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class MainController implements Initializable, ControlledScreen {
     ScreensController myController;
     Gson gson;
     //PIE CHART DATA
-    private ObservableList data;
+    private ObservableList pieChartData;
     
     @FXML
     Button btnEdit;
@@ -52,12 +53,13 @@ public class MainController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        buildPieChartPhotographer();
+        
     }    
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+        buildPieChartPhotographer();
     }
     
     @FXML
@@ -85,10 +87,21 @@ public class MainController implements Initializable, ControlledScreen {
     
     public void buildPieChartPhotographer() {
         gson = new Gson();
-        ArrayList<String> dataPieChart = new ArrayList<String>();
-        dataPieChart = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographers");
-        data = FXCollections.observableArrayList(dataPieChart);
-        pieChart.getData().addAll(data);
+        String dataPieChart = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographers");
+        System.out.println(dataPieChart);
+        ArrayList<String> data = gson.fromJson(dataPieChart, new TypeToken<ArrayList<String>>(){}.getType());
+        pieChartData = FXCollections.observableArrayList(data);
+        System.out.println(pieChartData);
+        
+        for(String s:data){
+            String[] name = s.split(" ");
+            for (String name1 : name) {
+                System.out.println(name1);
+                pieChart.getData().add(new PieChart.Data(name1[0], Integer.parseInt(name1[1])));
+            }
+            //pieChart.getData().add(new PieChart.Data("InActive", 1));
+        }
+        //pieChart.getData().addAll(pieChartData);
     }
     
 }
