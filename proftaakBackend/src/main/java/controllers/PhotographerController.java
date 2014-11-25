@@ -7,6 +7,7 @@ import interfaces.IDatabase;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import managers.JsonManager;
 
@@ -65,5 +66,21 @@ public class PhotographerController {
 		jsonManager = JsonManager.GetInstance();
 		photographer = (Photographer) jsonManager.fromJson(json, Photographer.class);
 		photographer.editPhotographer();
+	}
+	
+	@RequestMapping("/buildPieChartPhotographers")
+	public ArrayList<String> buildPieChartPhotographers() {
+		try {
+			ArrayList<String> dataPieChart = new ArrayList<String>();
+			db = controllers.DatabaseController.getInstance();
+			ResultSet rs = db.select("SELECT count(accountID), isActive FROM Photographer GROUP BY isActive");
+			while (rs.next()) {
+				dataPieChart.add(rs.getString(2) + " " + rs.getString(1));
+			}
+			return dataPieChart;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

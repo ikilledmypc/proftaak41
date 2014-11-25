@@ -20,7 +20,7 @@ public class PhotogroupTest {
 	Photogroup photogroup;
 	
 	int accountID = 1;
-	int code = 123;
+	String code = "123";
 	String groupName = "groupName";
 	boolean isPublic = true;
 	int parentPhotogroupID = 2;
@@ -55,7 +55,7 @@ public class PhotogroupTest {
 	}
 
 	/**
-	 * Test method for {@link domain.Photogroup#Photogroup(int, int, java.lang.String, java.lang.Boolean, int)}.
+	 * Test method for {@link domain.Photogroup#Photogroup(int, String, java.lang.String, java.lang.Boolean, int)}.
 	 */
 	@Test
 	public void testPhotogroup() {
@@ -131,8 +131,8 @@ public class PhotogroupTest {
 	 */
 	@Test
 	public void testSetCode() {
-		photogroup.setCode(123456789);
-		assertEquals(123456789, photogroup.getCode());
+		photogroup.setCode("123456789");
+		assertEquals("123456789", photogroup.getCode());
 	}
 
 	/**

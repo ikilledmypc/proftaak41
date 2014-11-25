@@ -183,7 +183,7 @@ public class ScreensController extends StackPane {
         s.setScene(sc);
         s.setHeight(200);
         s.setWidth(400);
-        s.setAlwaysOnTop(true);
+        //s.setAlwaysOnTop(true);
 
         s.show();
         task.stateProperty().addListener(new ChangeListener<Worker.State>() {

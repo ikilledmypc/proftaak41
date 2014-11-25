@@ -8,10 +8,15 @@ package Controller;
 import com.google.gson.Gson;
 import frontend.FrontEnd;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 
 /**
@@ -23,6 +28,8 @@ public class MainController implements Initializable, ControlledScreen {
 
     ScreensController myController;
     Gson gson;
+    //PIE CHART DATA
+    private ObservableList data;
     
     @FXML
     Button btnEdit;
@@ -34,6 +41,8 @@ public class MainController implements Initializable, ControlledScreen {
     Button btnEditProduct;
     @FXML
     Button btnDeleteProduct;
+    @FXML
+    PieChart pieChart;
     
     
     /**
@@ -43,6 +52,7 @@ public class MainController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        buildPieChartPhotographer();
     }    
 
     @Override
@@ -71,6 +81,14 @@ public class MainController implements Initializable, ControlledScreen {
     
     @FXML
     public void handleDeleteProductButtonAction(ActionEvent event) {
+    }
+    
+    public void buildPieChartPhotographer() {
+        gson = new Gson();
+        ArrayList<String> dataPieChart = new ArrayList<String>();
+        dataPieChart = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographers");
+        data = FXCollections.observableArrayList(dataPieChart);
+        pieChart.getData().addAll(data);
     }
     
 }
