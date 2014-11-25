@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import javafx.scene.control.TextField;
  * @author Baya
  */
 public class LoginScreenController implements Initializable, ControlledScreen {
+    
 
     ScreensController myController;
     @FXML
