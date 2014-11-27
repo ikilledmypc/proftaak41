@@ -48,7 +48,7 @@ public class DownloadScreenController extends ControlledAccountScreen implements
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colName.setCellValueFactory(new PropertyValueFactory<Photo, String>("photoID"));
+        colName.setCellValueFactory(new PropertyValueFactory<Photo, String>("uploadDate"));
         colPrice.setCellValueFactory(new PropertyValueFactory<Photo, String>("price"));
         photoslist = new ArrayList<>();
 
@@ -69,11 +69,6 @@ public class DownloadScreenController extends ControlledAccountScreen implements
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();
-//        if(MainController.loggedInAccount == null)
-//        {
-//            System.out.println("User not logged in");
-//            return;
-//        }
         String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getAllPhotos?code=" + codeEntry.getText() + "&accountID=" + this.loggedInAccount.getAccountID());
         if (!returnedPhotos.equalsIgnoreCase("")) {
             ArrayList<Photo> getPhotos = new ArrayList();

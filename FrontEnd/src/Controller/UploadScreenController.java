@@ -35,6 +35,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -65,6 +66,8 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     TextField groupCode;
     @FXML
     TextField groupNameField;
+    @FXML
+    Button uploadButton;
 
     private HashMap<File, TextField> selectedPhotos = new HashMap<>();
     @FXML
@@ -77,20 +80,22 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     public void initialize(URL url, ResourceBundle rb) {
         TP_photos.setVgap(20);
         TP_photos.setHgap(20);
-//        for(int i=0;i<4;i++){
-//            TP_photos.getChildren().add(buildItem("/resources/placeholderPhoto.jpg"));
-//        }
+        uploadButton.setDisable(true);
     }
-
-
 
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
         files = this.parent.chooseFile();
-        for (File f : files) {
-            VBox h = buildItem(f);
-            if(h!=null)
-            TP_photos.getChildren().add(h);
+        if (files != null) {
+            for (File f : files) {
+                VBox h = buildItem(f);
+                if (h != null) {
+                    TP_photos.getChildren().add(h);
+                }
+            }
+        }
+        if (this.selectedPhotos.size() > 0) {
+            uploadButton.setDisable(false);
         }
     }
 
@@ -102,63 +107,26 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     @FXML
     public void handleUploadButtonAction(ActionEvent event) throws IOException, InterruptedException, ExecutionException {
         PhotoUploadWorker puw = new PhotoUploadWorker(groupNameField.getText(), selectedPhotos, loggedInAccount);
-        this.parent.displaySplashProgress(puw,"uploading...");
+        this.parent.displaySplashProgress(puw, "uploading...");
         new Thread(puw).start();
         puw.stateProperty().addListener(new ChangeListener<Worker.State>() {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
-               if(newValue == Worker.State.SUCCEEDED){
-                   
-                   try {
-                       groupCode.setText((String)puw.get());
-                   } catch (InterruptedException ex) {
-                       Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
-                   } catch (ExecutionException ex) {
-                       Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               }
-            }            
+                if (newValue == Worker.State.SUCCEEDED) {
+
+                    try {
+                        groupCode.setText((String) puw.get());
+                        HttpController.excuteGet(FrontEnd.HOST + "/getAllPhotos?code=" + groupCode.getText() + "&accountID=" + loggedInAccount.getAccountID());
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(UploadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
         });
-        //String code = (String) puw.get();
-        
-        
-        //groupCode.setText(code);
-//        String photogroupid = "";
-//        // if (selectedPhotos.size() > 1) {
-//        String code = generateCode();
-//        String groupName = groupNameField.getText();
-//        photogroupid = HttpController.excutePost(FrontEnd.HOST + "/createPhotoGroup", "photogroup="
-//                + gson.toJson(new PhotoGroup(this.loggedInAccount.getAccountID(), code, groupName, isPublic.isSelected(), 0)));
-//        groupCode.setText(code);
-//        //}
-//        for (Map.Entry pairs : selectedPhotos.entrySet()) {
-//            File p = ((File) pairs.getKey());
-//            BufferedImage image = ImageIO.read(p);
-//            Photo photo = new Photo(p.getName(), new Date(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
-//
-//            //if (selectedPhotos.size() > 1) {
-//            String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
-//            photoid = photoid.trim();
-//            String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(), Integer.parseInt(photoid));
-//            System.out.println(bla);
-//            // }
-//        }
 
     }
-
-
-//    public String generateCode() {
-//        Random rand = new Random();
-//        int code = rand.nextInt(899999) + 100000;
-//        String hashcode = Integer.toHexString(code);
-//        String bezet = HttpController.excuteGet(FrontEnd.HOST + "/checkCodeavailability?hashcode=" + hashcode);
-//        if (bezet.equals("true")) {
-//            generateCode();
-//        } else {
-//            return hashcode;
-//        }
-//        return "";
-//    }
 
     private VBox buildItem(File file) {
         try {

@@ -18,9 +18,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="143.0" text="Enter your code here:" />
+            <Label prefHeight="17.0" prefWidth="143.0" text="%CodeHere" />
             <TextField fx:id="codeEntry" prefHeight="25.0" prefWidth="221.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" onAction="#handleEnterButtonAction" prefHeight="25.0" prefWidth="96.0" text="Enter" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleEnterButtonAction" prefHeight="25.0" prefWidth="96.0" text="%enter" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <TableView fx:id="photoTable" layoutX="31.0" layoutY="107.0" prefHeight="278.0" prefWidth="424.0">
