@@ -71,7 +71,10 @@ public class FileUploadController {
                 		new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                BufferedImage thumbnail =  Scalr.resize(ImageIO.read(serverFile), 300);
+                BufferedImage before = ImageIO.read(serverFile);
+                int width = before.getWidth();
+                int height = before.getHeight();
+                BufferedImage thumbnail =  Scalr.resize(before, width/2, width/2,null);
                 ImageIO.write(thumbnail, "jpg", new File(dir.getAbsolutePath()+ File.separator + name));
                 return "You successfully uploaded " + name + " into " + serverFile.getAbsolutePath() + "!";
             } catch (Exception e) {
