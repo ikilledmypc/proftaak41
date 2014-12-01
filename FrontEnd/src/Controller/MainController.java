@@ -8,6 +8,7 @@ package Controller;
 import com.google.gson.Gson;
 import domain.Account;
 import domain.Photo;
+import domain.Photographer;
 import domain.ShoppingCart;
 import frontend.FrontEnd;
 import java.io.File;
@@ -55,6 +56,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     private ShoppingCart shoppingCart;
     private ArrayList<Photo> ownedPhotos;
+    private ResourceBundle recources;
     @FXML
     Label LBL_username;
 
@@ -64,12 +66,14 @@ public class MainController extends ControlledAccountScreen implements Initializ
     @FXML
     Button BTN_cart;
 
+    @FXML
+    Button uploadButton;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FileOutputStream fos = null;
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
-
+        this.recources = rb;
     }
 
     public void setRedeemedPhotos(ArrayList<Photo> photos) {
@@ -77,6 +81,8 @@ public class MainController extends ControlledAccountScreen implements Initializ
     }
 
     public void loadThumbs() {
+        this.TP_photoContainer.getChildren().clear();
+        this.ownedPhotos = DownloadScreenController.getOwnedPhotos(this.loggedInAccount.getAccountID());
         if (this.ownedPhotos != null) {
             ThumbnailDownloadWorker tdm = new ThumbnailDownloadWorker(this.ownedPhotos);
             new Thread(tdm).start();
@@ -89,17 +95,17 @@ public class MainController extends ControlledAccountScreen implements Initializ
                 @Override
                 public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                     if (newValue == Worker.State.SUCCEEDED) {
-                   try {
-                       HashMap<Photo,File> photofiles = (HashMap<Photo,File>) tdm.get();
-                       for(Map.Entry<Photo,File> item :photofiles.entrySet()){
-                           TP_photoContainer.getChildren().add(buildPhotoItem(item.getKey(),item.getValue()));
-                       }
-                       
-                   } catch (InterruptedException ex) {
-                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                   } catch (ExecutionException ex) {
-                       Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                        try {
+                            HashMap<Photo, File> photofiles = (HashMap<Photo, File>) tdm.get();
+                            for (Map.Entry<Photo, File> item : photofiles.entrySet()) {
+                                TP_photoContainer.getChildren().add(buildPhotoItem(item.getKey(), item.getValue()));
+                            }
+
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ExecutionException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             });
@@ -111,33 +117,69 @@ public class MainController extends ControlledAccountScreen implements Initializ
         this.loggedInAccount = a;
         LBL_username.setText(a.getName());
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
+        if (a instanceof Photographer) {
+            this.uploadButton.setText(recources.getString("uploadPhotosButton"));
+            this.uploadButton.setOnAction((ActionEvent event) -> {
+                try {
+                    uploadPhotos();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+        } else {
+            this.uploadButton.setText(this.recources.getString("enterKeyButton"));
+            this.uploadButton.setOnAction((ActionEvent event) -> {
+                try {
+                    enterKey();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
         loadThumbs();
         updateCart();
     }
 
-    @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        this.parent.setScreen(FrontEnd.loginScreen);
+    private void uploadPhotos() throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/UploadScreen.fxml"));
+        loader.setResources(recources);
+        root = loader.load();
+        UploadScreenController controller = loader.getController();
+        controller.setAccount(loggedInAccount);
+        controller.setScreenParent(parent);
+        Stage stage = new Stage();
+        stage.setTitle("upload photos");
+        stage.setScene(new Scene(root));
+        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                loadThumbs();
+            }
+
+        });
+        stage.show();
     }
 
-    @FXML
-    private void handleRegisterButtonAction(ActionEvent event) {
-        this.parent.setScreen(FrontEnd.registerScreen);
-    }
+    private void enterKey() throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/DownloadScreen.fxml"));
+        loader.setResources(recources);
+        root = loader.load();
+        DownloadScreenController controller = loader.getController();
+        controller.setAccount(loggedInAccount);
+        Stage stage = new Stage();
+        stage.setTitle("enter key");
+        stage.setScene(new Scene(root));
+        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                loadThumbs();
+            }
 
-    @FXML
-    private void handleRegisterPhotographerButtonAction(ActionEvent event) {
-        this.parent.setScreen(FrontEnd.registerPhotographerScreen);
-    }
-
-    @FXML
-    private void handleUploadButtonAction(ActionEvent event) {
-        this.parent.setScreen(FrontEnd.uploadScreen);
-    }
-
-    @FXML
-    private void handleLoadButtonAction(ActionEvent event) {
-        this.parent.setScreen(FrontEnd.downloadScreen);
+        });
+        stage.show();
     }
 
     private void updateCart() {
@@ -145,7 +187,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
         String sCart = HttpController.excuteGet(FrontEnd.HOST + "/getCart?username=" + this.loggedInAccount.getUsername());
         ShoppingCart s = gson.fromJson(sCart, ShoppingCart.class);
         this.shoppingCart = s;
-        BTN_cart.setText("cart (" + s.getItemCount() + " items)");
+        BTN_cart.setText(recources.getString("shoppingcartButton")+"(" + s.getItemCount()+")");
     }
 
     @FXML
@@ -167,12 +209,13 @@ public class MainController extends ControlledAccountScreen implements Initializ
                     try {
                         Parent root;
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
+                        loader.setResources(recources);
                         root = loader.load();
                         BuyItemScreenController controller = loader.getController();
                         controller.setAccount(loggedInAccount);
                         controller.setPhoto(p);
                         Stage stage = new Stage();
-                        stage.setTitle("My New Stage Title");
+                        stage.setTitle(p.getUploadDate().toGMTString());
                         stage.setScene(new Scene(root, 640, 430));
                         stage.show();
                         stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {

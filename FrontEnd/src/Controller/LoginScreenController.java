@@ -18,9 +18,13 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -30,22 +34,37 @@ import javafx.scene.control.TextField;
  * @author Baya
  */
 public class LoginScreenController implements Initializable, ControlledScreen {
-    
 
     ScreensController myController;
+    ResourceBundle recources;
     @FXML
     TextField TF_username;
     @FXML
     TextField TF_password;
     @FXML
     Label LB_error;
+    @FXML
+    ComboBox cmb_language;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.recources = rb;
+
+        //cmb_language.setPromptText("English");
+        cmb_language.setItems(FXCollections.observableArrayList(FrontEnd.avaliableLocale.keySet()));
+        cmb_language.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                myController.setLanguage(FrontEnd.avaliableLocale.get(newValue));
+                myController.unloadScreen(FrontEnd.loginScreen);
+                myController.loadScreen(FrontEnd.loginScreen, FrontEnd.loginScreenFXML);
+                myController.setScreen(FrontEnd.loginScreen);
+            }
+        });
+
     }
 
     @FXML
@@ -57,36 +76,30 @@ public class LoginScreenController implements Initializable, ControlledScreen {
             String accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
             Account a;
             if (!accounts.isEmpty()) {
-                try
-                { a = gson.fromJson(accounts, Photographer.class);
-                    if(((Photographer)a).getPhotographerID() == 0)
-                    {
+                try {
+                    a = gson.fromJson(accounts, Photographer.class);
+                    if (((Photographer) a).getPhotographerID() == 0) {
                         a = gson.fromJson(accounts, Account.class);
                     }
-                }
-                catch(ClassCastException e)
-                {
+                } catch (ClassCastException e) {
                     a = gson.fromJson(accounts, Account.class);
                 }
-                
-                if(a instanceof Photographer)
-                {
-                   System.out.println("Hello Photographer " + a.getName() + "!");
-                    LB_error.setText("Hello Photographer " + a.getName() + "!"); 
+
+                if (a instanceof Photographer) {
+                    System.out.println("Hello Photographer " + a.getName() + "!");
+                    LB_error.setText("Hello Photographer " + a.getName() + "!");
+                } else {
+                    System.out.println("Hello User " + a.getName() + "!");
+                    LB_error.setText("Hello User " + a.getName() + "!");
                 }
-                else
-                {
-                   System.out.println("Hello User " + a.getName() + "!");
-                    LB_error.setText("Hello User " + a.getName() + "!");  
-                }
-                
+
                 myController.loadAccountScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML, a);
                 myController.loadAccountScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML, a);
                 myController.loadAccountScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML, a);
                 myController.loadAccountScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML, a);
                 myController.setScreen(FrontEnd.mainScreen);
             } else {
-                LB_error.setText("Wrong username/password");
+                LB_error.setText(this.recources.getString("loginError"));
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);

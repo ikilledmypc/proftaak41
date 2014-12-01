@@ -60,7 +60,8 @@ import javafx.util.Duration;
  * @author Baya
  */
 public class ScreensController extends StackPane {
-    public Locale locale = new Locale("nl","NL");
+
+    public Locale locale = Locale.ENGLISH;
     private HashMap<String, Node> screens = new HashMap<>();
     private Stage stage;
 
@@ -110,9 +111,9 @@ public class ScreensController extends StackPane {
             return false;
         }
     }
-    
-    public void setLanguage(Locale l){
-        this.locale = l ;
+
+    public void setLanguage(Locale l) {
+        this.locale = l;
     }
 
     public boolean setScreen(final String name) {
@@ -128,10 +129,15 @@ public class ScreensController extends StackPane {
                             public void handle(ActionEvent t) {
                                 getChildren().remove(0);
                                 AnchorPane n = (AnchorPane) screens.get(name);
-                                getChildren().add(0, n);
-
+                                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                                //set Stage boundaries to the lower right corner of the visible bounds of the main screen
+                                //found : http://www.coderanch.com/t/620036/JavaFX/java/Stage-corner-screen 
+                                stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() / 2 - (n.getPrefWidth() / 2));
+                                stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() / 2 - (n.getPrefHeight() / 2));
                                 stage.setWidth(n.getPrefWidth());
                                 stage.setHeight(n.getPrefHeight());
+                                getChildren().add(0, n);
+
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(400), new KeyValue(opacity, 1.0)));
@@ -146,6 +152,7 @@ public class ScreensController extends StackPane {
                 AnchorPane n = (AnchorPane) screens.get(name);
                 stage.setWidth(n.getPrefWidth());
                 stage.setHeight(n.getPrefHeight());
+
                 getChildren().add(n);
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
