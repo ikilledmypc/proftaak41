@@ -92,14 +92,16 @@ public class MainController implements Initializable, ControlledScreen {
         ArrayList<String> data = gson.fromJson(dataPieChart, new TypeToken<ArrayList<String>>(){}.getType());
         pieChartData = FXCollections.observableArrayList(data);
         System.out.println(pieChartData);
-        
+        System.out.println(data.get(0));
+        //pieChart.a().add(new PieChart.Data("inactive" , Double.parseDouble(data.get(0))) );
         for(String s:data){
-            String[] name = s.split(" ");
-            for (String name1 : name) {
-                System.out.println(name1);
-                pieChart.getData().add(new PieChart.Data(name1[0], Integer.parseInt(name1[1])));
-            }
-            //pieChart.getData().add(new PieChart.Data("InActive", 1));
+            String[] name = s.split(",");
+            System.out.println(data.get(0));
+            //for (String name1 : name) {
+              //  System.out.println(name1);
+                //pieChart.getData().add(new PieChart.Data(name1.get, Integer.parseInt(name1[1])));
+            //}
+            //pieChart.getData().add(new PieChart.Data("InActive", Double.parseDouble(data.get(0))));
         }
         //pieChart.getData().addAll(pieChartData);
     }
