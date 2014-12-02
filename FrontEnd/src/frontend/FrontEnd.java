@@ -6,6 +6,9 @@
 package frontend;
 
 import Controller.ScreensController;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -34,24 +37,22 @@ public class FrontEnd extends Application {
     public static String managementScreenFXML = "/view/ManagementPhotographer.fxml";
     public static String buyItemScreenFXML = "/view/BuyItemScreen.fxml";
     public static String buyItemScreen = "item kopen";
+    public static HashMap<String,Locale> avaliableLocale = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        avaliableLocale.put("English",Locale.ENGLISH);
+        avaliableLocale.put("Nederlands", new Locale("nl"));       
+       
         Group root = new Group();
         ScreensController mainContainer = new ScreensController(primaryStage);
-//        mainContainer.loadScreen(FrontEnd.mainScreen, FrontEnd.mainScreenFXML);
         System.out.println("test");
         mainContainer.loadScreen(FrontEnd.loginScreen, FrontEnd.loginScreenFXML);
         mainContainer.loadScreen(FrontEnd.registerScreen, FrontEnd.registerScreenFXML);
-//        mainContainer.loadScreen(FrontEnd.registerPhotographerScreen, FrontEnd.registerPhotographerScreenFXML);
-//        mainContainer.loadScreen(FrontEnd.uploadScreen, FrontEnd.uploadScreenFXML);
-//        mainContainer.loadScreen(FrontEnd.downloadScreen, FrontEnd.downloadScreenFXML);
-//        mainContainer.loadScreen(FrontEnd.managementScreen, FrontEnd.managementScreenFXML);
-//        mainContainer.loadScreen(FrontEnd.buyItemScreen, FrontEnd.buyItemScreenFXML);
 
         mainContainer.setScreen(FrontEnd.loginScreen);
-
         
+
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

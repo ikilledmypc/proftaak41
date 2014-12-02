@@ -9,7 +9,7 @@ import domain.Account;
 
 /**
  *
- * @author Baya
+ * @author Tim
  */
 public abstract class ControlledAccountScreen implements ControlledScreen {
     protected Account loggedInAccount;

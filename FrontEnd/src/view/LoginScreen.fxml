@@ -16,11 +16,13 @@
     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="28.0" layoutY="202.0" prefHeight="15.0" prefWidth="139.0" text="%passwordbox" textAlignment="RIGHT" />
     <TextField fx:id="TF_username" layoutX="172.0" layoutY="169.0" prefHeight="25.0" prefWidth="187.0" />
     <PasswordField fx:id="TF_password" layoutX="172.0" layoutY="197.0" prefHeight="25.0" prefWidth="187.0" />
-    <Button defaultButton="true" layoutX="268.0" layoutY="235.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="91.0" text="Login" />
-    <Label fx:id="LB_error" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="53.0" prefHeight="48.0" prefWidth="454.0" textAlignment="CENTER" textFill="RED">
+    <Button defaultButton="true" layoutX="268.0" layoutY="235.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="91.0" text="%loginbutton" />
+    <Label fx:id="LB_error" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="35.0" prefHeight="86.0" prefWidth="454.0" textAlignment="CENTER" textFill="RED" wrapText="true">
 <font>
 <Font name="System Bold" size="17.0" />
 </font></Label>
-      <Button layoutX="175.0" layoutY="235.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="91.0" text="register" />
+      <Button layoutX="175.0" layoutY="235.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="91.0" text="%registerbutton" />
+      <ComboBox fx:id="cmb_language" layoutX="175.0" layoutY="272.0" prefWidth="150.0" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="28.0" layoutY="276.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="139.0" text="%languagePrompt" textAlignment="RIGHT" />
   </children>
 </AnchorPane>
