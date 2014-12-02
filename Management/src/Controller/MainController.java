@@ -87,12 +87,16 @@ public class MainController implements Initializable, ControlledScreen {
     
     public void buildPieChartPhotographer() {
         String dataPieChartInActive = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographersInActive");
+        System.out.println(dataPieChartInActive);
         pieChartData = FXCollections.observableArrayList(dataPieChartInActive);
+        System.out.println(dataPieChartInActive);
         pieChart.getData().add(new PieChart.Data("inactive", Double.parseDouble(dataPieChartInActive)));
         
         String dataPieChartActive = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographersActive");
+        System.out.println(dataPieChartActive);
         pieChartData = FXCollections.observableArrayList(dataPieChartActive);
-        pieChart.getData().add(new PieChart.Data("active", Double.parseDouble(dataPieChartInActive)));
+        System.out.println(dataPieChartActive);
+        pieChart.getData().add(new PieChart.Data("active", Double.parseDouble(dataPieChartActive)));
         
     }
     

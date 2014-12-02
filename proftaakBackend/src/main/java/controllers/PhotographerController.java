@@ -89,6 +89,7 @@ public class PhotographerController {
 			String dataPieChart;
 			db = controllers.DatabaseController.getInstance();
 			ResultSet rs = db.select("SELECT count(accountID) FROM Photographer WHERE isActive = 1");
+			rs.next();
 			dataPieChart = rs.getString(1);
 			return dataPieChart;
 		} catch (Exception e) {
