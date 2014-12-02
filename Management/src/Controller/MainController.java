@@ -86,24 +86,14 @@ public class MainController implements Initializable, ControlledScreen {
     }
     
     public void buildPieChartPhotographer() {
-        gson = new Gson();
-        String dataPieChart = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographers");
-        System.out.println(dataPieChart);
-        ArrayList<String> data = gson.fromJson(dataPieChart, new TypeToken<ArrayList<String>>(){}.getType());
-        pieChartData = FXCollections.observableArrayList(data);
-        System.out.println(pieChartData);
-        System.out.println(data.get(0));
-        //pieChart.a().add(new PieChart.Data("inactive" , Double.parseDouble(data.get(0))) );
-        for(String s:data){
-            String[] name = s.split(",");
-            System.out.println(data.get(0));
-            //for (String name1 : name) {
-              //  System.out.println(name1);
-                //pieChart.getData().add(new PieChart.Data(name1.get, Integer.parseInt(name1[1])));
-            //}
-            //pieChart.getData().add(new PieChart.Data("InActive", Double.parseDouble(data.get(0))));
-        }
-        //pieChart.getData().addAll(pieChartData);
+        String dataPieChartInActive = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographersInActive");
+        pieChartData = FXCollections.observableArrayList(dataPieChartInActive);
+        pieChart.getData().add(new PieChart.Data("inactive", Double.parseDouble(dataPieChartInActive)));
+        
+        String dataPieChartActive = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographersActive");
+        pieChartData = FXCollections.observableArrayList(dataPieChartActive);
+        pieChart.getData().add(new PieChart.Data("active", Double.parseDouble(dataPieChartInActive)));
+        
     }
     
 }

@@ -68,15 +68,28 @@ public class PhotographerController {
 		photographer.editPhotographer();
 	}
 	
-	@RequestMapping("/buildPieChartPhotographers")
-	public ArrayList<String> buildPieChartPhotographers() {
+	@RequestMapping("/buildPieChartPhotographersInActive")
+	public String buildPieChartPhotographersInActive() {
 		try {
-			ArrayList<String> dataPieChart = new ArrayList<String>();
+			String dataPieChart;
 			db = controllers.DatabaseController.getInstance();
-			ResultSet rs = db.select("SELECT count(accountID), isActive FROM Photographer GROUP BY isActive");
-			while (rs.next()) {
-				dataPieChart.add(rs.getString(2) + " " + rs.getString(1));
-			}
+			ResultSet rs = db.select("SELECT count(accountID) FROM Photographer WHERE isActive = 0");
+			rs.next();
+			dataPieChart = rs.getString(1);
+			return dataPieChart;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping("/buildPieChartPhotographersActive")
+	public String buildPieChartPhotographersActive() {
+		try {
+			String dataPieChart;
+			db = controllers.DatabaseController.getInstance();
+			ResultSet rs = db.select("SELECT count(accountID) FROM Photographer WHERE isActive = 1");
+			dataPieChart = rs.getString(1);
 			return dataPieChart;
 		} catch (Exception e) {
 			e.printStackTrace();
