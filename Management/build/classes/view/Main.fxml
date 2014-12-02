@@ -3,13 +3,14 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="262.0" prefWidth="334.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="436.9998779296875" prefWidth="676.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.MainController">
   <children>
     <Label layoutX="30.0" layoutY="24.0" text="Management Menu" />
-    <TitledPane animated="false" layoutX="30.0" layoutY="66.0" text="Photographer">
+    <TitledPane animated="false" layoutX="30.0" layoutY="62.0" text="Photographer">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="117.0">
           <children>
@@ -19,7 +20,7 @@
         </AnchorPane>
       </content>
     </TitledPane>
-    <TitledPane animated="false" layoutX="173.0" layoutY="66.0" text="Product">
+    <TitledPane animated="false" layoutX="28.0" layoutY="260.0" text="Product">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="134.0" prefWidth="119.0">
           <children>
@@ -30,5 +31,6 @@
         </AnchorPane>
       </content>
     </TitledPane>
+    <PieChart id="PieChart" fx:id="pieChart" layoutX="164.0" layoutY="24.0" title="" />
   </children>
 </AnchorPane>

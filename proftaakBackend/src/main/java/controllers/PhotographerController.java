@@ -7,6 +7,7 @@ import interfaces.IDatabase;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import managers.JsonManager;
 
@@ -65,5 +66,35 @@ public class PhotographerController {
 		jsonManager = JsonManager.GetInstance();
 		photographer = (Photographer) jsonManager.fromJson(json, Photographer.class);
 		photographer.editPhotographer();
+	}
+	
+	@RequestMapping("/buildPieChartPhotographersInActive")
+	public String buildPieChartPhotographersInActive() {
+		try {
+			String dataPieChart;
+			db = controllers.DatabaseController.getInstance();
+			ResultSet rs = db.select("SELECT count(accountID) FROM Photographer WHERE isActive = 0");
+			rs.next();
+			dataPieChart = rs.getString(1);
+			return dataPieChart;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping("/buildPieChartPhotographersActive")
+	public String buildPieChartPhotographersActive() {
+		try {
+			String dataPieChart;
+			db = controllers.DatabaseController.getInstance();
+			ResultSet rs = db.select("SELECT count(accountID) FROM Photographer WHERE isActive = 1");
+			rs.next();
+			dataPieChart = rs.getString(1);
+			return dataPieChart;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
