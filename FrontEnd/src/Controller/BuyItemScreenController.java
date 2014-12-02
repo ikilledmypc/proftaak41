@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import domain.Photo;
 import domain.Product;
 import frontend.FrontEnd;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -22,14 +23,20 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * FXML Controller class
@@ -55,6 +62,15 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     Label LBL_totalPrice;
     @FXML
     TextField TF_amount;
+    @FXML
+    Button btn_crop;
+    
+    private int cropX=0;
+    private int cropY=0;
+    private int cropWidth=0;
+    private int cropHight=0;
+    private Rectangle croppingRectangle;
+    private boolean cropping= false;
      
             
     @Override
@@ -63,6 +79,8 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
        Gson gson = new Gson();
        ArrayList<Product> items =gson.fromJson(itemsString,new TypeToken<ArrayList<Product>>(){}.getType());
        CMB_items.getItems().addAll(items);
+       AnchorPane ap = (AnchorPane) CMB_items.getParent();
+      
       
        CMB_items.valueProperty().addListener(new ChangeListener<Product>(){
            @Override
@@ -71,6 +89,34 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
                if(photo!=null)   LBL_totalPrice.setText("\u20ac"+(newValue.getMaterialPrice()+photo.getPrice()));
            }           
        });
+       btn_crop.setOnAction(new EventHandler(){
+
+           @Override
+           public void handle(Event event) {
+               btn_crop.setDisable(true);
+           }
+       });       
+       IMG_photo.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+           @Override
+           public void handle(MouseEvent event) {
+               croppingRectangle = new Rectangle(event.getX()+14, event.getY()+14,0,30);
+               
+               croppingRectangle.setStyle("-fx-border-color: red;");
+               ap.getChildren().add(croppingRectangle);
+           }
+           
+       });
+       IMG_photo.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>(){
+
+           @Override
+           public void handle(MouseEvent event) {
+               croppingRectangle.setWidth(event.getX()+14-croppingRectangle.getX());
+               croppingRectangle.setHeight(event.getY()+14-croppingRectangle.getY());
+           }
+           
+       });
+       
+       
        
        
     } 

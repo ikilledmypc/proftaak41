@@ -20,6 +20,6 @@
       <Label fx:id="LBL_totalPrice" layoutX="363.0" layoutY="356.0" text="0.0" />
       <Label layoutX="343.0" layoutY="384.0" text="%amount" />
       <TextField fx:id="TF_amount" layoutX="408.0" layoutY="379.0" prefHeight="25.0" prefWidth="46.0" promptText="amount" text="1" />
-      <Button layoutX="481.0" layoutY="30.0" mnemonicParsing="false" text="%btn.crop" />
+      <Button fx:id="btn_crop" layoutX="481.0" layoutY="30.0" mnemonicParsing="false" text="%btn.crop" />
    </children>
 </AnchorPane>
