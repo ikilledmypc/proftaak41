@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="431.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BuyItemScreenController">
    <children>
-      <ImageView fx:id="IMG_photo" fitHeight="285.0" fitWidth="397.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="IMG_photo" fitHeight="250.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ComboBox fx:id="CMB_items" layoutX="14.0" layoutY="307.0" prefHeight="25.0" prefWidth="230.0" />
       <Button fx:id="BT_addToCart" layoutX="481.0" layoutY="356.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="150.0" text="%addToCart" />
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="265.0" layoutY="311.0" text="%priceProduct" textAlignment="RIGHT" />
@@ -20,6 +20,6 @@
       <Label fx:id="LBL_totalPrice" layoutX="363.0" layoutY="356.0" text="0.0" />
       <Label layoutX="343.0" layoutY="384.0" text="%amount" />
       <TextField fx:id="TF_amount" layoutX="408.0" layoutY="379.0" prefHeight="25.0" prefWidth="46.0" promptText="amount" text="1" />
-      <Button layoutX="481.0" layoutY="30.0" mnemonicParsing="false" text="%btn.crop" />
+      <Button fx:id="btn_crop" layoutX="481.0" layoutY="30.0" mnemonicParsing="false" text="%btn.crop" />
    </children>
 </AnchorPane>
