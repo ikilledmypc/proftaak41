@@ -72,6 +72,12 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     private HashMap<File, TextField> selectedPhotos = new HashMap<>();
     @FXML
     TilePane TP_photos;
+    
+    @FXML
+    Button defaultButton;
+    
+    @FXML
+    TextField defaultField;
 
     /**
      * Initializes the controller class.
@@ -142,7 +148,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             hbox.setAlignment(Pos.CENTER);
             TextField price = new TextField();
             price.setId(file.getName());
-            price.setText("6.50");
+            price.setText(FrontEnd.HOST + "/getDefaultPricePhoto?accountID=" + this.loggedInAccount.getAccountID());
             Label priceLabel = new Label();
             priceLabel.setText("price:  \u20ac");
             hbox.getChildren().addAll(priceLabel, price);
@@ -159,4 +165,9 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         return null;
     }
 
+    @FXML
+    public void handleDefaultButtonAction(ActionEvent event){
+        double price = Double.parseDouble(defaultField.getText());
+        HttpController.excutePost(FrontEnd.HOST + "/editDefaultPricePhoto", "accountID=" + this.loggedInAccount.getAccountID() + "&defaultPricePhoto=" + price);
+    }
 }

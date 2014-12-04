@@ -57,4 +57,42 @@ public class OrderController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/getNumberOfOrderedPhotos", method = RequestMethod.GET)
+	public String getNumberOfOrderedPhotos(@RequestParam(value = "accountID", required = true) int accountID){
+		DatabaseController db = DatabaseController.getInstance();
+		int numberOf = 0;
+		ResultSet rst = db.select("SELECT photoID FROM PhotoGroup_photo WHERE photogroupID = (SELECT photogroupID FROM photogroup WHERE accountID = '"+ accountID +"')");
+		try {
+			while(rst.next()){
+				ResultSet rst2 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID = (SELECT photoproductID FROM photo_product WHERE productID = '0' AND photoID = '" + rst.getInt("photoID") + "')");
+				while(rst2.next()){
+					numberOf = rst2.getInt("numberOf");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		db.closeConnection();
+		return Integer.toString(numberOf);
+	}
+	
+	@RequestMapping(value = "/getNumberOfOrderedProducts", method = RequestMethod.GET)
+	public String getNumberOfOrderedProducts(@RequestParam(value="accountID", required=true)int accountID){
+		DatabaseController db = DatabaseController.getInstance();
+		int numberOf = 0;
+		ResultSet rst = db.select("SELECT photoID FROM PhotoGroup_photo WHERE photogroupID = (SELECT photogroupID FROM photogroup WHERE accountID = '"+ accountID +"')");
+		try {
+			while(rst.next()){
+				ResultSet rst2 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID = (SELECT photoproductID FROM photo_product WHERE productID <> '0' AND photoID = '" + rst.getInt("photoID") + "')");
+				while(rst2.next()){
+					numberOf = rst2.getInt("numberOf");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		db.closeConnection();
+		return Integer.toString(numberOf);
+	}
 }

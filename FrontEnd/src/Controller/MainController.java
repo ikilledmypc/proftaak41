@@ -159,6 +159,8 @@ public class MainController extends ControlledAccountScreen implements Initializ
             }
 
         });
+        String defaultPrice = HttpController.excuteGet(FrontEnd.HOST + "/getDefaultPricePhoto?accountID=" + this.loggedInAccount.getAccountID());
+        controller.defaultField.setText(defaultPrice);
         stage.show();
     }
 
@@ -240,6 +242,21 @@ public class MainController extends ControlledAccountScreen implements Initializ
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    @FXML
+    private void statsScreen()throws IOException{
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/StatsScreen.fxml"));
+        loader.setResources(recources);
+        root = loader.load();
+        statsScreenController controller = loader.getController();
+        controller.setAccount(loggedInAccount);
+        controller.setScreenParent(parent);
+        Stage stage = new Stage();
+        stage.setTitle("Statistieken");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
