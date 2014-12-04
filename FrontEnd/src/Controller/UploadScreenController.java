@@ -148,7 +148,7 @@ public class UploadScreenController extends ControlledAccountScreen implements I
             hbox.setAlignment(Pos.CENTER);
             TextField price = new TextField();
             price.setId(file.getName());
-            price.setText(FrontEnd.HOST + "/getDefaultPricePhoto?accountID=" + this.loggedInAccount.getAccountID());
+            price.setText(HttpController.excuteGet(FrontEnd.HOST + "/getDefaultPricePhoto?accountID=" + this.loggedInAccount.getAccountID()));
             Label priceLabel = new Label();
             priceLabel.setText("price:  \u20ac");
             hbox.getChildren().addAll(priceLabel, price);
