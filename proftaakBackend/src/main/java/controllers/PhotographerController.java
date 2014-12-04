@@ -97,4 +97,23 @@ public class PhotographerController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/editDefaultPricePhoto", method = RequestMethod.POST)
+	public void editDefaultPricePhoto(@RequestParam("accountID") int accountID, @RequestParam("defaultPricePhoto") double defaultPricePhoto) {
+		db = controllers.DatabaseController.getInstance();
+		db.update("UPDATE photographer SET defaultPricePhoto = '" + defaultPricePhoto + "' WHERE accountID ='" + accountID +"'");
+	}
+	
+	@RequestMapping(value = "/getDefaultPricePhoto", method = RequestMethod.GET)
+	public double getDefaultPricePhoto(@RequestParam("accountID") int accountID) {
+		db = controllers.DatabaseController.getInstance();
+		ResultSet rs = db.select("SELECT defaultPricePhoto FROM photographer WHERE accountID = '" + accountID + "'");
+		try {
+			rs.next();
+			return rs.getDouble("defaultPricePhoto");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

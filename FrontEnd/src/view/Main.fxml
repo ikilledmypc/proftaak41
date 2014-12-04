@@ -15,6 +15,10 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Button>
+         <Button fx:id="statsButton" layoutX="800.0" layoutY="17.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Statistieken" onAction="#statsScreen" >
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Button>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="276.0">
          <children>
             <Label text="%hello">

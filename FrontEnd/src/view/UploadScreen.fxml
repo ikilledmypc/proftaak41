@@ -9,6 +9,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="834.0" prefWidth="1132.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UploadScreenController">
   <children>
+    <Label alignment="CENTER_RIGHT" layoutX="345.0" layoutY="65.0" prefHeight="17.0" prefWidth="89.0" text="default Price:" textAlignment="RIGHT" />
+    <TextField fx:id="defaultField" layoutX="450.0" layoutY="65.0" /> 
+    <Button fx:id="defaultButton" layoutX="610.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleDefaultButtonAction" prefHeight="25.0" prefWidth="89.0" text="change default price" />
     <Button layoutX="610.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleBrowseButtonAction" prefHeight="25.0" prefWidth="89.0" text="%browseButton" />
     <Button fx:id="uploadButton" layoutX="610.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleUploadButtonAction" prefHeight="25.0" prefWidth="89.0" text="%uploadButton" />
     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="43.0" prefHeight="27.0" prefWidth="1058.0" text="%uploadPrompt" textAlignment="CENTER" textFill="RED">
