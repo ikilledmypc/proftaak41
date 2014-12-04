@@ -68,6 +68,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     @FXML
     Button uploadButton;
+    
+    @FXML
+    Button statsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,6 +121,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
         LBL_username.setText(a.getName());
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
         if (a instanceof Photographer) {
+            this.statsButton.setVisible(true);
             this.uploadButton.setText(recources.getString("uploadPhotosButton"));
             this.uploadButton.setOnAction((ActionEvent event) -> {
                 try {
@@ -128,6 +132,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
             });
 
         } else {
+            this.statsButton.setVisible(false);
             this.uploadButton.setText(this.recources.getString("enterKeyButton"));
             this.uploadButton.setOnAction((ActionEvent event) -> {
                 try {
