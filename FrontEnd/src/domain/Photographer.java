@@ -10,8 +10,6 @@ public class Photographer extends Account {
     private String companyName;
     private String bankAccount;
     private Boolean active;
-    private ArrayList<Photographer> photographers;
-    private ResultSet rs;
 
     /**
      * Constructor

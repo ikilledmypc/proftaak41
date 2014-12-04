@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Account (
   telephone varchar(11) NOT NULL,
   PRIMARY KEY (accountID),
   UNIQUE KEY username (username)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Account'
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
   accountID int(11) DEFAULT NULL,
   PRIMARY KEY (orderID),
   KEY accountID_idxfk (accountID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Order'
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Order_Photo_Product (
   KEY productID_idxfk (productID),
   PRIMARY KEY (orderID,productID,photoID)
 
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Order_Photo_Product'
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS Order_Status (
   `date` datetime NOT NULL,
   PRIMARY KEY (orderID,statusID),
   KEY statusID_idxfk (statusID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Order_Status'
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS Photo (
   height int(11) NOT NULL,
   width int(11) NOT NULL,
   PRIMARY KEY (photoID)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Photo'
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS PhotoGroup (
   parentPhotogroupID int(11) DEFAULT NULL,
   PRIMARY KEY (photogroupID),
   KEY parentPhotogroupID_idxfk (parentPhotogroupID)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'PhotoGroup'
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS PhotoGroup_Photo (
   photoID int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (photogroupID,photoID),
   KEY photoID_idxfk (photoID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'PhotoGroup_Photo'
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS Photo_Product (
   PRIMARY KEY (photoproductID),
   KEY photoID_idxfk_1 (photoID),
   KEY productID_idxfk (productID)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Photo_Product'
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS Photographer (
   bankaccount varchar(40) NOT NULL,
   isActive tinyint(1) NOT NULL,
   PRIMARY KEY (accountID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Photographer'
@@ -255,7 +255,7 @@ CREATE TABLE IF NOT EXISTS Product (
   materialprice decimal(10,2) NOT NULL,
   PRIMARY KEY (productID),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Product'
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `Status` (
   statusID int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (statusID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel 'Status'
@@ -293,4 +293,4 @@ CREATE TABLE IF NOT EXISTS code_redeemed_account (
   accountID int(11) NOT NULL,
   photogroupID int(11) NOT NULL,
   PRIMARY KEY (ID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
