@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @author Mr. Jin
  */
 public class SetExpressCheckoutService{
-
+/*
 	private static Logger log = Logger.getLogger(SetExpressCheckoutService.class);
 
 	public static void main(String[] args){
@@ -78,4 +78,5 @@ public class SetExpressCheckoutService{
 		//get the token from the response
 		return ppresponse.getToken();
 	}
+    */
 }

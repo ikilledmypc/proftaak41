@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.CheckOutScreenController">
+  <children>
+    <Label layoutX="24.0" layoutY="76.0" text="%firstName" />
+    <Label layoutX="24.0" layoutY="110.0" text="%lastName" />
+    <Label layoutX="24.0" layoutY="147.0" text="%address" />
+    <Label layoutX="24.0" layoutY="184.0" text="%zipcode" />
+    <Label layoutX="24.0" layoutY="219.0" text="%city" />
+    <Label layoutX="24.0" layoutY="253.0" text="%email" />
+    <Label layoutX="24.0" layoutY="284.0" text="%telephone" />
+    <TextField layoutX="120.0" layoutY="71.0" prefWidth="159.0" text="" />
+    <TextField layoutX="120.0" layoutY="104.0" prefWidth="159.0" />
+    <TextField layoutX="120.0" layoutY="143.0" prefWidth="159.0" />
+    <TextField layoutX="120.0" layoutY="180.0" prefWidth="159.0" />
+    <TextField layoutX="120.0" layoutY="215.0" prefWidth="159.0" />
+    <TextField layoutX="120.0" layoutY="249.0" prefWidth="159.0" />
+    <TextField layoutX="120.0" layoutY="280.0" prefWidth="159.0" />
+    <Label layoutX="220.0" layoutY="24.0" text="Checkout page">
+      <font>
+        <Font size="20.0" />
+      </font>
+    </Label>
+    <Button layoutX="460.0" layoutY="339.0" mnemonicParsing="false" text="%btn_checkOut" />
+    <TableView layoutX="330.0" layoutY="71.0" prefHeight="200.0" prefWidth="233.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Product" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="Foto" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="Prijs" />
+      </columns>
+    </TableView>
+    <TextField layoutX="483.0" layoutY="271.0" prefWidth="80.0" />
+    <Label layoutX="411.0" layoutY="274.0" text="%totalPrice" />
+  </children>
+</AnchorPane>

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @author Mr. Jin
  */
 public class DoExpressCheckoutService {
-
+/*
 	private Logger log = Logger.getLogger(this.getClass());
 
 	public boolean doExpressCheckoutService(GetExpressCheckoutDetailsResponseDetailsType response) throws PayPalException{
@@ -57,4 +57,5 @@ public class DoExpressCheckoutService {
 			return false;
 		}
 	}
+    */
 }
