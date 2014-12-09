@@ -65,7 +65,7 @@ public class Product {
 	
 	public void addToDB(){
 		DatabaseController db = DatabaseController.getInstance();
-		db.insert("insert into product name,materialprice values('"+this.name+"',"+this.materialPrice+")");
+		db.insert("insert into product (name,materialprice) values('"+this.name+"',"+this.materialPrice+")");
 		db.closeConnection();
 	}
 

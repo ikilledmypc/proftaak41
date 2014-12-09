@@ -65,9 +65,12 @@ public class OrderController {
 		ResultSet rst = db.select("SELECT photoID FROM PhotoGroup_photo WHERE photogroupID = (SELECT photogroupID FROM photogroup WHERE accountID = '"+ accountID +"')");
 		try {
 			while(rst.next()){
-				ResultSet rst2 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID = (SELECT photoproductID FROM photo_product WHERE productID = '0' AND photoID = '" + rst.getInt("photoID") + "')");
+				ResultSet rst2 = db.select("SELECT photoproductID FROM photo_product WHERE productID = '0' AND photoID = '" + rst.getInt("photoID") + "'");
 				while(rst2.next()){
-					numberOf = rst2.getInt("numberOf");
+					ResultSet rst3 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID ='" + rst2.getInt("photoproductID") + "'");
+					while(rst3.next()){
+						numberOf = numberOf + rst3.getInt("numberOf");
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -84,9 +87,12 @@ public class OrderController {
 		ResultSet rst = db.select("SELECT photoID FROM PhotoGroup_photo WHERE photogroupID = (SELECT photogroupID FROM photogroup WHERE accountID = '"+ accountID +"')");
 		try {
 			while(rst.next()){
-				ResultSet rst2 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID = (SELECT photoproductID FROM photo_product WHERE productID <> '0' AND photoID = '" + rst.getInt("photoID") + "')");
+				ResultSet rst2 = db.select("SELECT photoproductID FROM photo_product WHERE productID <> '0' AND photoID = '" + rst.getInt("photoID") + "'");
 				while(rst2.next()){
-					numberOf = rst2.getInt("numberOf");
+					ResultSet rst3 = db.select("SELECT numberOf FROM order_photo_product WHERE photoproductID ='" + rst2.getInt("photoproductID") + "'");
+					while(rst3.next()){
+						numberOf = numberOf + rst3.getInt("numberOf");
+					}
 				}
 			}
 		} catch (SQLException e) {
