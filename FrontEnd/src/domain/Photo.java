@@ -1,12 +1,13 @@
 package domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Photo {
     
 	private int photoID;
 	private String name;
-	private Date uploadDate;
+	private Calendar uploadDate;
 	private float price;
 	private int height;
 	private int width;
@@ -20,7 +21,7 @@ public class Photo {
 	 * @param height
 	 * @param width
 	 */
-	public Photo(String name, Date uploadDate, float price, int height, int width) {
+	public Photo(String name, Calendar uploadDate, float price, int height, int width) {
 		super();
 		this.name = name;
 		this.uploadDate = uploadDate;
@@ -29,7 +30,7 @@ public class Photo {
 		this.width = width;
 	}
         
-        public Photo(int photoID, Date uploadDate, float price) {
+        public Photo(int photoID, Calendar uploadDate, float price) {
             this.photoID = photoID;
             this.uploadDate = uploadDate;
             this.price = price;
@@ -54,7 +55,7 @@ public class Photo {
 	/**
 	 * @return the uploadDate
 	 */
-	public Date getUploadDate() {
+	public Calendar getUploadDate() {
 		return uploadDate;
 	}
 
@@ -62,7 +63,7 @@ public class Photo {
 	 * @param uploadDate
 	 *            the uploadDate to set
 	 */
-	public void setUploadDate(Date uploadDate) {
+	public void setUploadDate(Calendar uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

@@ -14,6 +14,7 @@ import frontend.FrontEnd;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -52,7 +53,7 @@ public class PhotoUploadWorker extends Task {
         for (Map.Entry pairs : selectedPhotos.entrySet()) {
             File p = ((File) pairs.getKey());
             BufferedImage image = ImageIO.read(p);
-            Photo photo = new Photo(p.getName(), new Date(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
+            Photo photo = new Photo(p.getName(), new GregorianCalendar(), Float.parseFloat(((TextField) pairs.getValue()).getText()), image.getHeight(), image.getWidth());
 
             String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
             photoid = photoid.trim();

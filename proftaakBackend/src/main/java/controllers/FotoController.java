@@ -10,7 +10,9 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 
@@ -38,7 +40,7 @@ public class FotoController {
 		ArrayList<Integer> photogroupIDs = new ArrayList<Integer>();
 		ArrayList<Integer> photoIds = new ArrayList<Integer>();
 		Photo photo;
-		Date newDate;
+		Calendar newDate;
 		DatabaseController db = DatabaseController.getInstance();
 		ResultSet rst = db.select("SELECT photogroupID FROM photoGroup WHERE code = '"+ code +"'");
 		try {
@@ -68,8 +70,10 @@ public class FotoController {
 			rst = db.select("select * from Photo where photoID = '" + y + "'");
 			try {
 				while(rst.next()){
-					long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
-					newDate = new Date(millisecs);
+					//long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
+					newDate = new GregorianCalendar();
+					newDate.setTime(rst.getTimestamp("uploadDate"));
+
 					photo = new Photo(rst.getString("name"), newDate, (float)rst.getDouble("price"), rst.getInt("height"), rst.getInt("width"));
 					photo.setPhotoID(rst.getInt("photoID"));
 					photos.add(photo);
@@ -90,7 +94,8 @@ public class FotoController {
 		ArrayList<Integer> photogroupIDs = new ArrayList<Integer>();
 		ArrayList<Integer> photoIds = new ArrayList<Integer>();
 		Photo photo;
-		Date newDate;
+		//Date newDate;
+		Calendar newDate;
 		DatabaseController db = DatabaseController.getInstance();
 		ResultSet rst = db.select("SELECT photogroupID FROM code_redeemed_account WHERE accountID = '"+ accountID +"'");
 		try {
@@ -114,8 +119,9 @@ public class FotoController {
 			rst = db.select("select * from Photo where photoID = '" + y + "'");
 			try {
 				while(rst.next()){
-					long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
-					newDate = new Date(millisecs);
+					//long millisecs = rst.getTimestamp("uploadDate").getTime() + (rst.getTimestamp("uploadDate").getNanos() / 1000000);
+					newDate = new GregorianCalendar();
+					newDate.setTime(rst.getTimestamp("uploadDate"));
 					photo = new Photo(rst.getString("name"), newDate, (float)rst.getDouble("price"), rst.getInt("height"), rst.getInt("width"));
 					photo.setPhotoID(rst.getInt("photoID"));
 					photos.add(photo);

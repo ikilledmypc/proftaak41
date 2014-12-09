@@ -222,7 +222,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
                         controller.setAccount(loggedInAccount);
                         controller.setPhoto(p);
                         Stage stage = new Stage();
-                        stage.setTitle(p.getUploadDate().toGMTString());
+                        stage.setTitle(p.getUploadDate().toString());
                         stage.setScene(new Scene(root, 640, 430));
                         stage.show();
                         stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {

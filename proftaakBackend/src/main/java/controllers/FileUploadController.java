@@ -13,10 +13,11 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
@@ -194,12 +195,12 @@ public class FileUploadController {
 		DatabaseController db = DatabaseController.getInstance();
 		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
 		int photoID = 0;
-		java.text.SimpleDateFormat sdf = 
-			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//java.text.SimpleDateFormat sdf = 
+			    // new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-			String date = sdf.format(photo.getUploadDate());
+			Calendar date = photo.getUploadDate();//sdf.format(photo.getUploadDate());
 		
-		ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price, size, height, width) VALUES('" + photo.getName() + "', '" + date + "'"
+		ResultSet rst = db.insert("INSERT INTO PHOTO (name, uploadDate, price, size, height, width) VALUES('" + photo.getName() + "', '" + new Date(date.getTimeInMillis()) + "'"
 		    		+ ", '" + photo.getPrice() + "', '" + 12 + "', '" + photo.getHeight() + "', '" + photo.getwidth() + "')");
 		
 		rst = db.select("SELECT MAX(photoID) AS ID FROM Photo");
