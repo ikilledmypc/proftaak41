@@ -84,11 +84,9 @@ DROP TABLE IF EXISTS Order_Photo_Product;
 CREATE TABLE IF NOT EXISTS Order_Photo_Product (
   orderID int(11) NOT NULL DEFAULT '0',
   numberOf int(11) NOT NULL,
-  photoID int(11) NOT NULL,
-  productID int(11) NOT NULL,
-  KEY photoID_idxfk_1 (photoID),
-  KEY productID_idxfk (productID),
-  PRIMARY KEY (orderID,productID,photoID)
+  photoproductID int(11) NOT NULL,
+  KEY photoproductID_idxfk (photoproductID),
+  PRIMARY KEY (orderID, photoproductID)
 
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -206,6 +204,12 @@ CREATE TABLE IF NOT EXISTS Photo_Product (
   photoproductID int(11) NOT NULL AUTO_INCREMENT,
   photoID int(11) NOT NULL,
   productID int(11) NOT NULL,
+  sephia tinyint(1) NOT NULL DEFAULT '0',
+  zwartwit tinyint(1) NOT NULL DEFAULT '0',
+  cropX int(10),
+  cropY int(10),
+  cropHeight int(10),
+  cropWidth int(10),
   PRIMARY KEY (photoproductID),
   KEY photoID_idxfk_1 (photoID),
   KEY productID_idxfk (productID)
