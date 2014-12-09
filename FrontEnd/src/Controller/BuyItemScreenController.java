@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,9 +29,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +68,12 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     TextField TF_amount;
     @FXML
     Button btn_crop;
+    @FXML
+    CheckBox CB_normaalfilter;
+    @FXML
+    CheckBox CB_zwfilter;
+    @FXML
+    CheckBox CB_sephiafilter;
 
     private double cropX = 0;
     private double cropY = 0;
@@ -148,6 +158,32 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
             }
 
         });
+        
+        CB_normaalfilter.setOnAction(new EventHandler<ActionEvent>() { 
+            @Override public void handle(ActionEvent e) {
+                CB_sephiafilter.setSelected(false);
+                CB_zwfilter.setSelected(false);
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setSaturation(0);
+                IMG_photo.setEffect(colorAdjust);
+            } });
+        
+        CB_sephiafilter.setOnAction(new EventHandler<ActionEvent>() { 
+            @Override public void handle(ActionEvent e) {
+                CB_normaalfilter.setSelected(false);
+                CB_zwfilter.setSelected(false);
+                ColorAdjust colorAdjust = new ColorAdjust();
+                IMG_photo.setEffect(new SepiaTone());
+            } });
+        
+        CB_zwfilter.setOnAction(new EventHandler<ActionEvent>() { 
+            @Override public void handle(ActionEvent e) {
+                CB_sephiafilter.setSelected(false);
+                CB_normaalfilter.setSelected(false);
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setSaturation(-1);
+                IMG_photo.setEffect(colorAdjust);
+            } });
 
     }
 
@@ -178,5 +214,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
         HttpController.excutePost(FrontEnd.HOST + "/addToCart", "product=" + sProduct + "&username=" + this.loggedInAccount.getUsername());
         ((Node) ev.getSource()).getScene().getWindow().hide();
     }
+    
+    
 
 }
