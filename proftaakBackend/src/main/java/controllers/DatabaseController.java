@@ -49,7 +49,7 @@ public class DatabaseController implements IDatabase{
 		} catch (IOException e) {
 			this.host = "127.0.0.1";
 			this.userName ="root";
-			this.passWord = "";
+			this.passWord = "mustanggt500";
 		}
 	}
 
