@@ -77,6 +77,12 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
     }
     
     @FXML
+    public void checkOut(){
+        this.parent.loadAccountScreen("checkout", "/view/CheckOutScreen.fxml", this.loggedInAccount);
+        this.parent.setScreen("checkout");
+        placeOrder();
+    }
+    
     public void placeOrder(){
         Gson gson = new Gson();
         HttpController.excutePost(FrontEnd.HOST+"/placeOrder","cart="+gson.toJson(this.shoppingcart)+"&accountID=2");
