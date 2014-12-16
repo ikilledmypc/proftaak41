@@ -11,7 +11,6 @@
    <children>
       <ImageView fx:id="IMG_photo" fitHeight="250.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ComboBox fx:id="CMB_items" layoutX="14.0" layoutY="307.0" prefHeight="25.0" prefWidth="230.0" />
-      <Button fx:id="BT_addToCart" layoutX="481.0" layoutY="356.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="150.0" text="%addToCart" />
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="265.0" layoutY="311.0" text="%priceProduct" textAlignment="RIGHT" />
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="275.0" layoutY="333.0" text="%pricePhoto" textAlignment="RIGHT" />
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="306.0" layoutY="356.0" text="%total" textAlignment="RIGHT" />
@@ -21,8 +20,9 @@
       <Label layoutX="343.0" layoutY="384.0" text="%amount" />
       <TextField fx:id="TF_amount" layoutX="408.0" layoutY="379.0" prefHeight="25.0" prefWidth="46.0" promptText="amount" text="1" />
       <Button fx:id="btn_crop" layoutX="481.0" layoutY="30.0" mnemonicParsing="false" text="%btn.crop" />
-      <CheckBox fx:id="CB_normaalfilter" layoutX="481.0" layoutY="60.0" text="Normaal" selected="true" />
+      <CheckBox fx:id="CB_normaalfilter" layoutX="481.0" layoutY="60.0" selected="true" text="Normaal" />
       <CheckBox fx:id="CB_zwfilter" layoutX="481.0" layoutY="90.0" text="Zwart-wit" />
       <CheckBox fx:id="CB_sephiafilter" layoutX="481.0" layoutY="120.0" text="Sephia" />
+      <Button fx:id="BT_addToCart" layoutX="481.0" layoutY="356.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="150.0" text="%addToCart" />
    </children>
 </AnchorPane>
