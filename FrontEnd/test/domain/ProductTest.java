@@ -29,7 +29,7 @@ public class ProductTest {
     String name = "name";
     float materialPrice = 10f;
     float price = 5f;
-    Date uploadDate;
+    Calendar uploadDate;
     Calendar cal = Calendar.getInstance();
 
     public ProductTest() {
@@ -49,7 +49,7 @@ public class ProductTest {
         product2 = new Product(name, materialPrice);
 
         cal.set(2013, Calendar.JANUARY, 9, 10, 11, 12);
-        uploadDate = cal.getTime();
+        uploadDate = cal;
         foto = new Photo(productID, uploadDate, price);
         product3 = new Product(name, materialPrice, foto);
     }

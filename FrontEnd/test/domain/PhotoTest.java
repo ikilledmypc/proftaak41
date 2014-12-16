@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -72,8 +73,8 @@ public class PhotoTest {
     public void testGetUploadDate() {
         System.out.println("getUploadDate");
         Photo instance = null;
-        Date expResult = null;
-        Date result = instance.getUploadDate();
+        Calendar expResult = null;
+        Calendar result = instance.getUploadDate();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -85,7 +86,7 @@ public class PhotoTest {
     @Test
     public void testSetUploadDate() {
         System.out.println("setUploadDate");
-        Date uploadDate = null;
+        Calendar uploadDate = null;
         Photo instance = null;
         instance.setUploadDate(uploadDate);
         // TODO review the generated test code and remove the default call to fail.
