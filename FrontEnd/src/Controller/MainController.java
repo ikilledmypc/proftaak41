@@ -38,6 +38,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -71,6 +72,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
     
     @FXML
     Button statsButton;
+    
+    @FXML 
+    TextField TF_code;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,6 +126,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
         if (a instanceof Photographer) {
             this.statsButton.setVisible(true);
+            TF_code.setVisible(false);
             this.uploadButton.setText(recources.getString("uploadPhotosButton"));
             this.uploadButton.setOnAction((ActionEvent event) -> {
                 try {

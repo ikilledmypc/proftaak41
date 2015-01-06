@@ -18,13 +18,13 @@
         <Label text="%telephone" GridPane.rowIndex="6" /><Label text="%username" GridPane.rowIndex="7" /><Label text="%password" GridPane.rowIndex="8" />
         <TextField fx:id="TB_name" GridPane.columnIndex="1" />
         <TextField fx:id="TB_surname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <TextField fx:id="TB_zip" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <TextField fx:id="TB_address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="TB_address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField fx:id="TB_city" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <TextField fx:id="TB_email" GridPane.columnIndex="1" GridPane.rowIndex="5" />
         <TextField fx:id="TB_telepone" GridPane.columnIndex="1" GridPane.rowIndex="6" /><TextField fx:id="TB_username" GridPane.columnIndex="1" GridPane.rowIndex="7" /><PasswordField fx:id="TB_password" promptText="password" GridPane.columnIndex="1" GridPane.rowIndex="8" />
         <Button mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="113.0" text="%registerbutton" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
         <Button mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="87.0" text="%backButton" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        <TextField fx:id="TB_zip" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="6.0" prefWidth="53.0" />

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="780.0" prefWidth="1147.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="1147.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
     <children>
         <Button fx:id="uploadButton" layoutX="438.0" layoutY="17.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="257.0" text="%uploadPhotosButton">
          <font>
@@ -49,10 +49,11 @@
             </Button>
          </children>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="64.0" prefHeight="677.0" prefWidth="1103.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="98.0" prefHeight="677.0" prefWidth="1103.0">
          <content>
-            <TilePane fx:id="TP_photoContainer" prefHeight="668.0" prefWidth="1098.0" />
+            <TilePane fx:id="TP_photoContainer" prefHeight="674.0" prefWidth="1103.0" />
          </content>
       </ScrollPane>
+      <TextField fx:id="TF_code" layoutX="488.0" layoutY="59.0" promptText="Enter code" />
     </children>
 </AnchorPane>
