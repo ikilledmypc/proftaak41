@@ -125,6 +125,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
         LBL_username.setText(a.getName());
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(a.getAccountID());
         if (a instanceof Photographer) {
+            this.BTN_cart.setVisible(false);
             this.statsButton.setVisible(true);
             TF_code.setVisible(false);
             this.uploadButton.setText(recources.getString("uploadPhotosButton"));
