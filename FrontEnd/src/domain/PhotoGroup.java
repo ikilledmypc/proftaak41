@@ -41,6 +41,16 @@ public class PhotoGroup {
 		this.isPublic = isPublic;
 		this.parentPhotogroupID = parentPhotogroupID;
 	}
+        
+        public PhotoGroup(int accountID, String code, String groupName,
+			Boolean isPublic, int parentPhotogroupID) {
+		super();
+		this.accountID = accountID;
+		this.code = code;
+		this.groupName = groupName;
+		this.isPublic = isPublic;
+		this.parentPhotogroupID = parentPhotogroupID;
+	}
 
 	/**
 	 * @return the parentPhotogroupID
