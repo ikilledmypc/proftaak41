@@ -213,7 +213,7 @@ public class Account {
 
 	public static Account authenticate(String username, String password) {
 		DatabaseController db = controllers.DatabaseController.getInstance();
-		ResultSet rs = db.select("select * from Account where username ='"
+		ResultSet rs = db.select("select * from account where username ='"
 				+ username + "' and password='" + password+"'");
 		try {
 			if (!rs.next()) {

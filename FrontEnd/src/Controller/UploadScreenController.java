@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -169,5 +171,27 @@ public class UploadScreenController extends ControlledAccountScreen implements I
     public void handleDefaultButtonAction(ActionEvent event){
         double price = Double.parseDouble(defaultField.getText());
         HttpController.excutePost(FrontEnd.HOST + "/editDefaultPricePhoto", "accountID=" + this.loggedInAccount.getAccountID() + "&defaultPricePhoto=" + price);
+        VBox vbox;
+        HBox hbox;
+        TextField defaultPrice;
+        int counter = 0;
+        for(Node item : TP_photos.getChildren()){
+            vbox = (VBox)item;
+            counter = 0;
+            for(Node i : vbox.getChildren()){
+                if(counter == 1){
+                    hbox = (HBox)i;
+                    int anothercounter = 0;
+                    for(Node n : hbox.getChildren()){
+                        if(anothercounter == 1){
+                           defaultPrice = (TextField)n;
+                           defaultPrice.setText(String.valueOf(price));
+                        }
+                        anothercounter++;
+                    }
+                }
+                counter++;
+            }
+        }
     }
 }
