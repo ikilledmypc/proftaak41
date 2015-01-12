@@ -88,10 +88,10 @@ public class FotoController {
 		return gson.toJson(photos);
 	}
 	
-	@RequestMapping(value = "/redeemCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/redeemCode", method = RequestMethod.POST)
 	public void redeemCode(@RequestParam(value = "code", required = true) String code,@RequestParam(value="accountID", required=true)int accountID){
 		DatabaseController db = DatabaseController.getInstance();
-		db.insert("insert into code_redeemed_account (accountID,photogroupID) VALUES ('"+accountID +"','"+code+"')");
+		db.insert("insert into code_redeemed_account (accountID,photogroupID) VALUES ('"+accountID +"',(SELECT photogroupid from photogroup where code='"+code+"'))");
 		db.closeConnection();
 	}
 	

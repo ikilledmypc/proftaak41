@@ -69,11 +69,11 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     @FXML
     Button uploadButton;
-    
+
     @FXML
     Button statsButton;
-    
-    @FXML 
+
+    @FXML
     TextField TF_code;
 
     @Override
@@ -176,23 +176,27 @@ public class MainController extends ControlledAccountScreen implements Initializ
     }
 
     private void enterKey() throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/DownloadScreen.fxml"));
-        loader.setResources(recources);
-        root = loader.load();
-        DownloadScreenController controller = loader.getController();
-        controller.setAccount(loggedInAccount);
-        Stage stage = new Stage();
-        stage.setTitle("enter key");
-        stage.setScene(new Scene(root));
-        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                loadThumbs();
-            }
-
-        });
-        stage.show();
+//        Parent root;
+//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/DownloadScreen.fxml"));
+//        loader.setResources(recources);
+//        root = loader.load();
+//        DownloadScreenController controller = loader.getController();
+//        controller.setAccount(loggedInAccount);
+//        Stage stage = new Stage();
+//        stage.setTitle("enter key");
+//        stage.setScene(new Scene(root));
+//        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+//            @Override
+//            public void handle(Event event) {
+//                loadThumbs();
+//            } cf751
+//
+//        });
+//        stage.show();
+        if (!TF_code.getText().equals("")) {
+            HttpController.excutePost(FrontEnd.HOST + "/redeemCode", "code=" + TF_code.getText() + "&accountID=" + this.loggedInAccount.getAccountID());
+            loadThumbs();
+        }
     }
 
     private void updateCart() {
@@ -200,7 +204,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
         String sCart = HttpController.excuteGet(FrontEnd.HOST + "/getCart?username=" + this.loggedInAccount.getUsername());
         ShoppingCart s = gson.fromJson(sCart, ShoppingCart.class);
         this.shoppingCart = s;
-        BTN_cart.setText(recources.getString("shoppingcartButton")+"(" + s.getItemCount()+")");
+        BTN_cart.setText(recources.getString("shoppingcartButton") + "(" + s.getItemCount() + ")");
     }
 
     @FXML
@@ -254,9 +258,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
         }
         return null;
     }
-    
+
     @FXML
-    private void statsScreen()throws IOException{
+    private void statsScreen() throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/StatsScreen.fxml"));
         loader.setResources(recources);
