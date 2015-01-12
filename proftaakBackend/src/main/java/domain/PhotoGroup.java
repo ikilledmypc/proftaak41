@@ -1,13 +1,25 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package domain;
 
-public class Photogroup {
+import java.util.ArrayList;
 
-	private int photogroupID;
+/**
+ *
+ * @author Joël
+ */
+public class PhotoGroup {
+    
+    private int photogroupID;
 	private int accountID;
 	private String code;
 	private String groupName;
 	private Boolean isPublic;
 	private int parentPhotogroupID;
+        private ArrayList<Photo> photos;
 
 	/**
 	 * Constructor
@@ -17,10 +29,12 @@ public class Photogroup {
 	 * @param groupName
 	 * @param isPublic
 	 * @param parentPhotogroupID
+         * @param p photos
 	 */
-	public Photogroup(int accountID, String code, String groupName,
-			Boolean isPublic, int parentPhotogroupID) {
+	public PhotoGroup(int accountID, String code, String groupName,
+			Boolean isPublic, int parentPhotogroupID,ArrayList<Photo> p) {
 		super();
+                this.photos = p;
 		this.accountID = accountID;
 		this.code = code;
 		this.groupName = groupName;

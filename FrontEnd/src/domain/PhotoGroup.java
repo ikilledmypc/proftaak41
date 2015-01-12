@@ -5,6 +5,8 @@
  */
 package domain;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Joël
@@ -17,6 +19,7 @@ public class PhotoGroup {
 	private String groupName;
 	private Boolean isPublic;
 	private int parentPhotogroupID;
+        private ArrayList<Photo> photos;
 
 	/**
 	 * Constructor
@@ -26,10 +29,12 @@ public class PhotoGroup {
 	 * @param groupName
 	 * @param isPublic
 	 * @param parentPhotogroupID
+         * @param p photos
 	 */
 	public PhotoGroup(int accountID, String code, String groupName,
-			Boolean isPublic, int parentPhotogroupID) {
+			Boolean isPublic, int parentPhotogroupID,ArrayList<Photo> p) {
 		super();
+                this.photos = p;
 		this.accountID = accountID;
 		this.code = code;
 		this.groupName = groupName;

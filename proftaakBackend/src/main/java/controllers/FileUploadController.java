@@ -36,7 +36,7 @@ import com.google.gson.Gson;
 
 import domain.Account;
 import domain.Photo;
-import domain.Photogroup;
+import domain.PhotoGroup;
 
 @RestController
 public class FileUploadController {
@@ -147,7 +147,7 @@ public class FileUploadController {
 	public String createPhotoGroup(@RequestParam(value = "photogroup", required = true)String photogroupJson){
 		DatabaseController db = DatabaseController.getInstance();
 		JsonManager jsonManager = JsonManager.GetInstance();
-		Photogroup photogroup = (Photogroup) jsonManager.fromJson(photogroupJson, Photogroup.class);
+		PhotoGroup photogroup = (PhotoGroup) jsonManager.fromJson(photogroupJson, PhotoGroup.class);
 		String photogroupID = "";
 		int isPublic = 0;
 		if(photogroup.getIsPublic()){

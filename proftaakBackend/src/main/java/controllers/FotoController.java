@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import domain.Photo;
+import domain.PhotoGroup;
 
 @RestController
 public class FotoController {
@@ -85,6 +86,21 @@ public class FotoController {
 		db.closeConnection();
 		Gson gson = new Gson();
 		return gson.toJson(photos);
+	}
+	
+	@RequestMapping(value = "/redeemCode", method = RequestMethod.GET)
+	public void redeemCode(@RequestParam(value = "code", required = true) String code,@RequestParam(value="accountID", required=true)int accountID){
+		DatabaseController db = DatabaseController.getInstance();
+		db.insert("insert into code_redeemed_account (accountID,photogroupID) VALUES ('"+accountID +"','"+code+"')");
+		db.closeConnection();
+	}
+	
+	@RequestMapping(value = "/getRedeemdGroups", method = RequestMethod.GET)
+	public ArrayList<PhotoGroup> getRedeemdGroups(@RequestParam(value="accountid" ,required = true) String id){
+		ArrayList<PhotoGroup> groups = new ArrayList<>();
+		DatabaseController db = DatabaseController.getInstance();
+		
+		return groups;
 	}
 	
 	

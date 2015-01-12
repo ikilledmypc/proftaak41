@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 public class PhotogroupTest {
 	
-	Photogroup photogroup;
+	PhotoGroup photogroup;
 	
 	int accountID = 1;
 	String code = "123";
