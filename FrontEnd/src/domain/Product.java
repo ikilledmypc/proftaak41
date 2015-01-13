@@ -212,5 +212,9 @@ public class Product {
     public String toString() {
         return this.name + " \u20ac " + this.materialPrice;
     }
+    
+    public String getIdentifier(){
+        return ""+this.photo.getPhotoID()+","+this.productID+","+this.sepia+","+this.blackWhite+","+this.cropHeight+","+this.cropWidth+","+this.cropX+","+this.cropY;
+    }
 
 }

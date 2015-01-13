@@ -19,7 +19,7 @@ public class ShoppingCart {
      * @param p
      */
     public void putProduct(Product p) {
-        String key = p.getProductID() + "" + p.getPhoto().getPhotoID();
+        String key = p.getIdentifier();
         Product productex = products.get(key);
         if (p != null) {
             productex.addAmount(1);

@@ -211,6 +211,14 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
         Gson gson = new Gson();
         Product p = (Product) CMB_items.getSelectionModel().getSelectedItem();
         p.setPhoto(this.photo);
+        
+        if(croppingRectangle!=null){
+            double scaleratio = IMG_photo.getImage().getHeight() / 250;
+            p.setCropX((int) (cropX * scaleratio));
+            p.setCropY((int) (cropY * scaleratio));
+            p.setCropWidth((int) ((cropWidth + 14) * scaleratio));
+            p.setCropHeight((int) ((cropHeight + 14) * scaleratio));
+        }
         if (Integer.parseInt(TF_amount.getText()) > 1) {
             p.addAmount(Integer.parseInt(TF_amount.getText()) - 1);
         }
