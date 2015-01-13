@@ -5,6 +5,9 @@ package domain;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,15 +18,24 @@ import org.junit.Test;
  * @author Mike
  *
  */
-public class PhotogroupTest {
+public class PhotoGroupTest {
 	
 	PhotoGroup photogroup;
+	ArrayList<Photo> photo;
 	
 	int accountID = 1;
 	String code = "123";
 	String groupName = "groupName";
 	boolean isPublic = true;
 	int parentPhotogroupID = 2;
+	
+	int productID = 1;
+	String name = "name";
+	float materialPrice = 10f;
+	float price = 5f;
+	Calendar uploadDate;
+	Calendar cal = Calendar.getInstance();
+	
 
 	/**
 	 * @throws java.lang.Exception
@@ -44,7 +56,7 @@ public class PhotogroupTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		photogroup = new Photogroup(accountID, code, groupName, isPublic, parentPhotogroupID);
+		photogroup = new PhotoGroup(accountID, code, groupName, isPublic, parentPhotogroupID, photo);
 	}
 
 	/**
@@ -59,7 +71,7 @@ public class PhotogroupTest {
 	 */
 	@Test
 	public void testPhotogroup() {
-		Photogroup p = new Photogroup(accountID, code, groupName, isPublic, parentPhotogroupID);
+		PhotoGroup p = new PhotoGroup(accountID, code, groupName, isPublic, parentPhotogroupID, photo);
 		assertEquals(accountID, p.getAccountID());
 		assertEquals(code, p.getCode());
 		assertEquals(groupName, p.getGroupName());
@@ -116,14 +128,6 @@ public class PhotogroupTest {
 	public void testSetGroupName() {
 		photogroup.setGroupName("test");
 		assertEquals("test", photogroup.getGroupName());
-	}
-
-	/**
-	 * Test method for {@link domain.Photogroup#getCode()}.
-	 */
-	@Test
-	public void testGetCode() {
-		assertEquals(123, photogroup.getCode());
 	}
 
 	/**
