@@ -40,15 +40,16 @@ public class OrderController {
 							+ new GregorianCalendar().getTime().toString()
 							+ "," + accountID + ")");
 			ResultSet rs = db
-					.insert("INSERT INTO `order`(`date`, `accountID`) VALUES ('"
+					.insert("INSERT INTO `order`(`date`, `accountID`,`status`) VALUES ('"
 							+ dateFormat.format(Calendar.getInstance()
-									.getTime()) + "'," + accountID + ")");
+									.getTime()) + "'," + accountID + 
+									",1)");
 
 			rs.next();
 			int orderID = rs.getInt(1);
 	        ArrayList<Product> products = sc.GetProducts();
 	        for(Product p:products){
-	        	db.insert("insert into order_photo_product (orderID,numberOf,photoID,productID) values("+orderID+","+p.getAmount()+","+p.getPhoto().getPhotoID()+","+p.getProductID()+")");
+	        	db.insert("insert into order_photo_product ( `orderID`, `photoID`, `numberOf`, `productID`, `sepia`, `blackwhite`, `cropx`, `cropy`, `cropwidth`, `cropheight`) values("+orderID+","+p.getPhoto().getPhotoID()+","+p.getAmount()+","+p.getProductID()+","+p.isSepia()+","+p.isBlackWhite()+","+p.getCropX()+","+p.getCropY()+","+p.getCropWidth()+","+p.getCropHeight()+")");
 	        }
 
 		} catch (SQLException e) {

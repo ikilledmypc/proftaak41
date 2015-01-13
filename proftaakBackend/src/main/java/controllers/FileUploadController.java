@@ -1,12 +1,9 @@
 package controllers;
 
-import interfaces.IDatabase;
-
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -16,7 +13,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
@@ -24,7 +20,6 @@ import javax.imageio.ImageIO;
 import managers.JsonManager;
 
 import org.imgscalr.Scalr;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,11 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
-
-import domain.Account;
 import domain.Photo;
 import domain.PhotoGroup;
+
 
 @RestController
 public class FileUploadController {
