@@ -1,8 +1,8 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ * and open the template in the editor. b1c98 
+*/
 package Controller;
 
 import com.google.gson.Gson;
@@ -134,7 +134,7 @@ public class CartFXMLController extends ControlledAccountScreen implements Initi
             }
 
         });
-        b.setId(p.getProductID() + "" + p.getPhoto().getPhotoID());
+        b.setId(p.getIdentifier());
         b.setPrefSize(10, 10);
         b.setText("X");
         Pane delteCont = new Pane();

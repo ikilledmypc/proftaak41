@@ -20,10 +20,13 @@ public class ShoppingCart {
      */
     public void putProduct(Product p) {
         String key = p.getIdentifier();
+        System.out.println("searching for: "+key);
         Product productex = products.get(key);
-        if (p != null) {
-            productex.addAmount(1);
+        if (productex != null) {
+            System.out.println("found adding amount");
+            productex.addAmount(p.getAmount());
         }
+        System.out.println("not found adding");
         products.put(key, p);
     }
 

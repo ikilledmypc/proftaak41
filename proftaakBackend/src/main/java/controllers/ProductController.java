@@ -20,8 +20,9 @@ import domain.Product;
 public class ProductController {
 	
 	@RequestMapping("/getAllProducts")
-	public ArrayList<Product> getProducts(){
+	public String getProducts(){
 		IDatabase db = DatabaseController.getInstance();
+		Gson gson = new Gson();
 		ArrayList<Product> products = new ArrayList<>();
 		ResultSet result = db.select("select * from Product");
 		try {
@@ -32,7 +33,7 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return products;
+		return gson.toJson(products);
 		
 	}
 	@RequestMapping(value ="/addProduct", method =  RequestMethod.POST)

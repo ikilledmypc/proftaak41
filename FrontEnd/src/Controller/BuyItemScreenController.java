@@ -211,7 +211,8 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
         Gson gson = new Gson();
         Product p = (Product) CMB_items.getSelectionModel().getSelectedItem();
         p.setPhoto(this.photo);
-        
+        p.setBlackWhite(CB_zwfilter.isSelected());
+        p.setSepia(CB_sephiafilter.isSelected());
         if(croppingRectangle!=null){
             double scaleratio = IMG_photo.getImage().getHeight() / 250;
             p.setCropX((int) (cropX * scaleratio));
@@ -220,7 +221,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
             p.setCropHeight((int) ((cropHeight + 14) * scaleratio));
         }
         if (Integer.parseInt(TF_amount.getText()) > 1) {
-            p.addAmount(Integer.parseInt(TF_amount.getText()) - 1);
+            p.addAmount(Integer.parseInt(TF_amount.getText())-1);
         }
         String sProduct = gson.toJson(p);
         HttpController.excutePost(FrontEnd.HOST + "/addToCart", "product=" + sProduct + "&username=" + this.loggedInAccount.getUsername());
