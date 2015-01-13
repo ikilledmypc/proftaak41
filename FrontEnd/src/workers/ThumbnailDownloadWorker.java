@@ -8,9 +8,7 @@ package workers;
 import Controller.ThumbnailManager;
 import domain.Photo;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javafx.concurrent.Task;
 
 /**
@@ -20,6 +18,10 @@ import javafx.concurrent.Task;
 public class ThumbnailDownloadWorker extends Task{
     private ArrayList<Photo> photos;
     
+    /**
+     *
+     * @param photos
+     */
     public ThumbnailDownloadWorker(ArrayList<Photo> photos){
         this.photos =photos;
     }

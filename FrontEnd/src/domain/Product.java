@@ -29,10 +29,19 @@ public class Product {
         this.materialPrice = materialPrice;
     }
 
+
     public void setAmount(int amount) {
         this.amount = amount;
     }
 
+    /**
+     *
+     * @param productID
+     * @param name
+     * @param amount
+     * @param materialPrice
+     * @param photo
+     */
     public Product(int productID, String name, int amount, float materialPrice, Photo photo) {
         this.productID = productID;
         this.name = name;
@@ -40,6 +49,7 @@ public class Product {
         this.materialPrice = materialPrice;
         this.photo = photo;
     }
+
 
     public Product(int productID, String name, float materialPrice) {
         super();
@@ -62,6 +72,7 @@ public class Product {
         this.amount = 1;
     }
 
+
     public Product(int productID, String name, float materialPrice, Photo photo) {
         super();
         this.productID = productID;
@@ -80,13 +91,22 @@ public class Product {
         this.amount = 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void addAmount(int amount) {
         this.amount += amount;
     }
+
     private float materialPrice;
 
     public Photo getPhoto() {
@@ -192,4 +212,5 @@ public class Product {
     public String toString() {
         return this.name + " \u20ac " + this.materialPrice;
     }
+
 }

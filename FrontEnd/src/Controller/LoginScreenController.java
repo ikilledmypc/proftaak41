@@ -5,34 +5,19 @@
  */
 package Controller;
 
-import Controller.HttpController;
 import com.google.gson.Gson;
-import domain.Account;
-import domain.Photographer;
+import domain.*;
 import frontend.FrontEnd;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.security.*;
+import java.util.*;
+import java.util.logging.*;
+import javafx.beans.value.*;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 /**
  * FXML Controller class
@@ -80,6 +65,10 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         });
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @FXML
     public void login() throws IOException {
         try {
@@ -118,16 +107,27 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
 
+    /**
+     *
+     */
     @FXML
     public void register() {
         myController.setScreen(FrontEnd.registerScreen);
     }
     
+    /**
+     *
+     * @throws IOException
+     */
     public void saveLanguage() throws IOException{
         Properties props = new Properties();
         File properties = new File("defaultLanguage.properties");

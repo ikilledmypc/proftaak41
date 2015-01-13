@@ -5,11 +5,7 @@
  */
 package domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -33,23 +29,38 @@ public class PhotographerTest {
 	String bankAccount = "bankAccount";
 	boolean isActive = true;
     
+    /**
+     *
+     */
     public PhotographerTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
         photographer = new Photographer(username, name, address, zipcode, city, email, telephone, companyName, bankAccount, isActive);
 	photographer2 = new Photographer(username, isActive);
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }

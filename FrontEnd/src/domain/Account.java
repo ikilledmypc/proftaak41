@@ -1,11 +1,9 @@
 package domain;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Account {
 
     private int accountID;
@@ -21,7 +19,6 @@ public class Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address
@@ -47,7 +44,6 @@ public class Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address
@@ -183,10 +179,18 @@ public class Account {
         return accountID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

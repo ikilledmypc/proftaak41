@@ -6,21 +6,14 @@
 package Controller;
 
 import domain.Account;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import java.io.*;
+import java.util.*;
+import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -33,19 +26,39 @@ public class ScreensController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>();
     private Stage stage;
 
+    /**
+     *
+     * @param s
+     */
     public ScreensController(Stage s) {
         super();
         this.stage = s;
     }
 
+    /**
+     *
+     * @param name
+     * @param screen
+     */
     public void addScreen(String name, Node screen) {
         screens.put(name, screen);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Node getScreen(String name) {
         return screens.get(name);
     }
 
+    /**
+     *
+     * @param name
+     * @param resource
+     * @return
+     */
     public boolean loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -61,6 +74,13 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @param resource
+     * @param a
+     * @return
+     */
     public boolean loadAccountScreen(String name, String resource, Account a) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -76,6 +96,11 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) {
             final DoubleProperty opacity = opacityProperty();
@@ -120,6 +145,11 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen didn't exist");

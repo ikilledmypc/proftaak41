@@ -1,9 +1,9 @@
 package domain;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Photographer extends Account {
 
     private int photographerID;
@@ -14,13 +14,13 @@ public class Photographer extends Account {
     /**
      * Constructor
      *
-     * @param accountID
      * @param username
      * @param name
      * @param address
      * @param zipcode
      * @param city
      * @param email
+     * @param password
      * @param telephone
      * @param companyName
      * @param bankAccount

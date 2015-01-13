@@ -179,6 +179,10 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
 
     }
 
+    /**
+     * set photo and price by photo
+     * @param photo photo
+     */
     public void setPhoto(Photo photo) {
         this.photo = photo;
         LBL_photoPrice.setText("\u20ac" + photo.getPrice());
@@ -189,11 +193,19 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
         }
     }
 
+    /**
+     * set screen to mycontroller
+     * @param screenPage screenpage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
 
+    /**
+     * add products to shopping cart
+     * @param ev a action
+     */
     @FXML
     public void addToCart(Event ev) {
         Gson gson = new Gson();
