@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.DatabaseController;
-import interfaces.IDatabase;
 
 public class Account {
 
