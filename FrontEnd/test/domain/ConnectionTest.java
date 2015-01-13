@@ -9,17 +9,9 @@ package domain;
 import Controller.HttpController;
 import frontend.FrontEnd;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
+import org.junit.*;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  *
@@ -27,22 +19,37 @@ import org.junit.Test;
  */
 public class ConnectionTest {
     
+    /**
+     *
+     */
     public ConnectionTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
         
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
@@ -53,6 +60,10 @@ public class ConnectionTest {
     // @Test
     // public void hello() {}
     
+    /**
+     *
+     */
+        
     @Test
     public void testServerUp()  {
         try {
@@ -63,12 +74,20 @@ public class ConnectionTest {
            fail("host unreachable");
         }
     }
+
+    /**
+     *
+     */
     @Test
     public void testGet(){
         String test = HttpController.excuteGet(FrontEnd.HOST+"/helloWorld");
         test = test.trim();
         assertEquals(test, "HELLO WORLD");
     }
+
+    /**
+     *
+     */
     @Test
     public void testPost(){
         String test = HttpController.excutePost(FrontEnd.HOST+"/helloWorld","");

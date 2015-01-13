@@ -59,10 +59,17 @@ public class MainController extends ControlledAccountScreen implements Initializ
         this.recources = rb;
     }
 
+    /**
+     *
+     * @param photos
+     */
     public void setRedeemedPhotos(ArrayList<Photo> photos) {
         this.ownedPhotos = photos;
     }
 
+    /**
+     *
+     */
     public void loadThumbs() {
         this.TP_photoContainer.getChildren().clear();
         this.ownedPhotos = DownloadScreenController.getOwnedPhotos(this.loggedInAccount.getAccountID());
@@ -95,6 +102,10 @@ public class MainController extends ControlledAccountScreen implements Initializ
         }
     }
 
+    /**
+     *
+     * @param a
+     */
     @Override
     public void setAccount(Account a) {
         this.loggedInAccount = a;
@@ -183,12 +194,21 @@ public class MainController extends ControlledAccountScreen implements Initializ
         BTN_cart.setText(recources.getString("shoppingcartButton") + "(" + s.getItemCount() + ")");
     }
 
+    /**
+     *
+     */
     @FXML
     public void opencart() {
         this.parent.loadAccountScreen("cart", "/view/CartFXML.fxml", this.loggedInAccount);
         this.parent.setScreen("cart");
     }
 
+    /**
+     *
+     * @param p
+     * @param f
+     * @return
+     */
     public VBox buildPhotoItem(final Photo p, File f) {
         try {
             VBox item = new VBox(5);

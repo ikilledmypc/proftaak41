@@ -11,5 +11,9 @@ package Controller;
  */
 public interface ControlledScreen {
     
+    /**
+     * set parent screenpage
+     * @param screenPage screenpage
+     */
     public void setScreenParent(ScreensController screenPage);
 }

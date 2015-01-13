@@ -6,47 +6,21 @@
 package Controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import domain.PhotoGroup;
-import domain.Photo;
 import frontend.FrontEnd;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
+import java.util.logging.*;
+import javafx.beans.value.*;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javax.imageio.ImageIO;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import workers.PhotoUploadWorker;
 
 /**
@@ -83,6 +57,8 @@ public class UploadScreenController extends ControlledAccountScreen implements I
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,6 +67,10 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         uploadButton.setDisable(true);
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleBrowseButtonAction(ActionEvent event) {
         files = this.parent.chooseFile();
@@ -107,11 +87,22 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         this.parent.setScreen(FrontEnd.mainScreen);
     }
 
+    /**
+     *
+     * @param event
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ExecutionException
+     */
     @FXML
     public void handleUploadButtonAction(ActionEvent event) throws IOException, InterruptedException, ExecutionException {
         PhotoUploadWorker puw = new PhotoUploadWorker(groupNameField.getText(), selectedPhotos, loggedInAccount);
@@ -167,6 +158,10 @@ public class UploadScreenController extends ControlledAccountScreen implements I
         return null;
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleDefaultButtonAction(ActionEvent event){
         double price = Double.parseDouble(defaultField.getText());

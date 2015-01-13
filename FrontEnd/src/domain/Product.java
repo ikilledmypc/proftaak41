@@ -1,11 +1,27 @@
 package domain;
 
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Product {
 
+    /**
+     *
+     * @param amount
+     */
     public void setAmount(int amount) {
         this.amount = amount;
     }
 
+    /**
+     *
+     * @param productID
+     * @param name
+     * @param amount
+     * @param materialPrice
+     * @param photo
+     */
     public Product(int productID, String name, int amount, float materialPrice, Photo photo) {
         this.productID = productID;
         this.name = name;
@@ -14,8 +30,13 @@ public class Product {
         this.photo = photo;
     }
 
-
-	public Product(int productID, String name, float materialPrice) {
+    /**
+     *
+     * @param productID
+     * @param name
+     * @param materialPrice
+     */
+    public Product(int productID, String name, float materialPrice) {
 		super();
 		this.productID = productID;
 		this.name = name;
@@ -27,15 +48,28 @@ public class Product {
 	private String name;
         private int amount;
 
+    /**
+     *
+     * @return
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void addAmount(int amount) {
         this.amount += amount;
     }
 	private float materialPrice;
-	public Photo getPhoto() {
+
+    /**
+     *
+     * @return
+     */
+    public Photo getPhoto() {
 		return photo;
 	}
 
@@ -53,7 +87,15 @@ public class Product {
 		this.materialPrice = materialPrice;
                  this.amount =1;
 	}
-	public Product(int productID, String name, float materialPrice,Photo photo) {
+
+    /**
+     *
+     * @param productID
+     * @param name
+     * @param materialPrice
+     * @param photo
+     */
+    public Product(int productID, String name, float materialPrice,Photo photo) {
 		super();
 		this.productID = productID;                
 		this.name = name;
@@ -62,8 +104,13 @@ public class Product {
                  this.amount =1;
 	}
 
-
-	public Product(String name, float materialPrice, Photo foto) {
+    /**
+     *
+     * @param name
+     * @param materialPrice
+     * @param foto
+     */
+    public Product(String name, float materialPrice, Photo foto) {
 		super();
 		this.name = name;
                 
@@ -78,7 +125,11 @@ public class Product {
 		return materialPrice;
 	}
 	
-	public void setPhoto(Photo photo) {
+    /**
+     *
+     * @param photo
+     */
+    public void setPhoto(Photo photo) {
 		this.photo = photo;
 	}
         

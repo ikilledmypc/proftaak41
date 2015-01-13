@@ -3,6 +3,10 @@ package domain;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Photographer extends Account {
 
     private int photographerID;

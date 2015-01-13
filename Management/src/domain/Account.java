@@ -1,5 +1,9 @@
 package domain;
 
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Account {
 
     private int accountID;
@@ -175,10 +179,18 @@ public class Account {
         return accountID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

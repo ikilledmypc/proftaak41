@@ -1,8 +1,11 @@
 package domain;
 
 import java.util.Calendar;
-import java.util.Date;
 
+/**
+ *
+ * @author mikerooijackers
+ */
 public class Photo {
     
 	private int photoID;
@@ -30,7 +33,13 @@ public class Photo {
 		this.width = width;
 	}
         
-        public Photo(int photoID, Calendar uploadDate, float price) {
+    /**
+     *
+     * @param photoID
+     * @param uploadDate
+     * @param price
+     */
+    public Photo(int photoID, Calendar uploadDate, float price) {
             this.photoID = photoID;
             this.uploadDate = uploadDate;
             this.price = price;

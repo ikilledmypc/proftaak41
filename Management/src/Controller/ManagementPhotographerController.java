@@ -11,13 +11,8 @@ import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 /**
  * FXML Controller class
@@ -75,16 +70,28 @@ public class ManagementPhotographerController implements Initializable, Controll
         False.setSelected(true);
     }
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.mainScreen);
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleSearchButtonAction(ActionEvent event) {
         gson = new Gson();
@@ -110,6 +117,10 @@ public class ManagementPhotographerController implements Initializable, Controll
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleSaveButtonAction(ActionEvent event) {
         try {

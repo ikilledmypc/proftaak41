@@ -5,57 +5,22 @@
  */
 package Controller;
 
-import Controller.ControlledScreen;
 import domain.Account;
-import frontend.FrontEnd;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import java.io.*;
+import java.util.*;
+import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.value.*;
+import javafx.concurrent.*;
+import javafx.event.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.FileChooser;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 import javafx.util.Duration;
 
 /**
@@ -64,24 +29,47 @@ import javafx.util.Duration;
  */
 public class ScreensController extends StackPane {
 
+    /**
+     *
+     */
     public Locale locale = Locale.ENGLISH;
     private HashMap<String, Node> screens = new HashMap<>();
     private Stage stage;
 
+    /**
+     *
+     * @param s
+     */
     public ScreensController(Stage s) {
         super();
         this.stage = s;
 
     }
 
+    /**
+     *
+     * @param name
+     * @param screen
+     */
     public void addScreen(String name, Node screen) {
         screens.put(name, screen);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Node getScreen(String name) {
         return screens.get(name);
     }
 
+    /**
+     *
+     * @param name
+     * @param resource
+     * @return
+     */
     public boolean loadScreen(String name, String resource) {
         try {
             this.readLanguageProperties();
@@ -99,6 +87,13 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @param resource
+     * @param a
+     * @return
+     */
     public boolean loadAccountScreen(String name, String resource, Account a) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -116,10 +111,19 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param l locale
+     */
     public void setLanguage(Locale l) {
         this.locale = l;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) {
             final DoubleProperty opacity = opacityProperty();
@@ -170,6 +174,11 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen didn't exist");
@@ -179,6 +188,12 @@ public class ScreensController extends StackPane {
         }
     }
 
+    /**
+     *
+     * @param task
+     * @param taskname
+     * @throws FileNotFoundException
+     */
     public void displaySplashProgress(Task task, String taskname) throws FileNotFoundException {
         Group root = new Group();
         Stage s = new Stage(StageStyle.UNDECORATED);
@@ -215,12 +230,20 @@ public class ScreensController extends StackPane {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public List<File> chooseFile() {
         Stage newStage = new Stage();
         FileChooser chooser = new FileChooser();
         return chooser.showOpenMultipleDialog(newStage);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> chooseMulitpleFiles() {
         Stage newStage = new Stage();
         FileChooser chooser = new FileChooser();
@@ -232,6 +255,10 @@ public class ScreensController extends StackPane {
         return filePaths;
     }
     
+    /**
+     *
+     * @throws IOException
+     */
     public void readLanguageProperties() throws IOException{
         Properties props = new Properties();
         InputStream in = null;

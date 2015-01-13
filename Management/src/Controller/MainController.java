@@ -6,17 +6,12 @@
 package Controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import frontend.FrontEnd;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 
@@ -56,35 +51,62 @@ public class MainController implements Initializable, ControlledScreen {
         
     }    
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
         buildPieChartPhotographer();
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleRegisterButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.registerPhotographerScreen);
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleEditButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.managementScreen);
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleAddProductButtonAction(ActionEvent event) {
          myController.setScreen(FrontEnd.addProductScreen);
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleEditProductButtonAction(ActionEvent event) {
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleDeleteProductButtonAction(ActionEvent event) {
     }
     
+    /**
+     *
+     */
     public void buildPieChartPhotographer() {
         String dataPieChartInActive = HttpController.excuteGet(FrontEnd.HOST + "/buildPieChartPhotographersInActive");
         System.out.println(dataPieChartInActive);

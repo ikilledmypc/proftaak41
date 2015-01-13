@@ -6,23 +6,21 @@
 
 package Controller;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.MalformedURLException;
+import java.io.*;
+import java.net.*;
 
 /**
  *
  * @author Mike Rooijackers
  */
 public class HttpController {
+
+    /**
+     *
+     * @param targetURL
+     * @param urlParameters
+     * @return
+     */
     public static String excutePost(String targetURL, String urlParameters)
   {
     URL url;
@@ -83,7 +81,11 @@ The urlParameters is a URL encoded string.
         "&lName=" + URLEncoder.encode("???", "UTF-8")
     */
     
-    
+    /**
+     *
+     * @param targetURL
+     * @return
+     */
     public static String excuteGet(String targetURL)
   {
     URL url;
@@ -119,6 +121,12 @@ The urlParameters is a URL encoded string.
     }
   }
  
+    /**
+     *
+     * @param targetURL
+     * @param filePath
+     * @return
+     */
     public static String postFile(String targetURL, String filePath) 
     {
        HttpURLConnection conn = null;

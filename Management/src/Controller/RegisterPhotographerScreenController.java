@@ -10,16 +10,12 @@ import domain.Photographer;
 import frontend.FrontEnd;
 import java.math.BigInteger;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 /**
  * FXML Controller class
@@ -56,12 +52,17 @@ public class RegisterPhotographerScreenController implements Initializable, Cont
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    /**
+     *
+     */
     @FXML
     public void register()  {
         if (checkAvailability(TB_username.getText())) {
@@ -146,11 +147,19 @@ public class RegisterPhotographerScreenController implements Initializable, Cont
         return true;
     }
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
 
+    /**
+     *
+     * @param even
+     */
     @FXML
     public void handleBackButtonAction(ActionEvent even) {
         myController.setScreen(FrontEnd.mainScreen);
