@@ -18,7 +18,7 @@ import org.junit.Test;
  * @author Mike
  *
  */
-public class PhotogroupTest {
+public class PhotoGroupTest {
 	
 	PhotoGroup photogroup;
 	ArrayList<Photo> photo;
