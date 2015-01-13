@@ -8,12 +8,9 @@ package Controller;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import java.util.logging.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 /**
  * FXML Controller class
@@ -39,6 +36,9 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     *
+     */
     @FXML
     public void login() {
         try {
@@ -57,6 +57,10 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         }
     }
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;

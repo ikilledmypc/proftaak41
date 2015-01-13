@@ -17,18 +17,69 @@ import javafx.stage.Stage;
  */
 public class FrontEnd extends Application {
 
+    /**
+     *
+     */
     public static String HOST = "http://127.0.0.1:8080";
+
+    /**
+     *
+     */
     public static String mainScreen = "main";
+
+    /**
+     *
+     */
     public static String mainScreenFXML = "/view/Main.fxml";
+
+    /**
+     *
+     */
     public static String loginScreen = "loginScreen";
+
+    /**
+     *
+     */
     public static String loginScreenFXML = "/view/LoginScreen.fxml";
+
+    /**
+     *
+     */
     public static String registerScreen = "registerScreen";
+
+    /**
+     *
+     */
     public static String registerScreenFXML = "/view/RegisterScreen.fxml";
+
+    /**
+     *
+     */
     public static String registerPhotographerScreen = "registerPhotographerScreen";
+
+    /**
+     *
+     */
     public static String registerPhotographerScreenFXML = "/view/RegisterPhotographerScreen.fxml";
+
+    /**
+     *
+     */
     public static String managementScreen = "managementPhotographer";
+
+    /**
+     *
+     */
     public static String managementScreenFXML = "/view/ManagementPhotographer.fxml";
+
+    /**
+     *
+     */
     public static String addProductScreen = "addProductScreen";
+
+    /**
+     *
+     */
     public static String addProductScreenFXML = "/view/AddProductScreen.fxml";
 
     @Override

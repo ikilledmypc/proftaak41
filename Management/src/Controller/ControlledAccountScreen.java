@@ -12,14 +12,30 @@ import domain.Account;
  * @author Mike Rooijackers
  */
 public abstract class ControlledAccountScreen implements ControlledScreen {
+
+    /**
+     *
+     */
     protected Account loggedInAccount;
+
+    /**
+     *
+     */
     protected ScreensController parent;
     
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage){
         this.parent =screenPage;
     };
     
+    /**
+     *
+     * @param a
+     */
     public void setAccount(Account a){
         loggedInAccount = a;
     }

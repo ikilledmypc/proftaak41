@@ -7,18 +7,11 @@ package workers;
 
 import Controller.HttpController;
 import com.google.gson.Gson;
-import domain.Account;
-import domain.Photo;
-import domain.PhotoGroup;
+import domain.*;
 import frontend.FrontEnd;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextField;
 import javax.imageio.ImageIO;
@@ -33,6 +26,12 @@ public class PhotoUploadWorker extends Task {
     private HashMap<File, TextField> selectedPhotos = new HashMap<>();
     private Account account;
 
+    /**
+     *
+     * @param groupname
+     * @param selectedPhotos
+     * @param account
+     */
     public PhotoUploadWorker(String groupname, HashMap<File, TextField> selectedPhotos, Account account) {
         this.groupName = groupname;
         this.selectedPhotos = selectedPhotos;
@@ -64,6 +63,10 @@ public class PhotoUploadWorker extends Task {
         return code;
     }
 
+    /**
+     *
+     * @return
+     */
     public String generateCode() {
         Random rand = new Random();
         int code = rand.nextInt(899999) + 100000;

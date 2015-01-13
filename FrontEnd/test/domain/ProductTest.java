@@ -6,12 +6,7 @@
 package domain;
 
 import java.util.Calendar;
-import java.util.Date;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -32,17 +27,29 @@ public class ProductTest {
     Calendar uploadDate;
     Calendar cal = Calendar.getInstance();
 
+    /**
+     *
+     */
     public ProductTest() {
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
         product = new Product(productID, name, materialPrice);
@@ -54,6 +61,9 @@ public class ProductTest {
         product3 = new Product(name, materialPrice, foto);
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }

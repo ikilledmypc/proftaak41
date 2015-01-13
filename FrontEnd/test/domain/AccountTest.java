@@ -5,12 +5,7 @@
  */
 package domain;
 
-import Controller.RegisterScreenController;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -32,23 +27,38 @@ public class AccountTest {
     String email = "email";
     String telephone = "telephone";
     
+    /**
+     *
+     */
     public AccountTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
         account = new Account(username);
 	account2 = new Account(username, name, address, zipcode, city, email, telephone);
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }

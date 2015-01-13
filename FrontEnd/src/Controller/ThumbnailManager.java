@@ -6,12 +6,8 @@
 package Controller;
 
 import frontend.FrontEnd;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.logging.*;
 
 /**
  *
@@ -19,6 +15,12 @@ import java.util.logging.Logger;
  */
 public class ThumbnailManager {
 
+    /**
+     *
+     * @param photoname
+     * @return
+     * @throws IOException
+     */
     public static File getThumnail(String photoname) throws IOException {
         FileOutputStream fos = null;
         try {

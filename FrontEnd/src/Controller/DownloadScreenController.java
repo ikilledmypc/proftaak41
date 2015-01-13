@@ -5,23 +5,16 @@
  */
 package Controller;
 
-import Controller.HttpController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import domain.Account;
-import domain.Photo;
+import domain.*;
 import frontend.FrontEnd;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.*;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
@@ -45,6 +38,8 @@ public class DownloadScreenController extends ControlledAccountScreen implements
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,11 +49,19 @@ public class DownloadScreenController extends ControlledAccountScreen implements
 
     }
 
+    /**
+     *
+     * @param screenPage screenpage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
     
+    /**
+     * set account
+     * @param a account
+     */
     @Override
     public void setAccount(Account a){
         this.loggedInAccount = a;
@@ -66,6 +69,11 @@ public class DownloadScreenController extends ControlledAccountScreen implements
         photos = FXCollections.observableArrayList(this.photoslist);
         photoTable.setItems(photos);
     }
+
+    /**
+     * 
+     * @param event action event
+     */
     @FXML
     public void handleEnterButtonAction(ActionEvent event) {
         Gson gson = new Gson();
@@ -81,6 +89,10 @@ public class DownloadScreenController extends ControlledAccountScreen implements
         }
     }
     
+    /**
+     * 
+     * @return arraylist of photos
+     */
     public ArrayList<Photo> getPhotosList(){
         return this.photoslist;
     }
@@ -97,7 +109,12 @@ public class DownloadScreenController extends ControlledAccountScreen implements
         return null;
     }
     
-        public static ArrayList<Photo> getOwnedPhotos(int id) {
+    /**
+     *
+     * @param id id 
+     * @return arraylist of photos
+     */
+    public static ArrayList<Photo> getOwnedPhotos(int id) {
         Gson gson = new Gson();
         String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getPreviousRedeemed?accountID=" + id);
         if (!returnedPhotos.equalsIgnoreCase("")) {

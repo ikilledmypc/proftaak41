@@ -19,6 +19,8 @@ public class CheckOutScreenController extends ControlledAccountScreen implements
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -9,10 +9,8 @@ package Controller;
 import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.collections.*;
+import javafx.fxml.*;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.text.Text;
@@ -34,12 +32,19 @@ public class statsScreenController extends ControlledAccountScreen implements In
         this.recources = rb;
     }
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         this.parent = screenPage;
         buildPieChartPhotographer();
     }
     
+    /**
+     *
+     */
     public void buildPieChartPhotographer() {
         String dataPieChartPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getNumberOfOrderedPhotos?accountID=" + this.loggedInAccount.getAccountID());
         pieChartData = FXCollections.observableArrayList(dataPieChartPhotos);

@@ -42,7 +42,15 @@ public class PhotoGroup {
 		this.parentPhotogroupID = parentPhotogroupID;
 	}
         
-        public PhotoGroup(int accountID, String code, String groupName,
+    /**
+     *
+     * @param accountID
+     * @param code
+     * @param groupName
+     * @param isPublic
+     * @param parentPhotogroupID
+     */
+    public PhotoGroup(int accountID, String code, String groupName,
 			Boolean isPublic, int parentPhotogroupID) {
 		super();
 		this.accountID = accountID;

@@ -11,10 +11,8 @@ import frontend.FrontEnd;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 /**
  * FXML Controller class
@@ -37,22 +35,36 @@ public class AddProductScreenController implements Initializable, ControlledScre
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
+    /**
+     *
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleBackButtonAction(ActionEvent event) {
         myController.setScreen(FrontEnd.mainScreen);
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleSaveButtonAction(ActionEvent event) {
         try {
