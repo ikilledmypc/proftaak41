@@ -12,11 +12,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
@@ -81,6 +84,7 @@ public class ScreensController extends StackPane {
 
     public boolean loadScreen(String name, String resource) {
         try {
+            this.readLanguageProperties();
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             myLoader.setResources(ResourceBundle.getBundle("Bundles.lang", locale));
             Parent loadScreen = (Parent) myLoader.load();
@@ -226,5 +230,22 @@ public class ScreensController extends StackPane {
             filePaths.add(f.getAbsolutePath().toString());
         }
         return filePaths;
+    }
+    
+    public void readLanguageProperties() throws IOException{
+        Properties props = new Properties();
+        InputStream in = null;
+        in = new FileInputStream("defaultLanguage.properties");
+        if(in != null){
+            props.load(in);
+        }
+        else{
+            throw new FileNotFoundException("property file 'defaultLanguage.properties' not found in the classpath");
+        }
+        if(!props.isEmpty()){
+            String langTag = props.getProperty("language");
+            Locale lang = new Locale(langTag);
+            this.setLanguage(lang);
+        }
     }
 }
