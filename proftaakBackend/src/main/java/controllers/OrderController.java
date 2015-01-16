@@ -12,7 +12,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import domain.Photo;
 import domain.Product;
+import domain.Order;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +34,7 @@ public class OrderController {
 		Gson gson = new Gson();
 		ShoppingCart sc = gson.fromJson(cart, ShoppingCart.class);
 		DatabaseController db = DatabaseController.getInstance();
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		// get current date time with Date()
 		try {
@@ -101,5 +104,43 @@ public class OrderController {
 		}
 		db.closeConnection();
 		return Integer.toString(numberOf);
+	}
+	
+	
+	@RequestMapping(value = "/getOrderHistory", method = RequestMethod.GET)
+	public String getOrderHistory(@RequestParam(value="accountID", required=true)int accountID){
+		DatabaseController db = DatabaseController.getInstance();
+		ArrayList<Order> orders = new ArrayList<Order>();
+		Calendar newDate;
+		ResultSet rs = db.select("SELECT orderID, date FROM `order` WHERE accountID='"+accountID+"'");
+		try{
+			while(rs.next())
+			{
+				
+				newDate = new GregorianCalendar();
+				newDate.setTime(rs.getTimestamp("date"));
+				Order o = new Order(newDate, accountID);
+				o.setOrderID(rs.getInt("orderID"));
+				ResultSet rst = db.select("SELECT ph.name, ph.uploadDate, ph.price, ph.height, ph.width, pr.productID, pr.name, pr.materialprice, opp.numberof, opp.sepia, opp.blackwhite, opp.cropx, opp.cropy, opp.cropheight, opp.cropwidth FROM `order` o, `order_photo_product` opp, photo ph, product pr WHERE o.orderID = opp.orderID AND opp.photoID = ph.photoID AND opp.productID = pr.productID AND o.accountID = '"+accountID+"' ");
+				try{
+					while(rst.next())
+					{
+						newDate = new GregorianCalendar();
+						newDate.setTime(rst.getTimestamp("ph.uploadDate"));
+						Photo p = new Photo(rst.getString("ph.name"),newDate,rst.getFloat("ph.price"),rst.getInt("ph.height"),rst.getInt("ph.width"));
+						Product pr = new Product(rst.getInt("pr.productID"),rst.getString("pr.name"),rst.getInt("opp.numberof"),p,rst.getBoolean("opp.sepia"),rst.getBoolean("opp.blackwhite"),rst.getInt("opp.cropx"),rst.getInt("opp.cropy"), rst.getInt("opp.cropheight"),rst.getInt("opp.cropwidth"),rst.getFloat("pr.materialprice"));
+						o.addProduct(pr);
+					}
+				}
+				catch(Exception e)
+				{e.printStackTrace();}
+				orders.add(o);
+			}
+		}
+		catch(Exception e)
+		{e.printStackTrace();
+			return null;}
+		Gson gson = new Gson();
+		return gson.toJson(orders);
 	}
 }

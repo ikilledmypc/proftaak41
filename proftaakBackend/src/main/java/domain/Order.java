@@ -1,12 +1,12 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;;
 
 public class Order {
 
 	private int orderID;
-	private Date date;
+	private Calendar date;
 	private int accountID;
 	private ArrayList<Product> products;
 
@@ -16,10 +16,11 @@ public class Order {
 	 * @param date
 	 * @param accountID
 	 */
-	public Order(Date date, int accountID) {
+	public Order(Calendar date, int accountID) {
 		super();
 		this.date = date;
 		this.accountID = accountID;
+		products = new ArrayList<Product>();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class Order {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
@@ -48,7 +49,7 @@ public class Order {
 	 * @param date
 	 *            the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
@@ -65,5 +66,10 @@ public class Order {
 	 */
 	public void setOrderID(int orderID) {
 		this.orderID = orderID;
+	}
+	
+	public void addProduct(Product p)
+	{
+		products.add(p);	
 	}
 }
