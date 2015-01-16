@@ -45,6 +45,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     @FXML
     Button uploadButton;
+    
+    @FXML
+    Button btnOrderHistory;
 
     @FXML
     Button statsButton;
@@ -266,6 +269,21 @@ public class MainController extends ControlledAccountScreen implements Initializ
         controller.setScreenParent(parent);
         Stage stage = new Stage();
         stage.setTitle("Statistieken");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    
+    @FXML
+    private void orderHistoryScreen() throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/orderHistory.fxml"));
+        loader.setResources(recources);
+        root = loader.load();
+        OrderHistoryController controller = loader.getController();
+        controller.setAccount(loggedInAccount);
+        controller.setScreenParent(parent);
+        Stage stage = new Stage();
+        stage.setTitle("Order History");
         stage.setScene(new Scene(root));
         stage.show();
     }

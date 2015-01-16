@@ -112,7 +112,7 @@ public class OrderController {
 		DatabaseController db = DatabaseController.getInstance();
 		ArrayList<Order> orders = new ArrayList<Order>();
 		Calendar newDate;
-		ResultSet rs = db.select("SELECT orderID, date FROM `order` WHERE accountID='"+accountID+"'");
+		ResultSet rs = db.select("SELECT orderID, date, st.status FROM `order` o, `status` st WHERE o.status = st.statusID AND accountID='"+accountID+"'");
 		try{
 			while(rs.next())
 			{
@@ -121,6 +121,7 @@ public class OrderController {
 				newDate.setTime(rs.getTimestamp("date"));
 				Order o = new Order(newDate, accountID);
 				o.setOrderID(rs.getInt("orderID"));
+				o.setStatus(rs.getString("st.status"));
 				ResultSet rst = db.select("SELECT ph.name, ph.uploadDate, ph.price, ph.height, ph.width, pr.productID, pr.name, pr.materialprice, opp.numberof, opp.sepia, opp.blackwhite, opp.cropx, opp.cropy, opp.cropheight, opp.cropwidth FROM `order` o, `order_photo_product` opp, photo ph, product pr WHERE o.orderID = opp.orderID AND opp.photoID = ph.photoID AND opp.productID = pr.productID AND o.accountID = '"+accountID+"' ");
 				try{
 					while(rst.next())
