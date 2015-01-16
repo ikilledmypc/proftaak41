@@ -16,6 +16,8 @@ import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 
+import managers.JsonManager;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import domain.Account;
 import domain.Photo;
 import domain.PhotoGroup;
 
@@ -161,5 +164,14 @@ public class FotoController {
 	    byte[] image = IOUtils.toByteArray(new FileInputStream(dir+filename));
 
 	    return new ResponseEntity<byte[]>(image, headers, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/saveChangesPhoto", method = RequestMethod.POST)
+	public String saveChangesPhoto(@RequestParam(value="photo", required = true)String photoJson){
+		JsonManager jsonManager = JsonManager.GetInstance();
+		Photo photo = (Photo)jsonManager.fromJson(photoJson, Photo.class);
+		IDatabase db = DatabaseController.getInstance();
+		boolean rst = db.update("UPDATE photo SET name='" + photo.getName() + "', price='" + photo.getPrice() + "' WHERE photoID=" + photo.getPhotoID());
+		return String.valueOf(rst);
 	}
 }

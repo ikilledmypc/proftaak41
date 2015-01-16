@@ -199,27 +199,46 @@ public class MainController extends ControlledAccountScreen implements Initializ
             photo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
                 @Override
                 public void handle(Event event) {
-                    try {
-                        Parent root;
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
-                        loader.setResources(recources);
-                        root = loader.load();
-                        BuyItemScreenController controller = loader.getController();
-                        controller.setAccount(loggedInAccount);
-                        controller.setPhoto(p);
-                        Stage stage = new Stage();
-                        stage.setTitle(p.getUploadDate().toString());
-                        stage.setScene(new Scene(root, 640, 430));
-                        stage.show();
-                        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
-                            @Override
-                            public void handle(Event event) {
-                                updateCart();
-                            }
+                    if(loggedInAccount instanceof Photographer){
+                        try {
+                            Parent root;
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/PhotoInfoScreen.fxml"));
+                            loader.setResources(recources);
+                            root = loader.load();
+                            PhotoInfoScreenController controller = loader.getController();
+                            controller.setAccount(loggedInAccount);
+                            controller.setPhoto(p);
+                            Stage stage = new Stage();
+                            stage.setTitle(p.getUploadDate().toString());
+                            stage.setScene(new Scene(root, 640, 430));
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        try {
+                            Parent root;
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
+                            loader.setResources(recources);
+                            root = loader.load();
+                            BuyItemScreenController controller = loader.getController();
+                            controller.setAccount(loggedInAccount);
+                            controller.setPhoto(p);
+                            Stage stage = new Stage();
+                            stage.setTitle(p.getUploadDate().toString());
+                            stage.setScene(new Scene(root, 640, 430));
+                            stage.show();
+                            stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+                                @Override
+                                public void handle(Event event) {
+                                    updateCart();
+                                }
 
-                        });
-                    } catch (IOException ex) {
-                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                            });
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             });
