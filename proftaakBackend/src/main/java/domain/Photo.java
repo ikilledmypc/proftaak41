@@ -29,6 +29,15 @@ public class Photo {
 		this.height = height;
 		this.width = width;
 	}
+	public Photo(int id, String name, Calendar uploadDate, float price, int height, int width) {
+		super();
+		this.name = name;
+		this.uploadDate = uploadDate;
+		this.price = price;
+		this.height = height;
+		this.width = width;
+		this.photoID = id;
+	}
 
 	/**
 	 * @return the price

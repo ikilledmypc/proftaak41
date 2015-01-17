@@ -13,13 +13,19 @@ import java.util.ArrayList;
  */
 public class PhotoGroup {
     
-    private int photogroupID;
+    public PhotoGroup(String groupName) {
+		super();
+		this.groupName = groupName;
+		photos = new ArrayList<>();
+	}
+
+	private int photogroupID;
 	private int accountID;
 	private String code;
 	private String groupName;
 	private Boolean isPublic;
 	private int parentPhotogroupID;
-        private ArrayList<Photo> photos;
+    private ArrayList<Photo> photos;
 
 	/**
 	 * Constructor
@@ -130,5 +136,9 @@ public class PhotoGroup {
 	 */
 	public void setPhotogroupID(int photogroupID) {
 		this.photogroupID = photogroupID;
+	}
+	
+	public void addPhoto(Photo p){
+		this.photos.add(p);
 	}
 }

@@ -1,5 +1,12 @@
 package domain;
 
+import Controller.HttpController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import frontend.FrontEnd;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author mikerooijackers
@@ -15,6 +22,7 @@ public class Account {
     private String city;
     private String email;
     private String telephone;
+    private HashMap<String,PhotoGroup> claimedPhotos;
 
     /**
      * Constructor
@@ -39,6 +47,7 @@ public class Account {
         this.email = email;
         this.telephone = telephone;
         this.password = password;
+        claimedPhotos = new HashMap<>();
     }
 
     /**
@@ -62,6 +71,7 @@ public class Account {
         this.city = city;
         this.email = email;
         this.telephone = telephone;
+        claimedPhotos = new HashMap<>();
     }
 
     /**
@@ -193,6 +203,31 @@ public class Account {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<PhotoGroup> getClaimedPhotos() {
+        return (ArrayList<PhotoGroup>)new ArrayList(claimedPhotos.values());
+    }
+
+    public void setClaimedPhotos(ArrayList<PhotoGroup> claimedPhotos) {
+        for(PhotoGroup pg : claimedPhotos){
+            this.claimedPhotos.put(pg.getGroupName(),pg);
+        }
+    }
+    
+    public PhotoGroup getGroup(String name){
+        return this.claimedPhotos.get(name);
+    }
+    
+    public void updateClaimedPhotos(){
+        Gson gson = new Gson();
+        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getPreviousRedeemed?accountID=" + this.accountID);
+        if (!returnedPhotos.equalsIgnoreCase("")) {
+            ArrayList<PhotoGroup> getPhotos = new ArrayList();
+            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<PhotoGroup>>() {
+            }.getType());
+            this.setClaimedPhotos( getPhotos);
+        }
     }
 
 }

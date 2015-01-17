@@ -109,20 +109,5 @@ public class DownloadScreenController extends ControlledAccountScreen implements
         return null;
     }
     
-    /**
-     *
-     * @param id id 
-     * @return arraylist of photos
-     */
-    public static ArrayList<Photo> getOwnedPhotos(int id) {
-        Gson gson = new Gson();
-        String returnedPhotos = HttpController.excuteGet(FrontEnd.HOST + "/getPreviousRedeemed?accountID=" + id);
-        if (!returnedPhotos.equalsIgnoreCase("")) {
-            ArrayList<Photo> getPhotos = new ArrayList();
-            getPhotos = gson.fromJson(returnedPhotos, new TypeToken<ArrayList<Photo>>() {
-            }.getType());
-            return getPhotos;
-        }
-        return null;
-    }
+
 }

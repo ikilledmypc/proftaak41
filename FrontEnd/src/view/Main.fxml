@@ -49,11 +49,12 @@
             </Button>
          </children>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="98.0" prefHeight="677.0" prefWidth="1103.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="40.0" layoutY="124.0" prefHeight="651.0" prefWidth="1077.0">
          <content>
-            <TilePane fx:id="TP_photoContainer" prefHeight="674.0" prefWidth="1103.0" />
+            <TilePane fx:id="TP_photoContainer" prefHeight="647.0" prefWidth="1074.0" />
          </content>
       </ScrollPane>
+      <Button fx:id="BTN_back" layoutX="478.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Back" />
       <TextField fx:id="TF_code" layoutX="488.0" layoutY="59.0" promptText="Enter code" />
     </children>
 </AnchorPane>
