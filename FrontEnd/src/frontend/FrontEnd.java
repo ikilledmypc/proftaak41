@@ -22,7 +22,7 @@ public class FrontEnd extends Application {
     /**
      *
      */
-    public static String HOST = "http://127.0.0.1:8080";
+    public static String HOST = "http://127.0.0.1:8081";
 
     public static String mainScreen = "main";
     public static String mainScreenFXML = "/view/Main.fxml";

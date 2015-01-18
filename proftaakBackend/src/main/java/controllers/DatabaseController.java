@@ -40,12 +40,13 @@ public class DatabaseController implements IDatabase{
 
 		
 		try {
-			FileInputStream nput = new FileInputStream("DB.properties");
-			Properties prop = new Properties();
-			prop.load(nput);
-			this.host = prop.getProperty("host");
-			this.userName = prop.getProperty("username");
-			this.passWord = prop.getProperty("password");
+			Properties rootprops = new Properties();
+			rootprops.load(this.getClass().getClassLoader()
+					.getResourceAsStream("application.properties"));
+			this.host = rootprops.getProperty("DBhost");
+			this.userName = rootprops.getProperty("DBusername");
+			this.passWord = rootprops.getProperty("DBpassword");
+			System.out.println("connecting to DB with: "+this.userName+" "+this.passWord);
 		} catch (IOException e) {
 			this.host = "127.0.0.1";
 			this.userName ="root";
