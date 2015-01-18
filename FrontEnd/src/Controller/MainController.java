@@ -59,6 +59,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
     public void initialize(URL url, ResourceBundle rb) {
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
+        this.btnOrderHistory.setVisible(false);
         this.recources = rb;
     }
 
@@ -129,6 +130,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
         } else {
             this.statsButton.setVisible(false);
+            this.btnOrderHistory.setVisible(true);
             this.uploadButton.setText(this.recources.getString("enterKeyButton"));
             this.uploadButton.setOnAction((ActionEvent event) -> {
                 try {

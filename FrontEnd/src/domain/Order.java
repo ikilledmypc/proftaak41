@@ -43,7 +43,7 @@ public class Order {
         @Override
         public String toString()
         {
-            return this.date.get(Calendar.DAY_OF_WEEK) + "-" + this.date.get(Calendar.MONTH) + "-" + this.date.get(Calendar.YEAR);
+            return "#"+this.orderID + "; " +this.date.get(Calendar.DAY_OF_WEEK) + "-" + this.date.get(Calendar.MONTH) + "-" + this.date.get(Calendar.YEAR) + "; Status:" +status;
         }
 
 	/**
