@@ -1,7 +1,8 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Calendar;;
+import java.util.Calendar;import java.util.Locale;
+;
 
 public class Order {
 
@@ -38,6 +39,12 @@ public class Order {
 	public void setAccountID(int accountID) {
 		this.accountID = accountID;
 	}
+        
+        @Override
+        public String toString()
+        {
+            return "#"+this.orderID + "; " +this.date.get(Calendar.DAY_OF_WEEK) + "-" + this.date.get(Calendar.MONTH) + "-" + this.date.get(Calendar.YEAR) + "; Status:" +status;
+        }
 
 	/**
 	 * @return the date
@@ -81,4 +88,9 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+        
+        public ArrayList<Product> getProducts()
+        {
+            return products;
+        }
 }

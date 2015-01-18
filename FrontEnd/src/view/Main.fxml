@@ -47,6 +47,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="btnOrderHistory" mnemonicParsing="false" onAction="#orderHistoryScreen" prefHeight="30.0" prefWidth="150.0" text="%orderHistory">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" layoutX="40.0" layoutY="124.0" prefHeight="651.0" prefWidth="1077.0">

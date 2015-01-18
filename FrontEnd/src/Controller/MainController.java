@@ -46,6 +46,9 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
     @FXML
     Button uploadButton;
+    
+    @FXML
+    Button btnOrderHistory;
 
     @FXML
     Button statsButton;
@@ -61,6 +64,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
     public void initialize(URL url, ResourceBundle rb) {
         TP_photoContainer.setHgap(10);
         TP_photoContainer.setVgap(10);
+        this.btnOrderHistory.setVisible(false);
         this.recources = rb;
         BTN_back.setVisible(false);
         BTN_back.setOnAction(new EventHandler() {
@@ -136,6 +140,7 @@ public class MainController extends ControlledAccountScreen implements Initializ
 
         } else {
             this.statsButton.setVisible(false);
+            this.btnOrderHistory.setVisible(true);
             this.uploadButton.setText(this.recources.getString("enterKeyButton"));
             this.uploadButton.setOnAction((ActionEvent event) -> {
                 try {
@@ -212,27 +217,45 @@ public class MainController extends ControlledAccountScreen implements Initializ
             photo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
                 @Override
                 public void handle(Event event) {
-                    try {
-                        Parent root;
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
-                        loader.setResources(recources);
-                        root = loader.load();
-                        BuyItemScreenController controller = loader.getController();
-                        controller.setAccount(loggedInAccount);
-                        controller.setPhoto(p);
-                        Stage stage = new Stage();
-                        stage.setTitle(p.getName());
-                        stage.setScene(new Scene(root, 640, 430));
-                        stage.show();
-                        stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
-                            @Override
-                            public void handle(Event event) {
-                                updateCart();
-                            }
-
-                        });
-                    } catch (IOException ex) {
-                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                    if(loggedInAccount instanceof Photographer){
+                        try {
+                            Parent root;
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/PhotoInfoScreen.fxml"));
+                            loader.setResources(recources);
+                            root = loader.load();
+                            PhotoInfoScreenController controller = loader.getController();
+                            controller.setAccount(loggedInAccount);
+                            controller.setPhoto(p);
+                            Stage stage = new Stage();
+                            stage.setTitle(p.getUploadDate().toString());
+                            stage.setScene(new Scene(root, 640, 430));
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        try {
+                            Parent root;
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/BuyItemScreen.fxml"));
+                            loader.setResources(recources);
+                            root = loader.load();
+                            BuyItemScreenController controller = loader.getController();
+                            controller.setAccount(loggedInAccount);
+                            controller.setPhoto(p);
+                            Stage stage = new Stage();
+                            stage.setTitle(p.getUploadDate().toString());
+                            stage.setScene(new Scene(root, 640, 430));
+                            stage.show();
+                            stage.addEventHandler(WindowEvent.WINDOW_HIDING, new EventHandler() {
+                                @Override
+                                public void handle(Event event) {
+                                    updateCart();
+                                }
+                            });
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             });
@@ -316,6 +339,21 @@ public class MainController extends ControlledAccountScreen implements Initializ
         controller.setScreenParent(parent);
         Stage stage = new Stage();
         stage.setTitle("Statistieken");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    
+    @FXML
+    private void orderHistoryScreen() throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/orderHistory.fxml"));
+        loader.setResources(recources);
+        root = loader.load();
+        OrderHistoryController controller = loader.getController();
+        controller.setAccount(loggedInAccount);
+        controller.setScreenParent(parent);
+        Stage stage = new Stage();
+        stage.setTitle("Order History");
         stage.setScene(new Scene(root));
         stage.show();
     }

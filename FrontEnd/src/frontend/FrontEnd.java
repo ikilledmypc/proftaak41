@@ -24,89 +24,24 @@ public class FrontEnd extends Application {
      */
     public static String HOST = "http://127.0.0.1:8081";
 
-    /**
-     *
-     */
     public static String mainScreen = "main";
-
-    /**
-     *
-     */
     public static String mainScreenFXML = "/view/Main.fxml";
-
-    /**
-     *
-     */
     public static String loginScreen = "loginScreen";
-
-    /**
-     *
-     */
     public static String loginScreenFXML = "/view/LoginScreen.fxml";
-
-    /**
-     *
-     */
     public static String registerScreen = "registerScreen";
-
-    /**
-     *
-     */
     public static String registerScreenFXML = "/view/RegisterScreen.fxml";
-
-    /**
-     *
-     */
     public static String registerPhotographerScreen = "registerPhotographerScreen";
-
-    /**
-     *
-     */
     public static String registerPhotographerScreenFXML = "/view/RegisterPhotographerScreen.fxml";
-
-    /**
-     *
-     */
     public static String uploadScreen = "uploadScreen";
-
-    /**
-     *
-     */
     public static String uploadScreenFXML = "/view/UploadScreen.fxml";
-
-    /**
-     *
-     */
     public static String downloadScreen = "downloadScreen";
-
-    /**
-     *
-     */
     public static String downloadScreenFXML = "/view/DownloadScreen.fxml";
-
-    /**
-     *
-     */
     public static String managementScreen = "managementPhotographer";
-
-    /**
-     *
-     */
     public static String managementScreenFXML = "/view/ManagementPhotographer.fxml";
-
-    /**
-     *
-     */
     public static String buyItemScreenFXML = "/view/BuyItemScreen.fxml";
-
-    /**
-     *
-     */
     public static String buyItemScreen = "item kopen";
-
-    /**
-     *
-     */
+    public static String orderHistoryFXML = "/view/orderHistory.fxml";
+    public static String orderHistory = "Order History";
     public static HashMap<String,Locale> avaliableLocale = new HashMap<>();
 
     @Override
