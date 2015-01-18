@@ -77,7 +77,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
             String password = new BigInteger(1, msgd.digest(TF_password.getText().getBytes())).toString(16);
             String accounts = HttpController.excuteGet(FrontEnd.HOST + "/authenticateAndGet?username=" + TF_username.getText() + "&password=" + password);
             Account a;
-            if (!accounts.isEmpty()) {
+            if (!accounts.trim().equalsIgnoreCase("null")) {
                 try {
                     a = gson.fromJson(accounts, Photographer.class);
                     if (((Photographer) a).getPhotographerID() == 0) {

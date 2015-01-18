@@ -2,6 +2,8 @@ package domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import controllers.DatabaseController;
 
@@ -16,6 +18,7 @@ public class Account {
 	private String city;
 	private String email;
 	private String telephone;
+	private HashMap<String,PhotoGroup> claimedPhotos;
 
 
 	/**
@@ -26,6 +29,7 @@ public class Account {
         public Account(String username) {
 		super();
 		this.username = username;
+		claimedPhotos = new HashMap<>();
 	}
 	
 	/**
@@ -50,6 +54,7 @@ public class Account {
 		this.city = city;
 		this.email = email;
 		this.telephone = telephone;
+		claimedPhotos = new HashMap<>();
 	}
 	
 	public Account(int accountID,String username, String name, String address,
@@ -63,6 +68,7 @@ public class Account {
 		this.city = city;
 		this.email = email;
 		this.telephone = telephone;
+		claimedPhotos = new HashMap<>();
 	}
 
 	/**
@@ -240,6 +246,14 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	
+
+	public void setClaimedPhotos(ArrayList<PhotoGroup> claimedPhotos) {
+        for(PhotoGroup pg : claimedPhotos){
+            this.claimedPhotos.put(pg.getGroupName(),pg);
+        }
 	}
 
 }
