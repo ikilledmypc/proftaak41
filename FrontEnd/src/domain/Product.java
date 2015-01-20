@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.logging.Logger;
-
 public class Product {
 
     private int productID;
@@ -14,7 +12,7 @@ public class Product {
     private int cropY;
     private int cropWidth;
     private int cropHeight;
-
+    
     public Product(int productID, String name, int amount, Photo photo, boolean sepia, boolean blackWhite, int cropX, int cropY, int cropWidth, int cropHeight, float materialPrice) {
         this.productID = productID;
         this.name = name;
@@ -90,6 +88,8 @@ public class Product {
         this.photo = foto;
         this.amount = 1;
     }
+    
+    
 
     /**
      *
