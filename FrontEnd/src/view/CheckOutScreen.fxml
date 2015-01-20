@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.CheckOutScreenController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="883.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller.CheckOutScreenController">
   <children>
     <Label layoutX="24.0" layoutY="76.0" text="%name" />
     <Label layoutX="24.0" layoutY="110.0" text="%address" />
@@ -21,20 +21,19 @@
     <TextField fx:id="tf_city" layoutX="120.0" layoutY="178.0" prefWidth="159.0" />
     <TextField fx:id="tf_email" layoutX="120.0" layoutY="212.0" prefWidth="159.0" />
     <TextField fx:id="tf_telephone" layoutX="120.0" layoutY="243.0" prefWidth="159.0" />
-    <Label layoutX="220.0" layoutY="24.0" text="%checkoutPage">
+    <Label layoutX="389.0" layoutY="19.0" text="%checkoutPage">
       <font>
         <Font size="20.0" />
       </font>
     </Label>
-    <Button layoutX="460.0" layoutY="339.0" mnemonicParsing="false" text="%btn_checkOut" />
-    <TableView layoutX="330.0" layoutY="71.0" prefHeight="200.0" prefWidth="233.0">
-      <columns>
-        <TableColumn prefWidth="75.0" text="Product" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="87.0" text="%photo" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="%price" />
-      </columns>
-    </TableView>
-    <TextField layoutX="483.0" layoutY="271.0" prefWidth="80.0" />
-    <Label layoutX="411.0" layoutY="274.0" text="%totalPrice" />
+    <Button layoutX="754.0" layoutY="366.0" mnemonicParsing="false" text="%btn_checkOut" />
+    <TextField fx:id="tf_totalPrice" layoutX="777.0" layoutY="330.0" prefWidth="80.0" />
+    <Label layoutX="701.0" layoutY="333.0" text="%totalPrice" />
+    <ScrollPane fx:id="sp_scroll" layoutX="298.0" layoutY="72.0" prefHeight="245.0" prefWidth="559.0">
+      <content>
+        <TilePane fx:id="tp_product" prefHeight="237.0" prefWidth="555.0" />
+      </content>
+    </ScrollPane>
+    <Button fx:id="btn_back" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="80.0" text="%backButton" onAction="#openCart"  />
   </children>
 </AnchorPane>
