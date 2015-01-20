@@ -8,6 +8,7 @@ package controllers;
 
 import interfaces.IDatabase;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,8 +42,7 @@ public class DatabaseController implements IDatabase{
 		
 		try {
 			Properties rootprops = new Properties();
-			rootprops.load(this.getClass().getClassLoader()
-					.getResourceAsStream("application.properties"));
+			rootprops.load(new FileInputStream(new File(System.getProperty("user.dir")+File.separator+"config"+File.separator+"application.properties")));
 			this.host = rootprops.getProperty("DBhost");
 			this.userName = rootprops.getProperty("DBusername");
 			this.passWord = rootprops.getProperty("DBpassword");

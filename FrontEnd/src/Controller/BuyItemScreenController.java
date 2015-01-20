@@ -67,7 +67,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
     private double cropHeight = 0;
     private Rectangle croppingRectangle;
     private boolean cropping = false;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         String itemsString = HttpController.excuteGet(FrontEnd.HOST + "/getAllProducts");
@@ -87,7 +87,6 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
             }
         });
         btn_crop.setOnAction(new EventHandler() {
-
             @Override
             public void handle(Event event) {
                 btn_crop.setDisable(true);
@@ -112,6 +111,7 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
             }
 
         });
+        
         IMG_photo.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 
             @Override
@@ -176,7 +176,6 @@ public class BuyItemScreenController extends ControlledAccountScreen implements 
                 IMG_photo.setEffect(colorAdjust);
             }
         });
-
     }
 
     /**

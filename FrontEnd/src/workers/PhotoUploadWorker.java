@@ -56,7 +56,7 @@ public class PhotoUploadWorker extends Task {
 
             String photoid = HttpController.excutePost(FrontEnd.HOST + "/uploadGroupPhoto", "photo=" + gson.toJson(photo) + "&photogroupID=" + photogroupid);
             photoid = photoid.trim();
-            String bla = HttpController.postFile("http://localhost:8080/upload", p.getPath(), Integer.parseInt(photoid));
+            String bla = HttpController.postFile(FrontEnd.HOST + "/upload", p.getPath(), Integer.parseInt(photoid));
             progress ++;
             this.updateProgress(progress, selectedPhotos.size());
         }

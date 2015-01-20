@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ShoppingCart {
 
     /*
-     key = productid +photoid
+     key = getIdentifier
      */
     HashMap<String, Product> products = new HashMap<>();
 
